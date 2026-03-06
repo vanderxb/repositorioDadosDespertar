@@ -719,7 +719,7 @@ tbody td {
       <div class="stat-icon">💰</div>
       <div class="stat-label">Renda Média Familiar</div>
       <div class="stat-value" id="s-renda">—</div>
-      <div class="stat-sub">per capita (R$)</div>
+      <div class="stat-sub">renda total familiar (R$)</div>
     </div>
     <div class="stat-card">
       <div class="stat-icon">🏠</div>
@@ -868,7 +868,7 @@ const DICT = {
   COD_PRINCIPAL_TRAB_MEMB:      { short: 'Tipo Trab.',    desc: 'Tipo de vínculo ou situação de trabalho principal da pessoa.', values: {1:'Conta própria',2:'Temp. rural',3:'Emp. s/ cart.',4:'Emp. c/ cart.',5:'Dom. s/ cart.',6:'Dom. c/ cart.',7:'Não remunerado',8:'Militar/Servidor',9:'Empregador',10:'Estagiário',11:'Aprendiz'} },
   FX_RND_VAL_REMUNER_EMPREGO_MEMB: { short: 'Fx. Remun.', desc: 'Faixa de remuneração bruta recebida por todos os trabalhos da pessoa.', values: {0:'Renda zero',1:'Extrema pobreza',2:'Pobreza',3:'Até ½ SM',4:'½ a 1 SM',5:'1 a 2 SM',6:'2 a 3 SM',7:'Mais de 3 SM'} },
   FX_RND_VAL_RENDA_APOSENT_MEMB:   { short: 'Fx. Aposen.', desc: 'Faixa de renda de aposentadoria, pensão ou BPC recebida pela pessoa.', values: {0:'Renda zero',1:'Extrema pobreza',2:'Pobreza',3:'Até ½ SM',4:'½ a 1 SM',5:'1 a 2 SM',6:'2 a 3 SM',7:'Mais de 3 SM'} },
-  VLR_RENDA_MEDIA_FAM:          { short: 'Renda Média',   desc: 'Valor da renda média per capita da família. Dividir por 100 para obter o valor em R$.', values: null },
+  VLR_RENDA_MEDIA_FAM:          { short: 'Renda Média',   desc: 'Renda total mensal da família em reais (R$).', values: null },
   FX_RFPC:                      { short: 'Fx. Renda PC',  desc: 'Faixa de renda familiar per capita, utilizada para classificação no CadÚnico.', values: {1:'Até R$109',2:'R$109–R$218',3:'R$218–½ SM',4:'Acima de ½ SM'} },
   IND_FREQUENTA_ESCOLA_MEMB:    { short: 'Escola?',       desc: 'Indica se a pessoa frequenta escola/curso atualmente.', values: {1:'Sim, rede pública',2:'Sim, rede particular',3:'Não, já frequentou',4:'Nunca frequentou'} },
   COD_CURSO_FREQUENTA_MEMB:     { short: 'Curso Atual',   desc: 'Nível de ensino que a pessoa está cursando atualmente.', values: {1:'Creche',2:'Pré-escola',3:'Alfabetização',4:'Fund. 8 anos',5:'Fund. 9 anos',6:'Fund. especial',7:'Médio regular',8:'Médio especial',9:'Fund. EJA inicial',10:'Fund. EJA final',11:'Médio EJA',12:'Alfab. adultos',13:'Superior/Pós',14:'Pré-vestibular'} },
@@ -1131,20 +1131,21 @@ function updateStats() {
   document.getElementById('s-pbf').textContent = pbfSet.size.toLocaleString('pt-BR');
   document.getElementById('s-pbf-pct').textContent = totalFam ? `${((pbfSet.size/totalFam)*100).toFixed(1)}% das famílias` : '—';
 
-  // Renda média per capita: VLR_RENDA_MEDIA_FAM já é por família; pegar um valor por GR_FAM
-  const rendaMap = {};
+  // Renda total da família: VLR_RENDA_MEDIA_FAM em reais inteiros, um valor por família
+  // Exclui zeros (famílias sem renda declarada não distorcem a média)
+  const rendaFamMap = {};
   d.forEach(r => {
     const k = r.GR_FAM||r.COD_FAMILIAR||'';
-    if (k && !rendaMap[k]) {
+    if (k && !rendaFamMap[k]) {
       const v = parseFloat(r.VLR_RENDA_MEDIA_FAM);
-      if (!isNaN(v)) rendaMap[k] = v;
+      if (!isNaN(v) && v > 0) rendaFamMap[k] = v;
     }
   });
-  const rendaVals = Object.values(rendaMap);
+  const rendaVals = Object.values(rendaFamMap);
   const avgRenda = rendaVals.length ? rendaVals.reduce((a,b)=>a+b,0)/rendaVals.length : 0;
-  // VLR_RENDA_MEDIA_FAM está em centavos apenas para alguns registros; valores > 500 dividir por 100
-  const rendaFmt = avgRenda > 500 ? (avgRenda/100).toFixed(0) : avgRenda.toFixed(0);
-  document.getElementById('s-renda').textContent = avgRenda > 0 ? 'R$'+rendaFmt : '—';
+  document.getElementById('s-renda').textContent = avgRenda > 0
+    ? 'R$' + Math.round(avgRenda).toLocaleString('pt-BR')
+    : '—';
 
   // Média de pessoas por domicílio (um valor por família)
   const pessoasMap = {};

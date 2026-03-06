@@ -770,7 +770,11 @@ tbody td {
     <div class="filters-bar">
       <div class="filter-group">
         <span class="filter-label">Distrito / Localidade</span>
-        <select id="f-distrito"><option value="">Todos</option></select>
+        <select id="f-distrito"><option value="">Todos os distritos</option></select>
+      </div>
+      <div class="filter-group">
+        <span class="filter-label">Localidade / Bairro</span>
+        <select id="f-localidade"><option value="">Todas as localidades</option></select>
       </div>
       <div class="filter-group">
         <span class="filter-label">Bolsa Família</span>
@@ -1046,31 +1050,41 @@ function initDashboard() {
 }
 
 function populateFilters() {
-  const vals = [...new Set(allData.map(r => r.DISTRITO || r.NOM_LOCALIDADE_FAM || '').filter(Boolean))].sort();
-  const sel = document.getElementById('f-distrito');
-  sel.innerHTML = '<option value="">Todos</option>';
-  vals.forEach(v => { const o = document.createElement('option'); o.value = v; o.textContent = v; sel.appendChild(o); });
+  // Distritos
+  const distritos = [...new Set(allData.map(r => String(r.DISTRITO||'').trim()).filter(Boolean))].sort();
+  const selD = document.getElementById('f-distrito');
+  selD.innerHTML = '<option value="">Todos os distritos</option>';
+  distritos.forEach(v => { const o = document.createElement('option'); o.value = v; o.textContent = v; selD.appendChild(o); });
+
+  // Localidades (NOM_LOCALIDADE_FAM)
+  const locs = [...new Set(allData.map(r => String(r.NOM_LOCALIDADE_FAM||'').trim()).filter(Boolean))].sort();
+  const selL = document.getElementById('f-localidade');
+  selL.innerHTML = '<option value="">Todas as localidades</option>';
+  locs.forEach(v => { const o = document.createElement('option'); o.value = v; o.textContent = v; selL.appendChild(o); });
 }
 
 // ── FILTERS ───────────────────────────────────────────────────────────────────
-['f-distrito','f-pbf','f-renda','f-status'].forEach(id => document.getElementById(id).addEventListener('change', applyFilters));
+['f-distrito','f-localidade','f-pbf','f-renda','f-status'].forEach(id => document.getElementById(id).addEventListener('change', applyFilters));
 document.getElementById('f-search').addEventListener('input', applyFilters);
 document.getElementById('btn-reset').addEventListener('click', () => {
-  ['f-distrito','f-pbf','f-renda','f-status'].forEach(id => document.getElementById(id).value = '');
+  ['f-distrito','f-localidade','f-pbf','f-renda','f-status'].forEach(id => document.getElementById(id).value = '');
   document.getElementById('f-search').value = '';
   applyFilters();
 });
 
 function applyFilters() {
-  const distrito = document.getElementById('f-distrito').value;
-  const pbf      = document.getElementById('f-pbf').value;      // 'SIM' | 'NAO' | ''
-  const renda    = document.getElementById('f-renda').value;    // prefixo ex: '3 - 219'
-  const status   = document.getElementById('f-status').value;   // 'ATUALIZADO' | 'DESATUALIZADO' | ''
-  const search   = document.getElementById('f-search').value.trim().toLowerCase();
+  const distrito   = document.getElementById('f-distrito').value;
+  const localidade = document.getElementById('f-localidade').value;
+  const pbf        = document.getElementById('f-pbf').value;      // 'SIM' | 'NAO' | ''
+  const renda      = document.getElementById('f-renda').value;    // prefixo ex: '3 - 219'
+  const status     = document.getElementById('f-status').value;   // 'ATUALIZADO' | 'DESATUALIZADO' | ''
+  const search     = document.getElementById('f-search').value.trim().toLowerCase();
 
   filteredData = allData.filter(r => {
-    // Distrito / localidade
-    if (distrito && (r.DISTRITO||r.NOM_LOCALIDADE_FAM||'').trim() !== distrito) return false;
+    // Distrito
+    if (distrito   && String(r.DISTRITO||'').trim() !== distrito) return false;
+    // Localidade / bairro
+    if (localidade && String(r.NOM_LOCALIDADE_FAM||'').trim() !== localidade) return false;
 
     // PBF: campo vem como 'SIM', '' (vazio = não beneficiário) ou ausente
     if (pbf) {

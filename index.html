@@ -733,18 +733,54 @@ tbody td {
       <div class="stat-value" id="s-banheiro">—</div>
       <div class="stat-sub">domicílios</div>
     </div>
+    <div class="stat-card vd">
+      <div class="stat-icon">👩</div>
+      <div class="stat-label">Mulher Responsável</div>
+      <div class="stat-value" id="s-mulher">—</div>
+      <div class="stat-sub" id="s-mulher-pct">—</div>
+    </div>
+    <div class="stat-card am">
+      <div class="stat-icon">🎓</div>
+      <div class="stat-label">Jovens 15–24 anos</div>
+      <div class="stat-value" id="s-jovens">—</div>
+      <div class="stat-sub" id="s-jovens-neet">— NEET (sem escola/trab.)</div>
+    </div>
+    <div class="stat-card lr">
+      <div class="stat-icon">📋</div>
+      <div class="stat-label">Cadastros Desatual.</div>
+      <div class="stat-value" id="s-desatual">—</div>
+      <div class="stat-sub" id="s-desatual-pct">busca ativa necessária</div>
+    </div>
+    <div class="stat-card az">
+      <div class="stat-icon">🔴</div>
+      <div class="stat-label">Extrema Pobreza</div>
+      <div class="stat-value" id="s-extrema">—</div>
+      <div class="stat-sub" id="s-extrema-pct">renda ≤ R$109 p/pessoa</div>
+    </div>
   </div>
 
   <!-- CHARTS -->
   <div class="section-title" style="margin-top:4px;">Análise do território</div>
   <div class="charts-row">
     <div class="chart-card">
-      <div class="chart-title">Faixa de Renda Per Capita</div>
+      <div class="chart-title">Faixa de Renda Familiar</div>
       <div class="chart-wrap"><canvas id="chart-renda"></canvas></div>
     </div>
     <div class="chart-card">
       <div class="chart-title">Beneficiários PBF</div>
       <div class="chart-wrap"><canvas id="chart-pbf"></canvas></div>
+    </div>
+    <div class="chart-card">
+      <div class="chart-title">Pirâmide Etária</div>
+      <div class="chart-wrap"><canvas id="chart-etaria"></canvas></div>
+    </div>
+    <div class="chart-card">
+      <div class="chart-title">Grau de Instrução</div>
+      <div class="chart-wrap"><canvas id="chart-instrucao"></canvas></div>
+    </div>
+    <div class="chart-card">
+      <div class="chart-title">Tipo de Trabalho Principal</div>
+      <div class="chart-wrap"><canvas id="chart-trabalho"></canvas></div>
     </div>
     <div class="chart-card">
       <div class="chart-title">Abastecimento de Água</div>
@@ -755,12 +791,34 @@ tbody td {
       <div class="chart-wrap"><canvas id="chart-lixo"></canvas></div>
     </div>
     <div class="chart-card">
-      <div class="chart-title">Grau de Instrução</div>
-      <div class="chart-wrap"><canvas id="chart-instrucao"></canvas></div>
+      <div class="chart-title">Raça / Cor</div>
+      <div class="chart-wrap"><canvas id="chart-raca"></canvas></div>
     </div>
-    <div class="chart-card">
-      <div class="chart-title">Tipo de Trabalho Principal</div>
-      <div class="chart-wrap"><canvas id="chart-trabalho"></canvas></div>
+  </div>
+
+  <!-- RANKING BAIRROS -->
+  <div class="section-title" style="margin-top:4px;">Vulnerabilidade por localidade</div>
+  <div id="ranking-wrap" class="table-section" style="margin-bottom:26px;">
+    <div class="table-header">
+      <span class="table-title">📍 Ranking de vulnerabilidade por bairro</span>
+      <span class="rows-info" id="ranking-info"></span>
+    </div>
+    <div class="table-scroll">
+      <table id="ranking-table">
+        <thead>
+          <tr>
+            <th style="background:var(--gray-l);padding:10px 13px;font-family:Montserrat,sans-serif;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.7px;color:var(--azul);border-bottom:2px solid var(--border);">#</th>
+            <th style="background:var(--gray-l);padding:10px 13px;font-family:Montserrat,sans-serif;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.7px;color:var(--azul);border-bottom:2px solid var(--border);">Localidade</th>
+            <th style="background:var(--gray-l);padding:10px 13px;font-family:Montserrat,sans-serif;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.7px;color:var(--azul);border-bottom:2px solid var(--border);">Famílias</th>
+            <th style="background:var(--gray-l);padding:10px 13px;font-family:Montserrat,sans-serif;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.7px;color:var(--azul);border-bottom:2px solid var(--border);">% PBF</th>
+            <th style="background:var(--gray-l);padding:10px 13px;font-family:Montserrat,sans-serif;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.7px;color:var(--azul);border-bottom:2px solid var(--border);">Renda Média</th>
+            <th style="background:var(--gray-l);padding:10px 13px;font-family:Montserrat,sans-serif;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.7px;color:var(--azul);border-bottom:2px solid var(--border);">% Desatual.</th>
+            <th style="background:var(--gray-l);padding:10px 13px;font-family:Montserrat,sans-serif;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.7px;color:var(--azul);border-bottom:2px solid var(--border);">% Sem Banh.</th>
+            <th style="background:var(--gray-l);padding:10px 13px;font-family:Montserrat,sans-serif;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.7px;color:var(--azul);border-bottom:2px solid var(--border);">Score Vuln.</th>
+          </tr>
+        </thead>
+        <tbody id="ranking-body"></tbody>
+      </table>
     </div>
   </div>
 
@@ -942,8 +1000,73 @@ function pillClass(col, val) {
   return null;
 }
 
+// ═══════════════════════════════════════════════════════════════════════════════
+// NORMALIZAÇÃO FUZZY DE BAIRROS
+// ═══════════════════════════════════════════════════════════════════════════════
+function normStr(s) {
+  return String(s||'').trim().toUpperCase()
+    .normalize('NFD').replace(/[̀-ͯ]/g,'')
+    .replace(/\s+/g,' ')
+    .replace(/[^A-Z0-9 ]/g,'');
+}
+
+// Distância de Levenshtein simplificada
+function levenshtein(a, b) {
+  const m = a.length, n = b.length;
+  const dp = Array.from({length: m+1}, (_, i) => [i, ...Array(n).fill(0)]);
+  for (let j = 0; j <= n; j++) dp[0][j] = j;
+  for (let i = 1; i <= m; i++)
+    for (let j = 1; j <= n; j++)
+      dp[i][j] = a[i-1]===b[j-1] ? dp[i-1][j-1]
+        : 1 + Math.min(dp[i-1][j], dp[i][j-1], dp[i-1][j-1]);
+  return dp[m][n];
+}
+
+// Agrupa variantes pelo nome canônico mais frequente
+// threshold: % do tamanho da string — quanto menor, mais agressivo o agrupamento
+function buildLocalidadeMap(data, threshold = 0.25) {
+  const raw = data.map(r => String(r.NOM_LOCALIDADE_FAM||'').trim()).filter(Boolean);
+  
+  // Conta frequência de cada valor original
+  const freq = {};
+  raw.forEach(v => { freq[v] = (freq[v]||0) + 1; });
+  
+  // Pares únicos normalizados → original mais frequente
+  const normToCanon = {};
+  Object.entries(freq).forEach(([orig, cnt]) => {
+    const n = normStr(orig);
+    if (!normToCanon[n] || cnt > normToCanon[n].cnt)
+      normToCanon[n] = { canon: orig, cnt };
+  });
+  
+  // Para cada valor original, encontra o canônico mais próximo
+  const originals = Object.keys(freq);
+  const canonicals = Object.values(normToCanon).map(x => x.canon);
+  
+  const map = {}; // original → canônico
+  originals.forEach(orig => {
+    const nOrig = normStr(orig);
+    let best = orig, bestDist = Infinity;
+    canonicals.forEach(canon => {
+      const nCanon = normStr(canon);
+      const maxLen = Math.max(nOrig.length, nCanon.length);
+      if (maxLen === 0) return;
+      const dist = levenshtein(nOrig, nCanon);
+      const ratio = dist / maxLen;
+      if (ratio < threshold && dist < bestDist) {
+        bestDist = dist;
+        best = canon;
+      }
+    });
+    map[orig] = best;
+  });
+  
+  return map;
+}
+
 // ── STATE ─────────────────────────────────────────────────────────────────────
 let allData = [], filteredData = [], columns = [];
+let localidadeMap = {}; // orig → canônico normalizado
 let currentPage = 1;
 const PAGE_SIZE = 50;
 let charts = {};
@@ -1045,6 +1168,7 @@ document.getElementById('csv-input').addEventListener('change', function(e) {
 });
 
 function initDashboard() {
+  localidadeMap = buildLocalidadeMap(allData, 0.28);
   populateFilters();
   applyFilters();
 }
@@ -1056,11 +1180,11 @@ function populateFilters() {
   selD.innerHTML = '<option value="">Todos os distritos</option>';
   distritos.forEach(v => { const o = document.createElement('option'); o.value = v; o.textContent = v; selD.appendChild(o); });
 
-  // Localidades (NOM_LOCALIDADE_FAM)
-  const locs = [...new Set(allData.map(r => String(r.NOM_LOCALIDADE_FAM||'').trim()).filter(Boolean))].sort();
+  // Localidades: usa nomes canônicos (agrupados por similaridade)
+  const canonicals = [...new Set(Object.values(localidadeMap))].sort();
   const selL = document.getElementById('f-localidade');
   selL.innerHTML = '<option value="">Todas as localidades</option>';
-  locs.forEach(v => { const o = document.createElement('option'); o.value = v; o.textContent = v; selL.appendChild(o); });
+  canonicals.forEach(v => { const o = document.createElement('option'); o.value = v; o.textContent = v; selL.appendChild(o); });
 }
 
 // ── FILTERS ───────────────────────────────────────────────────────────────────
@@ -1083,8 +1207,8 @@ function applyFilters() {
   filteredData = allData.filter(r => {
     // Distrito
     if (distrito   && String(r.DISTRITO||'').trim() !== distrito) return false;
-    // Localidade / bairro
-    if (localidade && String(r.NOM_LOCALIDADE_FAM||'').trim() !== localidade) return false;
+    // Localidade / bairro — usa mapa canônico para agrupar variantes
+    if (localidade && (localidadeMap[String(r.NOM_LOCALIDADE_FAM||'').trim()]||String(r.NOM_LOCALIDADE_FAM||'').trim()) !== localidade) return false;
 
     // PBF: campo vem como 'SIM', '' (vazio = não beneficiário) ou ausente
     if (pbf) {
@@ -1124,62 +1248,72 @@ function applyFilters() {
 }
 
 // ── STATS ─────────────────────────────────────────────────────────────────────
-// Conta por GR_FAM único para evitar dupla contagem (cada família tem múltiplas pessoas)
+function famKey(r) { return r.GR_FAM || r.COD_FAMILIAR || ''; }
+
 function uniqFamilias(data) {
-  return [...new Set(data.map(r => r.GR_FAM||r.COD_FAMILIAR||'').filter(Boolean))];
+  return [...new Set(data.map(famKey).filter(Boolean))];
+}
+
+// Retorna um row representativo por família (o primeiro encontrado)
+function famRows(data) {
+  const seen = new Set();
+  return data.filter(r => { const k = famKey(r); if (seen.has(k)) return false; seen.add(k); return !!k; });
 }
 
 function updateStats() {
   const d = filteredData;
+  const famUniq = uniqFamilias(d);
+  const totalFam = famUniq.length;
+  const famRepRows = famRows(d);
 
-  // Total de famílias únicas
-  const familias = uniqFamilias(d);
-  document.getElementById('s-total').textContent = familias.size !== undefined ? familias.size.toLocaleString('pt-BR') : familias.length.toLocaleString('pt-BR');
+  // Total famílias
+  document.getElementById('s-total').textContent = totalFam.toLocaleString('pt-BR');
 
-  // PBF: conta famílias únicas onde MARC_PBF === 'SIM'
-  const pbfSet = new Set(
-    d.filter(r => String(r.MARC_PBF||'').trim().toUpperCase() === 'SIM')
-     .map(r => r.GR_FAM||r.COD_FAMILIAR||'')
-  );
-  const totalFam = familias.length;
+  // PBF
+  const pbfSet = new Set(d.filter(r => String(r.MARC_PBF||'').trim().toUpperCase()==='SIM').map(famKey));
   document.getElementById('s-pbf').textContent = pbfSet.size.toLocaleString('pt-BR');
   document.getElementById('s-pbf-pct').textContent = totalFam ? `${((pbfSet.size/totalFam)*100).toFixed(1)}% das famílias` : '—';
 
-  // Renda total da família: VLR_RENDA_MEDIA_FAM em reais inteiros, um valor por família
-  // Exclui zeros (famílias sem renda declarada não distorcem a média)
-  const rendaFamMap = {};
-  d.forEach(r => {
-    const k = r.GR_FAM||r.COD_FAMILIAR||'';
-    if (k && !rendaFamMap[k]) {
-      const v = parseFloat(r.VLR_RENDA_MEDIA_FAM);
-      if (!isNaN(v) && v > 0) rendaFamMap[k] = v;
-    }
-  });
-  const rendaVals = Object.values(rendaFamMap);
+  // Renda média (um valor por família, excluindo zeros)
+  const rendaVals = famRepRows.map(r => parseFloat(r.VLR_RENDA_MEDIA_FAM)).filter(v => !isNaN(v) && v > 0);
   const avgRenda = rendaVals.length ? rendaVals.reduce((a,b)=>a+b,0)/rendaVals.length : 0;
-  document.getElementById('s-renda').textContent = avgRenda > 0
-    ? 'R$' + Math.round(avgRenda).toLocaleString('pt-BR')
-    : '—';
+  document.getElementById('s-renda').textContent = avgRenda > 0 ? 'R$'+Math.round(avgRenda).toLocaleString('pt-BR') : '—';
 
-  // Média de pessoas por domicílio (um valor por família)
-  const pessoasMap = {};
-  d.forEach(r => {
-    const k = r.GR_FAM||r.COD_FAMILIAR||'';
-    if (k && !pessoasMap[k]) {
-      const v = parseFloat(r.QTD_PESSOAS_DOMIC_FAM);
-      if (!isNaN(v) && v > 0) pessoasMap[k] = v;
-    }
-  });
-  const pessoasVals = Object.values(pessoasMap);
+  // Pessoas/domicílio
+  const pessoasVals = famRepRows.map(r => parseFloat(r.QTD_PESSOAS_DOMIC_FAM)).filter(v => !isNaN(v) && v > 0);
   const avgP = pessoasVals.length ? pessoasVals.reduce((a,b)=>a+b,0)/pessoasVals.length : 0;
   document.getElementById('s-pessoas').textContent = avgP > 0 ? avgP.toFixed(1) : '—';
 
-  // Sem banheiro: famílias únicas onde COD_BANHEIRO começa com '2'
-  const semBanheiroSet = new Set(
-    d.filter(r => String(r.COD_BANHEIRO_DOMIC_FAM||'').trim().startsWith('2'))
-     .map(r => r.GR_FAM||r.COD_FAMILIAR||'')
-  );
+  // Sem banheiro
+  const semBanheiroSet = new Set(d.filter(r => String(r.COD_BANHEIRO_DOMIC_FAM||'').trim().startsWith('2')).map(famKey));
   document.getElementById('s-banheiro').textContent = semBanheiroSet.size.toLocaleString('pt-BR');
+
+  // Mulher responsável
+  const mulherSet = new Set(d.filter(r => String(r.FAM_FAM_MULHER_RF||'').trim().toUpperCase()==='SIM').map(famKey));
+  document.getElementById('s-mulher').textContent = mulherSet.size.toLocaleString('pt-BR');
+  document.getElementById('s-mulher-pct').textContent = totalFam ? `${((mulherSet.size/totalFam)*100).toFixed(1)}% das famílias` : '—';
+
+  // Jovens 15–24 e NEET
+  const jovens = d.filter(r => { const age = parseInt(r.IDADE_PESSOA); return age >= 15 && age <= 24; });
+  document.getElementById('s-jovens').textContent = jovens.length.toLocaleString('pt-BR');
+  const neet = jovens.filter(r => {
+    const escola = String(r.IND_FREQUENTA_ESCOLA_MEMB||'').trim();
+    const trab   = String(r.COD_TRABALHOU_MEMB||'').trim();
+    const naoEscola = escola.startsWith('3') || escola.startsWith('4') || escola === '';
+    const naoTrab   = trab.startsWith('2') || trab === '';
+    return naoEscola && naoTrab;
+  });
+  document.getElementById('s-jovens-neet').textContent = `${neet.length.toLocaleString('pt-BR')} NEET (sem escola/trab.)`;
+
+  // Cadastros desatualizados (por família)
+  const desatualSet = new Set(d.filter(r => String(r.STATUS_CADUNICO||'').trim().toUpperCase()==='DESATUALIZADO').map(famKey));
+  document.getElementById('s-desatual').textContent = desatualSet.size.toLocaleString('pt-BR');
+  document.getElementById('s-desatual-pct').textContent = totalFam ? `${((desatualSet.size/totalFam)*100).toFixed(1)}% — busca ativa` : '—';
+
+  // Extrema pobreza: faixa de renda "1 - 1 até 109"
+  const extremaSet = new Set(d.filter(r => String(r.FX_RND_VAL_REMUNER_EMPREGO_MEMB||'').trim().startsWith('1 -')).map(famKey));
+  document.getElementById('s-extrema').textContent = extremaSet.size.toLocaleString('pt-BR');
+  document.getElementById('s-extrema-pct').textContent = totalFam ? `${((extremaSet.size/totalFam)*100).toFixed(1)}% — renda ≤ R$109` : '—';
 }
 
 // ── CHARTS ────────────────────────────────────────────────────────────────────
@@ -1271,13 +1405,11 @@ function labelFromCode(v, maxLen) {
   return maxLen && txt.length > maxLen ? txt.substring(0,maxLen)+'…' : txt;
 }
 
-// countByPrefix: agrupa por início do valor (ex: "1 - ", "2 - ") e retorna label legível
 function countByPrefix(data, col, labelMap) {
   const counts = {};
   data.forEach(r => {
     const v = String(r[col]||'').trim();
     if (!v || v === '0 - 0' || v === '0') return;
-    // tenta pegar o número inicial para lookup no labelMap
     const num = v.match(/^(\d+)/)?.[1] || v;
     const label = (labelMap && labelMap[num]) ? labelMap[num] : labelFromCode(v, 22);
     counts[label] = (counts[label]||0) + 1;
@@ -1290,37 +1422,145 @@ function updateCharts() {
   const d = filteredData;
   if (!d.length) return;
 
-  // Renda: usa FX_RND_VAL_REMUNER_EMPREGO_MEMB (campo real com faixas)
+  // ── Renda familiar ──────────────────────────────────────────────────────────
   const rendaMap = {'1':'≤ R$109','2':'R$110–218','3':'R$219–½SM','4':'½SM–1SM','5':'1SM–2SM','6':'2SM–3SM','7':'> 3SM'};
   const renda = countByPrefix(d, 'FX_RND_VAL_REMUNER_EMPREGO_MEMB', rendaMap);
-  makeBarChart('chart-renda', renda.labels, renda.values, ['#e85d26','#f5a623','#f0c040','#2d6ea8','#2e9e55','#38b862','#1a3a5c']);
+  makeBarChart('chart-renda', renda.labels, renda.values, ['#b5290e','#e85d26','#f5a623','#f0c040','#2d6ea8','#2e9e55','#1a3a5c']);
 
-  // PBF: conta por família única (SIM vs vazio)
-  const pbfSim = new Set(d.filter(r=>String(r.MARC_PBF||'').trim().toUpperCase()==='SIM').map(r=>r.GR_FAM||r.COD_FAMILIAR||'')).size;
+  // ── PBF ────────────────────────────────────────────────────────────────────
+  const pbfSim = new Set(d.filter(r=>String(r.MARC_PBF||'').trim().toUpperCase()==='SIM').map(famKey)).size;
   const pbfNao = uniqFamilias(d).length - pbfSim;
   makeDoughnutChart('chart-pbf', ['Beneficiário PBF','Não beneficiário'], [pbfSim, pbfNao]);
 
-  // Água: COD_ABASTE_AGUA_DOMIC_FAM — um por família
+  // ── Pirâmide etária ────────────────────────────────────────────────────────
+  const faixas = ['0–6','7–14','15–24','25–39','40–59','60+'];
+  const masc = [0,0,0,0,0,0], fem = [0,0,0,0,0,0];
+  d.forEach(r => {
+    const age = parseInt(r.IDADE_PESSOA);
+    const sexo = String(r.COD_SEXO_PESSOA||'').trim();
+    if (isNaN(age)) return;
+    const fi = age<=6?0:age<=14?1:age<=24?2:age<=39?3:age<=59?4:5;
+    const isMasc = sexo.startsWith('1');
+    if (isMasc) masc[fi]++; else fem[fi]++;
+  });
+  destroyChart('chart-etaria');
+  const ctxE = document.getElementById('chart-etaria').getContext('2d');
+  charts['chart-etaria'] = new Chart(ctxE, {
+    type: 'bar',
+    data: {
+      labels: faixas,
+      datasets: [
+        { label: 'Masculino', data: masc, backgroundColor: '#2d6ea8', borderRadius: 4 },
+        { label: 'Feminino',  data: fem,  backgroundColor: '#f5a623', borderRadius: 4 }
+      ]
+    },
+    options: {
+      responsive: true, maintainAspectRatio: false,
+      plugins: {
+        legend: { position:'top', labels:{ color:'#3d5068', font:{size:10,family:'Montserrat',weight:'600'}, boxWidth:10 } },
+        tooltip: { backgroundColor:'#1a3a5c', titleColor:'#f5a623', bodyColor:'#fff', cornerRadius:8, padding:10 }
+      },
+      scales: {
+        x: { stacked: false, ticks:{color:'#6b7f94',font:{size:10,family:'Montserrat',weight:'600'}}, grid:{color:'#eef1f5'} },
+        y: { ticks:{color:'#6b7f94',font:{size:10}}, grid:{color:'#eef1f5'} }
+      }
+    }
+  });
+
+  // ── Instrução ──────────────────────────────────────────────────────────────
+  const instrucao = countBy(d, 'GRAU_INSTRUCAO', null);
+  instrucao.labels = instrucao.labels.map(l => l
+    .replace(/ensino /i,'').replace(/ completo/i,' comp.').replace(/ incompleto/i,' inc.')
+    .replace(/fundamental/i,'fund.').replace(/medio/i,'médio').replace(/instrucao/i,'instrução')
+    .replace(/instrução/i,'instrução'));
+  makeBarChart('chart-instrucao', instrucao.labels, instrucao.values, ['#2d6ea8','#3a84c9','#4d9bde','#63b0ef','#7ac3f7','#9ad4ff','#b8e0ff']);
+
+  // ── Trabalho ───────────────────────────────────────────────────────────────
+  const trabMap = {'1':'Autônomo/Bico','2':'Rural temp.','3':'Dom. s/cart.','4':'Emp. c/cart.','5':'Dom. s/cart.','6':'Dom. c/cart.','7':'Não remunerado','8':'Militar/Serv.','9':'Empregador','10':'Estagiário','11':'Aprendiz'};
+  const trab = countByPrefix(d, 'COD_PRINCIPAL_TRAB_MEMB', trabMap);
+  makeBarChart('chart-trabalho', trab.labels, trab.values, PALETTE_BAR);
+
+  // ── Água ───────────────────────────────────────────────────────────────────
   const aguaMap = {'1':'Rede geral','2':'Poço/Nascente','3':'Cisterna','4':'Outra'};
   const agua = countByPrefix(d, 'COD_ABASTE_AGUA_DOMIC_FAM', aguaMap);
   makeDoughnutChart('chart-agua', agua.labels, agua.values);
 
-  // Lixo: COD_DESTINO_LIXO_DOMIC_FAM
+  // ── Lixo ───────────────────────────────────────────────────────────────────
   const lixoMap = {'1':'Coleta direta','2':'Coleta indireta','3':'Queimado/Enterrado','4':'Terreno baldio','5':'Rio/Mar','6':'Outro'};
   const lixo = countByPrefix(d, 'COD_DESTINO_LIXO_DOMIC_FAM', lixoMap);
   makeBarChart('chart-lixo', lixo.labels, lixo.values);
 
-  // Instrução: GRAU_INSTRUCAO vem como texto ex: "Ensino fundamental completo"
-  const instrucao = countBy(d, 'GRAU_INSTRUCAO', null);
-  // Encurta labels longos
-  instrucao.labels = instrucao.labels.map(l => l.replace('Ensino ','').replace(' completo',' comp.').replace(' incompleto',' inc.').replace('fundamental','fund.').replace('medio','médio').replace('instrucao','instrução'));
-  makeBarChart('chart-instrucao', instrucao.labels, instrucao.values, ['#2d6ea8','#3a84c9','#4d9bde','#63b0ef','#7ac3f7','#9ad4ff','#b8e0ff']);
+  // ── Raça / Cor ─────────────────────────────────────────────────────────────
+  const racaMap = {'1':'Branca','2':'Preta','3':'Amarela','4':'Parda','5':'Indígena'};
+  const raca = countByPrefix(d, 'COD_RACA_COR_PESSOA', racaMap);
+  makeDoughnutChart('chart-raca', raca.labels, raca.values);
 
-  // Trabalho: COD_PRINCIPAL_TRAB_MEMB — extrai texto após "N - "
-  const trabMap = {'1':'Autônomo/Bico','2':'Rural temp.','3':'Doméstico s/cart.','4':'Empregado c/cart.','5':'Doméstico s/cart.','6':'Doméstico c/cart.','7':'Não remunerado','8':'Militar/Servidor','9':'Empregador','10':'Estagiário','11':'Aprendiz'};
-  const trab = countByPrefix(d, 'COD_PRINCIPAL_TRAB_MEMB', trabMap);
-  makeBarChart('chart-trabalho', trab.labels, trab.values, PALETTE_BAR);
+  // ── Ranking de vulnerabilidade por localidade ──────────────────────────────
+  updateRanking(d);
 }
+
+function updateRanking(d) {
+  // Agrupa por localidade canônica
+  const byLoc = {};
+  d.forEach(r => {
+    const loc = localidadeMap[String(r.NOM_LOCALIDADE_FAM||'').trim()] || String(r.NOM_LOCALIDADE_FAM||'').trim() || 'Não informado';
+    if (!byLoc[loc]) byLoc[loc] = [];
+    byLoc[loc].push(r);
+  });
+
+  const rows = Object.entries(byLoc).map(([loc, rows]) => {
+    const fams = uniqFamilias(rows);
+    const total = fams.length;
+    if (total === 0) return null;
+
+    const pbf = new Set(rows.filter(r => String(r.MARC_PBF||'').trim().toUpperCase()==='SIM').map(famKey)).size;
+    const desatual = new Set(rows.filter(r => String(r.STATUS_CADUNICO||'').trim().toUpperCase()==='DESATUALIZADO').map(famKey)).size;
+    const semBanh = new Set(rows.filter(r => String(r.COD_BANHEIRO_DOMIC_FAM||'').trim().startsWith('2')).map(famKey)).size;
+
+    const rendaVals = famRows(rows).map(r => parseFloat(r.VLR_RENDA_MEDIA_FAM)).filter(v => !isNaN(v) && v > 0);
+    const avgRenda = rendaVals.length ? rendaVals.reduce((a,b)=>a+b,0)/rendaVals.length : 0;
+
+    const pctPbf = pbf/total*100;
+    const pctDesatual = desatual/total*100;
+    const pctSemBanh = semBanh/total*100;
+    const rendaScore = avgRenda > 0 ? Math.max(0, 100 - (avgRenda/20)) : 100;
+
+    // Score 0–100: quanto maior, mais vulnerável
+    const score = Math.round((pctPbf*0.3 + pctDesatual*0.25 + pctSemBanh*0.2 + rendaScore*0.25));
+
+    return { loc, total, pctPbf, avgRenda, pctDesatual, pctSemBanh, score };
+  }).filter(Boolean).sort((a,b) => b.score - a.score);
+
+  document.getElementById('ranking-info').textContent = `${rows.length} localidades`;
+
+  const tbody = document.getElementById('ranking-body');
+  tbody.innerHTML = '';
+
+  const scoreColor = s => s >= 70 ? '#b5290e' : s >= 45 ? '#e85d26' : s >= 25 ? '#f5a623' : '#2e9e55';
+
+  rows.forEach((row, i) => {
+    const tr = document.createElement('tr');
+    tr.style.cssText = 'border-bottom:1px solid #eef1f5;';
+    tr.innerHTML = `
+      <td style="padding:9px 13px;font-family:Montserrat,sans-serif;font-weight:700;font-size:12px;color:var(--azul)">${i+1}</td>
+      <td style="padding:9px 13px;font-weight:600;font-size:13px;color:var(--text)">${row.loc}</td>
+      <td style="padding:9px 13px;font-size:13px;color:var(--text-med)">${row.total}</td>
+      <td style="padding:9px 13px;"><span class="pill ${row.pctPbf>60?'pill-green':'pill-gray'}">${row.pctPbf.toFixed(0)}%</span></td>
+      <td style="padding:9px 13px;font-size:13px;color:var(--text-med)">R$${Math.round(row.avgRenda).toLocaleString('pt-BR')}</td>
+      <td style="padding:9px 13px;"><span class="pill ${row.pctDesatual>20?'pill-orange':'pill-gray'}">${row.pctDesatual.toFixed(0)}%</span></td>
+      <td style="padding:9px 13px;"><span class="pill ${row.pctSemBanh>10?'pill-red':'pill-gray'}">${row.pctSemBanh.toFixed(0)}%</span></td>
+      <td style="padding:9px 13px;">
+        <div style="display:flex;align-items:center;gap:8px;">
+          <div style="flex:1;background:#eef1f5;border-radius:4px;height:8px;min-width:60px;">
+            <div style="width:${Math.min(row.score,100)}%;background:${scoreColor(row.score)};height:8px;border-radius:4px;transition:width .4s;"></div>
+          </div>
+          <span style="font-family:Montserrat,sans-serif;font-weight:700;font-size:12px;color:${scoreColor(row.score)};min-width:28px;">${row.score}</span>
+        </div>
+      </td>`;
+    tbody.appendChild(tr);
+  });
+}
+
 
 // ── TABLE ─────────────────────────────────────────────────────────────────────
 function renderTable() {

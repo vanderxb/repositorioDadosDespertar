@@ -1,0 +1,1318 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Painel do Território — Despertar</title>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&family=Open+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+<style>
+:root {
+  --azul:       #1a3a5c;
+  --azul-med:   #1e4976;
+  --azul-light: #2d6ea8;
+  --amarelo:    #f5a623;
+  --amarelo-d:  #e8931a;
+  --verde:      #2e9e55;
+  --verde-light:#38b862;
+  --laranja:    #e85d26;
+  --bg:         #f4f6f9;
+  --white:      #ffffff;
+  --gray-l:     #eef1f5;
+  --gray:       #c8d0dc;
+  --gray-d:     #8494a8;
+  --text:       #1a2a3a;
+  --text-med:   #3d5068;
+  --text-light: #6b7f94;
+  --border:     #dde3ec;
+  --shadow:     0 2px 12px rgba(26,58,92,.08);
+  --shadow-lg:  0 6px 28px rgba(26,58,92,.13);
+  --radius:     12px;
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'Open Sans', sans-serif;
+  font-size: 14px;
+  min-height: 100vh;
+}
+
+/* ── HEADER ────────────────────────────────────────────── */
+header {
+  background: var(--azul);
+  padding: 0 32px;
+  display: flex;
+  align-items: center;
+  min-height: 68px;
+  gap: 20px;
+  box-shadow: 0 3px 16px rgba(26,58,92,.25);
+  position: sticky;
+  top: 0;
+  z-index: 200;
+}
+
+.header-logo-block {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+/* Ícone Despertar estilizado */
+.logo-icon {
+  width: 42px; height: 42px;
+  background: var(--amarelo);
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+  box-shadow: 0 0 0 3px rgba(245,166,35,.25);
+}
+.logo-icon svg { width: 22px; height: 22px; }
+
+.logo-text {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.1;
+}
+.logo-name {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 900;
+  font-size: 17px;
+  letter-spacing: -.3px;
+  color: #fff;
+  text-transform: uppercase;
+}
+.logo-sub {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 500;
+  font-size: 10px;
+  letter-spacing: 1.5px;
+  color: var(--amarelo);
+  text-transform: uppercase;
+}
+
+.header-divider {
+  width: 1px;
+  height: 36px;
+  background: rgba(255,255,255,.15);
+}
+
+.header-title {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 700;
+  font-size: 15px;
+  color: rgba(255,255,255,.9);
+  letter-spacing: .3px;
+}
+.header-title span {
+  color: var(--amarelo);
+}
+
+.header-right {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+#load-status {
+  font-size: 12px;
+  font-weight: 500;
+  color: rgba(255,255,255,.55);
+  font-family: 'Montserrat', sans-serif;
+}
+#load-status.ok  { color: #5de88a; }
+#load-status.err { color: #ff7c6e; }
+
+.file-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  background: var(--amarelo);
+  color: var(--azul);
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 700;
+  font-size: 12px;
+  letter-spacing: .4px;
+  text-transform: uppercase;
+  padding: 8px 18px;
+  border-radius: 8px;
+  cursor: pointer;
+  border: none;
+  transition: background .2s, transform .1s;
+  box-shadow: 0 2px 8px rgba(245,166,35,.3);
+}
+.file-btn:hover { background: var(--amarelo-d); transform: translateY(-1px); }
+#csv-input { display: none; }
+
+/* ── HERO BAND ────────────────────────────────────────── */
+.hero-band {
+  background: linear-gradient(135deg, var(--azul-med) 0%, var(--azul) 60%, #0f2540 100%);
+  padding: 28px 32px 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  border-bottom: 4px solid var(--amarelo);
+}
+.hero-text h1 {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 900;
+  font-size: 22px;
+  color: #fff;
+  letter-spacing: -.5px;
+  line-height: 1.2;
+}
+.hero-text h1 span { color: var(--amarelo); }
+.hero-text p {
+  font-size: 13px;
+  color: rgba(255,255,255,.65);
+  margin-top: 5px;
+  font-weight: 400;
+}
+.hero-badges {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+.hero-badge {
+  background: rgba(255,255,255,.1);
+  border: 1px solid rgba(255,255,255,.2);
+  color: rgba(255,255,255,.85);
+  font-family: 'Montserrat', sans-serif;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  padding: 5px 12px;
+  border-radius: 20px;
+}
+.hero-badge.yellow { background: rgba(245,166,35,.2); border-color: var(--amarelo); color: var(--amarelo); }
+
+/* ── WRAPPER ──────────────────────────────────────────── */
+.wrapper { padding: 28px 32px; }
+
+/* ── STATS ────────────────────────────────────────────── */
+.stats-strip {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(175px,1fr));
+  gap: 14px;
+  margin-bottom: 26px;
+}
+.stat-card {
+  background: var(--white);
+  border-radius: var(--radius);
+  padding: 20px 20px 16px;
+  box-shadow: var(--shadow);
+  border: 1px solid var(--border);
+  border-top: 4px solid var(--azul);
+  position: relative;
+  overflow: hidden;
+  transition: box-shadow .2s, transform .2s;
+}
+.stat-card:hover { box-shadow: var(--shadow-lg); transform: translateY(-2px); }
+.stat-card.am  { border-top-color: var(--amarelo); }
+.stat-card.vd  { border-top-color: var(--verde); }
+.stat-card.lr  { border-top-color: var(--laranja); }
+.stat-card.az  { border-top-color: var(--azul-light); }
+
+.stat-icon {
+  position: absolute;
+  right: 14px; top: 14px;
+  width: 36px; height: 36px;
+  border-radius: 9px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 18px;
+  opacity: .85;
+}
+.stat-card.am .stat-icon { background: rgba(245,166,35,.12); }
+.stat-card.vd .stat-icon { background: rgba(46,158,85,.12); }
+.stat-card.lr .stat-icon { background: rgba(232,93,38,.12); }
+.stat-card.az .stat-icon { background: rgba(45,110,168,.12); }
+.stat-card:not(.am):not(.vd):not(.lr):not(.az) .stat-icon { background: rgba(26,58,92,.08); }
+
+.stat-label {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: var(--text-light);
+  margin-bottom: 8px;
+}
+.stat-value {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 900;
+  font-size: 30px;
+  line-height: 1;
+  color: var(--azul);
+}
+.stat-card.am .stat-value { color: var(--amarelo-d); }
+.stat-card.vd .stat-value { color: var(--verde); }
+.stat-card.lr .stat-value { color: var(--laranja); }
+.stat-card.az .stat-value { color: var(--azul-light); }
+.stat-sub {
+  font-size: 11px;
+  color: var(--text-light);
+  margin-top: 4px;
+  font-weight: 400;
+}
+
+/* ── SECTION TITLE ─────────────────────────────────────── */
+.section-title {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 800;
+  font-size: 12px;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: var(--azul);
+  margin-bottom: 14px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.section-title::before {
+  content: '';
+  display: block;
+  width: 4px; height: 16px;
+  background: var(--amarelo);
+  border-radius: 2px;
+}
+
+/* ── CHARTS ────────────────────────────────────────────── */
+.charts-row {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(290px,1fr));
+  gap: 16px;
+  margin-bottom: 26px;
+}
+.chart-card {
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 20px;
+  box-shadow: var(--shadow);
+  transition: box-shadow .2s;
+}
+.chart-card:hover { box-shadow: var(--shadow-lg); }
+.chart-title {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: .8px;
+  color: var(--azul);
+  margin-bottom: 16px;
+  padding-bottom: 10px;
+  border-bottom: 2px solid var(--gray-l);
+}
+.chart-wrap { position: relative; height: 195px; }
+
+/* ── FILTERS ────────────────────────────────────────────── */
+.filters-card {
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 18px 20px;
+  box-shadow: var(--shadow);
+  margin-bottom: 18px;
+}
+.filters-bar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+  align-items: flex-end;
+}
+.filter-group { display: flex; flex-direction: column; gap: 5px; }
+.filter-label {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: .8px;
+  text-transform: uppercase;
+  color: var(--text-light);
+}
+select, input[type=text] {
+  background: var(--gray-l);
+  border: 1.5px solid var(--border);
+  color: var(--text);
+  padding: 7px 11px;
+  border-radius: 8px;
+  font-family: 'Open Sans', sans-serif;
+  font-size: 13px;
+  outline: none;
+  transition: border-color .2s, background .2s;
+  min-width: 148px;
+}
+select:focus, input[type=text]:focus {
+  border-color: var(--azul-light);
+  background: #fff;
+}
+.btn-reset {
+  background: transparent;
+  border: 1.5px solid var(--border);
+  color: var(--text-light);
+  padding: 7px 16px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 600;
+  font-size: 11px;
+  letter-spacing: .5px;
+  text-transform: uppercase;
+  transition: all .2s;
+}
+.btn-reset:hover { border-color: var(--laranja); color: var(--laranja); }
+
+#filtered-count {
+  margin-left: auto;
+  font-size: 12px;
+  color: var(--text-light);
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 600;
+  align-self: flex-end;
+}
+
+/* ── TABLE ─────────────────────────────────────────────── */
+.table-section {
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  overflow: hidden;
+}
+.table-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 20px;
+  border-bottom: 1px solid var(--border);
+  background: var(--azul);
+  border-radius: var(--radius) var(--radius) 0 0;
+}
+.table-title {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 12px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: #fff;
+}
+.rows-info {
+  font-size: 12px;
+  color: rgba(255,255,255,.6);
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 500;
+}
+.table-scroll { overflow-x: auto; }
+
+table { width: 100%; border-collapse: collapse; }
+
+thead th {
+  background: var(--gray-l);
+  padding: 10px 13px;
+  text-align: left;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: .7px;
+  color: var(--azul);
+  border-bottom: 2px solid var(--border);
+  white-space: nowrap;
+  position: relative;
+}
+
+/* TOOLTIP */
+.tip {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+}
+.tip-icon {
+  width: 15px; height: 15px;
+  background: var(--azul);
+  border-radius: 50%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 9px;
+  color: #fff;
+  font-weight: 700;
+  cursor: help;
+  flex-shrink: 0;
+  transition: background .15s;
+}
+.tip:hover .tip-icon { background: var(--amarelo); color: var(--azul); }
+
+.tip-box {
+  display: none;
+  position: absolute;
+  top: calc(100% + 8px);
+  left: 0;
+  background: var(--azul);
+  border-radius: 10px;
+  padding: 12px 14px;
+  min-width: 230px;
+  max-width: 290px;
+  z-index: 999;
+  box-shadow: 0 10px 32px rgba(26,58,92,.25);
+  pointer-events: none;
+}
+.tip-box::before {
+  content: '';
+  position: absolute;
+  top: -6px; left: 14px;
+  width: 12px; height: 12px;
+  background: var(--azul);
+  transform: rotate(45deg);
+  border-radius: 2px;
+}
+.tip-box strong {
+  display: block;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 10px;
+  color: var(--amarelo);
+  margin-bottom: 5px;
+  text-transform: uppercase;
+  letter-spacing: .8px;
+  font-weight: 700;
+}
+.tip-box p {
+  font-size: 12px;
+  color: rgba(255,255,255,.9);
+  line-height: 1.55;
+}
+.tip-box .values-list {
+  margin-top: 8px;
+  font-size: 11px;
+  color: rgba(255,255,255,.6);
+  line-height: 1.7;
+  border-top: 1px solid rgba(255,255,255,.12);
+  padding-top: 7px;
+}
+.tip:hover .tip-box { display: block; }
+
+tbody tr {
+  border-bottom: 1px solid var(--gray-l);
+  transition: background .12s;
+}
+tbody tr:hover { background: #f0f5fb; }
+tbody td {
+  padding: 9px 13px;
+  font-size: 13px;
+  color: var(--text-med);
+  white-space: nowrap;
+  max-width: 190px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* PILLS */
+.pill {
+  display: inline-block;
+  padding: 3px 10px;
+  border-radius: 20px;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: .3px;
+}
+.pill-green  { background: #e6f9ed; color: #1d7a40; border: 1px solid #b2e8c2; }
+.pill-blue   { background: #e6f1fb; color: #1a5496; border: 1px solid #b2cfef; }
+.pill-red    { background: #fdecea; color: #b5290e; border: 1px solid #f7bdb3; }
+.pill-orange { background: #fff3e2; color: #b55f00; border: 1px solid #f7d49a; }
+.pill-purple { background: #f2eeff; color: #5a2d9e; border: 1px solid #d3b8f7; }
+.pill-gray   { background: #f0f2f5; color: #5a6a7a; border: 1px solid #d0d8e2; }
+.pill-yellow { background: #fffbe6; color: #8a6500; border: 1px solid #f5df8c; }
+
+/* PAGINATION */
+.pagination {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 5px;
+  padding: 14px 20px;
+  border-top: 1px solid var(--border);
+  background: var(--gray-l);
+}
+.pg-btn {
+  background: var(--white);
+  border: 1.5px solid var(--border);
+  color: var(--text-med);
+  width: 32px; height: 32px;
+  border-radius: 7px;
+  cursor: pointer;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 12px;
+  font-weight: 600;
+  display: flex; align-items: center; justify-content: center;
+  transition: all .15s;
+}
+.pg-btn:hover { border-color: var(--azul-light); color: var(--azul); }
+.pg-btn.active { background: var(--azul); border-color: var(--azul); color: #fff; }
+.pg-btn:disabled { opacity: .35; cursor: default; }
+.pg-info { font-size: 12px; color: var(--text-light); margin: 0 8px; font-family: 'Montserrat', sans-serif; font-weight: 500; }
+
+/* LOADING */
+#loading {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 280px;
+  flex-direction: column;
+  gap: 16px;
+}
+.loading-inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+}
+.spinner {
+  width: 36px; height: 36px;
+  border: 3px solid var(--gray);
+  border-top-color: var(--azul);
+  border-radius: 50%;
+  animation: spin .7s linear infinite;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+.loading-msg {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 600;
+  font-size: 13px;
+  color: var(--text-light);
+  letter-spacing: .3px;
+}
+
+.upload-hint {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+  padding: 48px;
+}
+.upload-icon {
+  width: 64px; height: 64px;
+  background: var(--gray-l);
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+}
+.upload-icon svg { width: 28px; height: 28px; color: var(--azul); }
+.upload-hint p {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 600;
+  font-size: 13px;
+  color: var(--text-light);
+  text-align: center;
+}
+.upload-hint p span {
+  display: block;
+  font-weight: 400;
+  font-size: 12px;
+  margin-top: 4px;
+  color: var(--gray-d);
+}
+
+#empty-msg {
+  text-align: center;
+  padding: 40px;
+  color: var(--text-light);
+  font-size: 13px;
+  font-family: 'Montserrat', sans-serif;
+  display: none;
+}
+
+/* FOOTER BAND */
+.footer-band {
+  background: var(--azul);
+  color: rgba(255,255,255,.5);
+  font-family: 'Montserrat', sans-serif;
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: .8px;
+  text-align: center;
+  padding: 14px 32px;
+  margin-top: 32px;
+}
+.footer-band strong { color: var(--amarelo); font-weight: 700; }
+
+@media(max-width:640px) {
+  .wrapper { padding: 16px; }
+  header { padding: 0 16px; }
+  .hero-band { padding: 20px 16px; }
+  .stats-strip { grid-template-columns: repeat(2,1fr); }
+  .hero-badges { display: none; }
+}
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header>
+  <div class="header-logo-block">
+    <div class="logo-icon">
+      <!-- Star/sun icon representing "Despertar" (awakening) -->
+      <svg viewBox="0 0 24 24" fill="none" stroke="#1a3a5c" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="12" cy="12" r="4"/>
+        <line x1="12" y1="2" x2="12" y2="5"/>
+        <line x1="12" y1="19" x2="12" y2="22"/>
+        <line x1="4.22" y1="4.22" x2="6.34" y2="6.34"/>
+        <line x1="17.66" y1="17.66" x2="19.78" y2="19.78"/>
+        <line x1="2" y1="12" x2="5" y2="12"/>
+        <line x1="19" y1="12" x2="22" y2="12"/>
+        <line x1="4.22" y1="19.78" x2="6.34" y2="17.66"/>
+        <line x1="17.66" y1="6.34" x2="19.78" y2="4.22"/>
+      </svg>
+    </div>
+    <div class="logo-text">
+      <span class="logo-name">Despertar</span>
+      <span class="logo-sub">Cidade Ademar · SP</span>
+    </div>
+  </div>
+  <div class="header-divider"></div>
+  <span class="header-title">Painel do <span>Território</span></span>
+  <div class="header-right">
+    <span id="load-status">Nenhum arquivo carregado</span>
+    <label class="file-btn" for="csv-input">
+      <svg width="13" height="13" viewBox="0 0 16 16" fill="currentColor"><path d="M.5 9.9a.5.5 0 0 1 .5.5v2.5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2.5a.5.5 0 0 1 1 0v2.5a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2v-2.5a.5.5 0 0 1 .5-.5z"/><path d="M7.646 1.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1-.708.708L8.5 2.707V11.5a.5.5 0 0 1-1 0V2.707L5.354 4.854a.5.5 0 1 1-.708-.708l3-3z"/></svg>
+      Carregar CSV
+    </label>
+    <input type="file" id="csv-input" accept=".csv">
+  </div>
+</header>
+
+<!-- HERO BAND -->
+<div class="hero-band">
+  <div class="hero-text">
+    <h1>Painel do <span>Território Despertar</span></h1>
+    <p>Visualização de dados sociais — Cadastro Único (CECAD) · Cidade Ademar e territórios vizinhos</p>
+  </div>
+  <div class="hero-badges">
+    <span class="hero-badge yellow">CECAD</span>
+    <span class="hero-badge">Serviço Social</span>
+    <span class="hero-badge">CadÚnico</span>
+  </div>
+</div>
+
+<div class="wrapper">
+
+  <!-- STATS -->
+  <div class="section-title">Indicadores gerais</div>
+  <div class="stats-strip">
+    <div class="stat-card az">
+      <div class="stat-icon">👥</div>
+      <div class="stat-label">Total de Famílias</div>
+      <div class="stat-value" id="s-total">—</div>
+      <div class="stat-sub">registros no arquivo</div>
+    </div>
+    <div class="stat-card vd">
+      <div class="stat-icon">✅</div>
+      <div class="stat-label">Beneficiárias PBF</div>
+      <div class="stat-value" id="s-pbf">—</div>
+      <div class="stat-sub" id="s-pbf-pct">—</div>
+    </div>
+    <div class="stat-card am">
+      <div class="stat-icon">💰</div>
+      <div class="stat-label">Renda Média Familiar</div>
+      <div class="stat-value" id="s-renda">—</div>
+      <div class="stat-sub">per capita (R$)</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-icon">🏠</div>
+      <div class="stat-label">Média Pessoas/Dom.</div>
+      <div class="stat-value" id="s-pessoas">—</div>
+      <div class="stat-sub">por domicílio</div>
+    </div>
+    <div class="stat-card lr">
+      <div class="stat-icon">⚠️</div>
+      <div class="stat-label">Sem Banheiro</div>
+      <div class="stat-value" id="s-banheiro">—</div>
+      <div class="stat-sub">domicílios</div>
+    </div>
+  </div>
+
+  <!-- CHARTS -->
+  <div class="section-title" style="margin-top:4px;">Análise do território</div>
+  <div class="charts-row">
+    <div class="chart-card">
+      <div class="chart-title">Faixa de Renda Per Capita</div>
+      <div class="chart-wrap"><canvas id="chart-renda"></canvas></div>
+    </div>
+    <div class="chart-card">
+      <div class="chart-title">Beneficiários PBF</div>
+      <div class="chart-wrap"><canvas id="chart-pbf"></canvas></div>
+    </div>
+    <div class="chart-card">
+      <div class="chart-title">Abastecimento de Água</div>
+      <div class="chart-wrap"><canvas id="chart-agua"></canvas></div>
+    </div>
+    <div class="chart-card">
+      <div class="chart-title">Destino do Lixo</div>
+      <div class="chart-wrap"><canvas id="chart-lixo"></canvas></div>
+    </div>
+    <div class="chart-card">
+      <div class="chart-title">Grau de Instrução</div>
+      <div class="chart-wrap"><canvas id="chart-instrucao"></canvas></div>
+    </div>
+    <div class="chart-card">
+      <div class="chart-title">Tipo de Trabalho Principal</div>
+      <div class="chart-wrap"><canvas id="chart-trabalho"></canvas></div>
+    </div>
+  </div>
+
+  <!-- FILTERS -->
+  <div class="section-title">Filtros e busca</div>
+  <div class="filters-card">
+    <div class="filters-bar">
+      <div class="filter-group">
+        <span class="filter-label">Distrito / Localidade</span>
+        <select id="f-distrito"><option value="">Todos</option></select>
+      </div>
+      <div class="filter-group">
+        <span class="filter-label">Bolsa Família</span>
+        <select id="f-pbf">
+          <option value="">Todos</option>
+          <option value="1">Beneficiário</option>
+          <option value="2">Não beneficiário</option>
+        </select>
+      </div>
+      <div class="filter-group">
+        <span class="filter-label">Faixa de Renda</span>
+        <select id="f-renda">
+          <option value="">Todas as faixas</option>
+          <option value="1">Até R$ 109</option>
+          <option value="2">R$109 – R$218</option>
+          <option value="3">R$218 – ½ salário</option>
+          <option value="4">Acima de ½ salário</option>
+        </select>
+      </div>
+      <div class="filter-group">
+        <span class="filter-label">Buscar por código</span>
+        <input type="text" id="f-search" placeholder="Código familiar…">
+      </div>
+      <button class="btn-reset" id="btn-reset">✕ Limpar</button>
+      <span id="filtered-count"></span>
+    </div>
+  </div>
+
+  <!-- TABLE -->
+  <div class="section-title">Registros do território</div>
+  <div class="table-section">
+    <div class="table-header">
+      <span class="table-title">📋 Dados das famílias</span>
+      <span class="rows-info" id="rows-info">0 registros</span>
+    </div>
+
+    <div id="loading">
+      <div class="upload-hint">
+        <div class="upload-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="12" y1="18" x2="12" y2="12"/><line x1="9" y1="15" x2="15" y2="15"/>
+          </svg>
+        </div>
+        <p>Carregando dados do território…
+          <span>Buscando base.csv. Se não encontrado, use o botão "Carregar CSV".</span>
+        </p>
+      </div>
+    </div>
+
+    <div id="empty-msg">Nenhum registro encontrado com os filtros aplicados.</div>
+    <div class="table-scroll" id="table-wrap" style="display:none">
+      <table>
+        <thead id="thead"></thead>
+        <tbody id="tbody"></tbody>
+      </table>
+    </div>
+    <div class="pagination" id="pagination"></div>
+  </div>
+
+</div>
+
+<div class="footer-band">
+  <strong>Painel do Território Despertar</strong> · Dados do Cadastro Único (CECAD) · Ministério do Desenvolvimento e Assistência Social ·
+  <strong>despertar.org.br</strong>
+</div>
+
+<script>
+// ── DICIONÁRIO ───────────────────────────────────────────────────────────────
+const DICT = {
+  GR_FAM:                       { short: 'Grupo Fam.',    desc: 'Grupo/agrupamento da família no cadastro territorial.', values: null },
+  COD_FAMILIAR:                 { short: 'Cód. Família',  desc: 'Código identificador único da família no Cadastro Único.', values: null },
+  COD_FAMILIAR_FAM:             { short: 'Cód. Família',  desc: 'Código identificador único da família no Cadastro Único.', values: null },
+  DAT_CADASTRAMENTO_FAM:        { short: 'Dt. Cadastro',  desc: 'Data de cadastramento da família no CadÚnico (YYYY-MM-DD).', values: null },
+  DAT_ATUALIZACAO_FAMILIA:      { short: 'Dt. Atualiz.',  desc: 'Data da última atualização dos dados da família.', values: null },
+  DAT_ATUAL_FAM:                { short: 'Dt. Atualiz.',  desc: 'Data da última alteração em qualquer campo da família.', values: null },
+  STATUS_CADUNICO:              { short: 'Status Cad.',   desc: 'Estado cadastral atual da família no CadÚnico.', values: {1:'Em cadastramento',2:'Sem Registro Civil',3:'Cadastrado',4:'Excluído'} },
+  COD_EST_CADASTRAL_FAM:        { short: 'Status Cad.',   desc: 'Estado cadastral da família.', values: {1:'Em cadastramento',2:'Sem Reg. Civil',3:'Cadastrado',4:'Excluído'} },
+  QTD_PESSOAS_DOMIC_FAM:        { short: 'Qtd. Pessoas',  desc: 'Quantidade total de pessoas residindo no domicílio.', values: null },
+  QTD_FAMILIAS_DOMIC_FAM:       { short: 'Qtd. Famílias', desc: 'Quantidade de famílias que residem no mesmo domicílio.', values: null },
+  COD_PARENTESCO_RF_PESSOA:     { short: 'Parentesco RF', desc: 'Relação de parentesco com o Responsável Familiar (RF).', values: {1:'RF',2:'Cônjuge/Companheiro(a)',3:'Filho(a)',4:'Enteado(a)',5:'Neto(a)/Bisneto(a)',6:'Pai ou Mãe',7:'Sogro(a)',8:'Irmão/Irmã',9:'Genro/Nora',10:'Outro parente',11:'Não parente'} },
+  FAM_FAM_MULHER_RF:            { short: 'Mulher RF',     desc: 'Indica se a Responsável Familiar é mulher.', values: {1:'Sim',2:'Não'} },
+  COD_SEXO_PESSOA:              { short: 'Sexo',          desc: 'Sexo do membro da família.', values: {1:'Masculino',2:'Feminino'} },
+  COD_RACA_COR_PESSOA:          { short: 'Raça/Cor',      desc: 'Cor ou raça autodeclarada da pessoa.', values: {1:'Branca',2:'Preta',3:'Amarela',4:'Parda',5:'Indígena'} },
+  IDADE_PESSOA:                 { short: 'Idade',         desc: 'Idade da pessoa em anos completos.', values: null },
+  COD_TRABALHOU_MEMB:           { short: 'Trabalhou?',    desc: 'Indica se a pessoa trabalhou na semana de referência.', values: {1:'Sim',2:'Não'} },
+  COD_PRINCIPAL_TRAB_MEMB:      { short: 'Tipo Trab.',    desc: 'Tipo de vínculo ou situação de trabalho principal da pessoa.', values: {1:'Conta própria',2:'Temp. rural',3:'Emp. s/ cart.',4:'Emp. c/ cart.',5:'Dom. s/ cart.',6:'Dom. c/ cart.',7:'Não remunerado',8:'Militar/Servidor',9:'Empregador',10:'Estagiário',11:'Aprendiz'} },
+  FX_RND_VAL_REMUNER_EMPREGO_MEMB: { short: 'Fx. Remun.', desc: 'Faixa de remuneração bruta recebida por todos os trabalhos da pessoa.', values: {0:'Renda zero',1:'Extrema pobreza',2:'Pobreza',3:'Até ½ SM',4:'½ a 1 SM',5:'1 a 2 SM',6:'2 a 3 SM',7:'Mais de 3 SM'} },
+  FX_RND_VAL_RENDA_APOSENT_MEMB:   { short: 'Fx. Aposen.', desc: 'Faixa de renda de aposentadoria, pensão ou BPC recebida pela pessoa.', values: {0:'Renda zero',1:'Extrema pobreza',2:'Pobreza',3:'Até ½ SM',4:'½ a 1 SM',5:'1 a 2 SM',6:'2 a 3 SM',7:'Mais de 3 SM'} },
+  VLR_RENDA_MEDIA_FAM:          { short: 'Renda Média',   desc: 'Valor da renda média per capita da família. Dividir por 100 para obter o valor em R$.', values: null },
+  FX_RFPC:                      { short: 'Fx. Renda PC',  desc: 'Faixa de renda familiar per capita, utilizada para classificação no CadÚnico.', values: {1:'Até R$109',2:'R$109–R$218',3:'R$218–½ SM',4:'Acima de ½ SM'} },
+  IND_FREQUENTA_ESCOLA_MEMB:    { short: 'Escola?',       desc: 'Indica se a pessoa frequenta escola/curso atualmente.', values: {1:'Sim, rede pública',2:'Sim, rede particular',3:'Não, já frequentou',4:'Nunca frequentou'} },
+  COD_CURSO_FREQUENTA_MEMB:     { short: 'Curso Atual',   desc: 'Nível de ensino que a pessoa está cursando atualmente.', values: {1:'Creche',2:'Pré-escola',3:'Alfabetização',4:'Fund. 8 anos',5:'Fund. 9 anos',6:'Fund. especial',7:'Médio regular',8:'Médio especial',9:'Fund. EJA inicial',10:'Fund. EJA final',11:'Médio EJA',12:'Alfab. adultos',13:'Superior/Pós',14:'Pré-vestibular'} },
+  COD_ANO_SERIE_FREQUENTA_MEMB: { short: 'Série Atual',   desc: 'Ano/série que a pessoa está cursando.', values: {1:'1º',2:'2º',3:'3º',4:'4º',5:'5º',6:'6º',7:'7º',8:'8º',9:'9º',10:'Não seriado'} },
+  COD_CURSO_FREQUENTOU_PESSOA_MEMB: { short: 'Últ. Curso', desc: 'Curso mais elevado que a pessoa já frequentou anteriormente.', values: {1:'Creche',2:'Pré-escola',3:'Alfabetização',4:'Fund. 1ª–4ª',5:'Fund. 5ª–8ª',6:'Fund. 9 anos',7:'Fund. especial',8:'Médio',9:'Médio especial',10:'Fund. EJA inic.',11:'Fund. EJA final',12:'Médio EJA',13:'Superior/Pós',14:'Alfab. adultos',15:'Nenhum'} },
+  GRAU_INSTRUCAO:               { short: 'Instrução',     desc: 'Grau de instrução/escolaridade mais alto concluído pela pessoa.', values: {0:'Outros',1:'Sem instrução',2:'Fund. Incompleto',3:'Fund. Completo',4:'Médio Incompleto',5:'Médio Completo',6:'Superior Incompleto'} },
+  QTD_COMODOS_DORMITORIO_FAM:   { short: 'Dormitórios',   desc: 'Quantidade de cômodos do domicílio que servem como dormitório.', values: null },
+  COD_BANHEIRO_DOMIC_FAM:       { short: 'Banheiro',      desc: 'Indica se o domicílio possui banheiro ou sanitário.', values: {1:'Sim',2:'Não'} },
+  COD_AGUA_CANALIZADA_FAM:      { short: 'Água Canali.',  desc: 'Indica se o domicílio possui água encanada/canalizada.', values: {1:'Sim',2:'Não'} },
+  COD_ABASTE_AGUA_DOMIC_FAM:    { short: 'Abast. Água',   desc: 'Forma principal de abastecimento de água do domicílio.', values: {1:'Rede geral',2:'Poço/Nascente',3:'Cisterna',4:'Outra forma'} },
+  COD_ESCOA_SANITARIO_DOMIC_FAM:{ short: 'Esgoto',        desc: 'Forma de escoamento sanitário utilizada pelo domicílio.', values: {1:'Rede coletora',2:'Fossa séptica',3:'Fossa rudimentar',4:'Vala céu aberto',5:'Rio/Mar',6:'Outra forma'} },
+  COD_DESTINO_LIXO_DOMIC_FAM:   { short: 'Dest. Lixo',   desc: 'Forma de coleta ou destino dado ao lixo produzido no domicílio.', values: {1:'Coleta direta',2:'Coleta indireta',3:'Queimado/Enterrado',4:'Terreno baldio',5:'Rio/Mar',6:'Outro destino'} },
+  NOM_LOCALIDADE_FAM:           { short: 'Localidade',    desc: 'Nome da localidade/bairro onde a família reside.', values: null },
+  CD_IBGE:                      { short: 'Cód. IBGE',     desc: 'Código IBGE do município onde a família está cadastrada.', values: null },
+  MARC_PBF:                     { short: 'PBF',           desc: 'Indica se a família é beneficiária ativa do Programa Bolsa Família (PBF).', values: {1:'Sim — beneficiária',2:'Não — não beneficiária'} },
+  DISTRITO:                     { short: 'Distrito',      desc: 'Distrito ou subdivisão territorial onde a família reside no território.', values: null },
+};
+
+const VALUE_LABELS = {
+  MARC_PBF:                    {'1':'Sim','2':'Não'},
+  FAM_FAM_MULHER_RF:           {'1':'Sim','2':'Não'},
+  COD_BANHEIRO_DOMIC_FAM:      {'1':'Sim','2':'Não'},
+  COD_AGUA_CANALIZADA_FAM:     {'1':'Sim','2':'Não'},
+  COD_SEXO_PESSOA:             {'1':'Masc.','2':'Fem.'},
+  COD_TRABALHOU_MEMB:          {'1':'Sim','2':'Não'},
+  FX_RFPC:                     {'1':'≤ R$109','2':'R$109–218','3':'218–½ SM','4':'> ½ SM'},
+  COD_ABASTE_AGUA_DOMIC_FAM:   {'1':'Rede geral','2':'Poço/Nasc.','3':'Cisterna','4':'Outra'},
+  COD_DESTINO_LIXO_DOMIC_FAM:  {'1':'Coleta dir.','2':'Coleta ind.','3':'Queimado','4':'Terreno','5':'Rio/Mar','6':'Outro'},
+  GRAU_INSTRUCAO:              {'0':'Outros','1':'Sem instr.','2':'Fund.Inc.','3':'Fund.Comp.','4':'Méd.Inc.','5':'Méd.Comp.','6':'Sup.Inc.'},
+  COD_PRINCIPAL_TRAB_MEMB:     {'1':'Autônomo','2':'Rural temp.','3':'Sem cart.','4':'Com cart.','5':'Dom.s/c.','6':'Dom.c/c.','7':'Não remun.','8':'Militar/Serv.','9':'Empregador','10':'Estag.','11':'Aprendiz'},
+  STATUS_CADUNICO:             {'1':'Cadastrando','2':'Sem Reg.Civil','3':'Cadastrado','4':'Excluído'},
+  COD_RACA_COR_PESSOA:         {'1':'Branca','2':'Preta','3':'Amarela','4':'Parda','5':'Indígena'},
+};
+
+const PRIORITY_COLS = [
+  'COD_FAMILIAR','COD_FAMILIAR_FAM','GR_FAM','DISTRITO','NOM_LOCALIDADE_FAM',
+  'STATUS_CADUNICO','MARC_PBF','QTD_PESSOAS_DOMIC_FAM','VLR_RENDA_MEDIA_FAM',
+  'FX_RFPC','COD_SEXO_PESSOA','IDADE_PESSOA','GRAU_INSTRUCAO',
+  'COD_TRABALHOU_MEMB','COD_BANHEIRO_DOMIC_FAM','COD_AGUA_CANALIZADA_FAM',
+  'COD_ABASTE_AGUA_DOMIC_FAM','COD_DESTINO_LIXO_DOMIC_FAM',
+];
+
+function pillClass(col, val) {
+  if (col === 'MARC_PBF')               return val=='1' ? 'pill-green' : 'pill-gray';
+  if (col === 'STATUS_CADUNICO')        return val=='3' ? 'pill-blue' : val=='4' ? 'pill-red' : 'pill-orange';
+  if (col === 'COD_BANHEIRO_DOMIC_FAM') return val=='1' ? 'pill-green' : 'pill-red';
+  if (col === 'COD_AGUA_CANALIZADA_FAM')return val=='1' ? 'pill-blue' : 'pill-red';
+  if (col === 'FAM_FAM_MULHER_RF')      return val=='1' ? 'pill-purple' : 'pill-gray';
+  if (col === 'COD_TRABALHOU_MEMB')     return val=='1' ? 'pill-green' : 'pill-gray';
+  if (col === 'FX_RFPC')               return val=='1' ? 'pill-red' : val=='2' ? 'pill-orange' : val=='3' ? 'pill-yellow' : 'pill-green';
+  return null;
+}
+
+// ── STATE ─────────────────────────────────────────────────────────────────────
+let allData = [], filteredData = [], columns = [];
+let currentPage = 1;
+const PAGE_SIZE = 50;
+let charts = {};
+
+// ── HELPERS ───────────────────────────────────────────────────────────────────
+function setLoadingSpinner(msg) {
+  document.getElementById('loading').style.display = 'flex';
+  document.getElementById('loading').innerHTML =
+    `<div class="loading-inner"><div class="spinner"></div><div class="loading-msg">${msg}</div></div>`;
+}
+
+function setLoadingHint(msg, sub) {
+  document.getElementById('loading').style.display = 'flex';
+  document.getElementById('loading').innerHTML = `
+    <div class="upload-hint">
+      <div class="upload-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+          <polyline points="14 2 14 8 20 8"/>
+          <line x1="12" y1="18" x2="12" y2="12"/><line x1="9" y1="15" x2="15" y2="15"/>
+        </svg>
+      </div>
+      <p>${msg}<span>${sub}</span></p>
+    </div>`;
+}
+
+function parseAndLoad(csvText, sourceName) {
+  const status = document.getElementById('load-status');
+  Papa.parse(csvText, {
+    header: true,
+    skipEmptyLines: true,
+    dynamicTyping: false,
+    complete(results) {
+      if (!results.data.length) {
+        status.textContent = '✗ CSV vazio ou inválido';
+        status.className = 'err';
+        setLoadingHint('Arquivo sem dados', 'Verifique o conteúdo do CSV e tente novamente.');
+        return;
+      }
+      allData = results.data;
+      columns = results.meta.fields || [];
+      status.textContent = `✓ ${allData.length.toLocaleString('pt-BR')} registros — ${sourceName}`;
+      status.className = 'ok';
+      initDashboard();
+    },
+    error() {
+      status.textContent = '✗ Erro ao processar CSV';
+      status.className = 'err';
+      setLoadingHint('Erro ao ler o arquivo', 'Verifique se o arquivo é um CSV válido e tente novamente.');
+    }
+  });
+}
+
+// ── AUTO-FETCH base.csv (Supabase Storage) ────────────────────────────────────
+// Para atualizar os dados: substitua o base.csv no Supabase Storage.
+// A URL abaixo aponta sempre para a versão mais recente do arquivo.
+const CSV_URL = 'https://ksrjoelvcwexepbnumiy.supabase.co/storage/v1/object/public/dados/base.csv';
+
+window.addEventListener('DOMContentLoaded', () => {
+  const status = document.getElementById('load-status');
+  status.textContent = 'Carregando dados…';
+  setLoadingSpinner('Buscando dados do território…');
+
+  fetch(CSV_URL, { cache: 'no-cache' })
+    .then(res => {
+      if (!res.ok) throw new Error(`HTTP ${res.status}`);
+      return res.text();
+    })
+    .then(text => {
+      parseAndLoad(text, 'Supabase · base.csv');
+    })
+    .catch(() => {
+      status.textContent = '✗ Falha ao carregar dados';
+      status.className = 'err';
+      setLoadingHint(
+        'Não foi possível carregar os dados automaticamente',
+        'Verifique sua conexão ou use o botão "Carregar CSV" para carregar o arquivo manualmente.'
+      );
+    });
+});
+
+// ── UPLOAD MANUAL (sobrescreve o auto-fetch) ──────────────────────────────────
+document.getElementById('csv-input').addEventListener('change', function(e) {
+  const file = e.target.files[0];
+  if (!file) return;
+  const status = document.getElementById('load-status');
+  status.textContent = 'Carregando…';
+  status.className = '';
+  setLoadingSpinner(`Processando ${file.name}…`);
+
+  const reader = new FileReader();
+  reader.onload = evt => parseAndLoad(evt.target.result, file.name);
+  reader.onerror = () => {
+    status.textContent = '✗ Erro ao ler o arquivo';
+    status.className = 'err';
+    setLoadingHint('Erro ao ler o arquivo', 'Verifique se o arquivo é um CSV válido.');
+  };
+  reader.readAsText(file, 'UTF-8');
+});
+
+function initDashboard() {
+  populateFilters();
+  applyFilters();
+}
+
+function populateFilters() {
+  const vals = [...new Set(allData.map(r => r.DISTRITO || r.NOM_LOCALIDADE_FAM || '').filter(Boolean))].sort();
+  const sel = document.getElementById('f-distrito');
+  sel.innerHTML = '<option value="">Todos</option>';
+  vals.forEach(v => { const o = document.createElement('option'); o.value = v; o.textContent = v; sel.appendChild(o); });
+}
+
+// ── FILTERS ───────────────────────────────────────────────────────────────────
+['f-distrito','f-pbf','f-renda'].forEach(id => document.getElementById(id).addEventListener('change', applyFilters));
+document.getElementById('f-search').addEventListener('input', applyFilters);
+document.getElementById('btn-reset').addEventListener('click', () => {
+  ['f-distrito','f-pbf','f-renda'].forEach(id => document.getElementById(id).value = '');
+  document.getElementById('f-search').value = '';
+  applyFilters();
+});
+
+function applyFilters() {
+  const distrito = document.getElementById('f-distrito').value;
+  const pbf      = document.getElementById('f-pbf').value;
+  const renda    = document.getElementById('f-renda').value;
+  const search   = document.getElementById('f-search').value.trim().toLowerCase();
+
+  filteredData = allData.filter(r => {
+    if (distrito && (r.DISTRITO||r.NOM_LOCALIDADE_FAM||'') !== distrito) return false;
+    if (pbf   && String(r.MARC_PBF||'').trim() !== pbf)  return false;
+    if (renda && String(r.FX_RFPC||'').trim()  !== renda) return false;
+    if (search) {
+      const code = String(r.COD_FAMILIAR||r.COD_FAMILIAR_FAM||'').toLowerCase();
+      if (!code.includes(search)) return false;
+    }
+    return true;
+  });
+
+  document.getElementById('filtered-count').textContent =
+    filteredData.length !== allData.length
+      ? `Exibindo ${filteredData.length.toLocaleString('pt-BR')} de ${allData.length.toLocaleString('pt-BR')}`
+      : '';
+
+  currentPage = 1;
+  updateStats();
+  updateCharts();
+  renderTable();
+}
+
+// ── STATS ─────────────────────────────────────────────────────────────────────
+function updateStats() {
+  const d = filteredData;
+  document.getElementById('s-total').textContent = d.length.toLocaleString('pt-BR');
+
+  const pbf = d.filter(r => String(r.MARC_PBF||'').trim() === '1').length;
+  document.getElementById('s-pbf').textContent = pbf.toLocaleString('pt-BR');
+  document.getElementById('s-pbf-pct').textContent = d.length ? `${((pbf/d.length)*100).toFixed(1)}% do total` : '—';
+
+  const rendas = d.map(r => parseFloat(r.VLR_RENDA_MEDIA_FAM)).filter(v => !isNaN(v) && v > 0);
+  const avg = rendas.length ? rendas.reduce((a,b)=>a+b,0)/rendas.length : 0;
+  document.getElementById('s-renda').textContent = avg > 0 ? 'R$'+(avg/100).toFixed(0) : '—';
+
+  const pessoas = d.map(r => parseFloat(r.QTD_PESSOAS_DOMIC_FAM)).filter(v => !isNaN(v));
+  const avgP = pessoas.length ? pessoas.reduce((a,b)=>a+b,0)/pessoas.length : 0;
+  document.getElementById('s-pessoas').textContent = avgP > 0 ? avgP.toFixed(1) : '—';
+
+  const semBanheiro = d.filter(r => String(r.COD_BANHEIRO_DOMIC_FAM||'').trim() === '2').length;
+  document.getElementById('s-banheiro').textContent = semBanheiro.toLocaleString('pt-BR');
+}
+
+// ── CHARTS ────────────────────────────────────────────────────────────────────
+const PALETTE_DESP = ['#1a3a5c','#f5a623','#2e9e55','#e85d26','#2d6ea8','#e8931a','#38b862','#b5290e'];
+const PALETTE_BAR  = ['#1e4976','#2d6ea8','#3a84c9','#4d9bde','#63b0ef','#7ac3f7','#9ad4ff'];
+
+function destroyChart(id) { if (charts[id]) { charts[id].destroy(); delete charts[id]; } }
+
+function makeBarChart(id, labels, values, colorArr) {
+  destroyChart(id);
+  const ctx = document.getElementById(id).getContext('2d');
+  charts[id] = new Chart(ctx, {
+    type: 'bar',
+    data: {
+      labels,
+      datasets: [{
+        data: values,
+        backgroundColor: colorArr || PALETTE_BAR.slice(0, values.length),
+        borderRadius: 5,
+        borderSkipped: false,
+      }]
+    },
+    options: {
+      responsive: true, maintainAspectRatio: false,
+      plugins: {
+        legend: { display: false },
+        tooltip: { callbacks: { label: ctx => ` ${ctx.raw.toLocaleString('pt-BR')} famílias` },
+          backgroundColor: '#1a3a5c', titleColor: '#f5a623', bodyColor: '#fff',
+          cornerRadius: 8, padding: 10
+        }
+      },
+      scales: {
+        x: { ticks: { color: '#6b7f94', font:{size:10,family:'Montserrat',weight:'600'} }, grid: { color: '#eef1f5' } },
+        y: { ticks: { color: '#6b7f94', font:{size:10} }, grid: { color: '#eef1f5' } }
+      }
+    }
+  });
+}
+
+function makeDoughnutChart(id, labels, values) {
+  destroyChart(id);
+  const ctx = document.getElementById(id).getContext('2d');
+  charts[id] = new Chart(ctx, {
+    type: 'doughnut',
+    data: {
+      labels,
+      datasets: [{
+        data: values,
+        backgroundColor: PALETTE_DESP,
+        borderWidth: 3,
+        borderColor: '#fff',
+        hoverBorderColor: '#fff',
+      }]
+    },
+    options: {
+      responsive: true, maintainAspectRatio: false,
+      plugins: {
+        legend: { position:'right', labels:{ color:'#3d5068', font:{size:10,family:'Montserrat',weight:'600'}, boxWidth:10, padding:10 } },
+        tooltip: {
+          callbacks: { label: ctx => ` ${ctx.label}: ${ctx.raw.toLocaleString('pt-BR')}` },
+          backgroundColor: '#1a3a5c', titleColor: '#f5a623', bodyColor: '#fff',
+          cornerRadius: 8, padding: 10
+        }
+      },
+      cutout: '58%'
+    }
+  });
+}
+
+function countBy(data, col, map) {
+  const counts = {};
+  data.forEach(r => {
+    const v = String(r[col]||'').trim();
+    if (!v || v==='null' || v==='') return;
+    counts[v] = (counts[v]||0)+1;
+  });
+  const entries = Object.entries(counts).sort((a,b)=>b[1]-a[1]);
+  return {
+    labels: entries.map(([k]) => map&&map[k] ? map[k] : k),
+    values: entries.map(([,v]) => v)
+  };
+}
+
+function updateCharts() {
+  const d = filteredData;
+  if (!d.length) return;
+
+  const rm = {'1':'≤R$109','2':'R$109–218','3':'218–½SM','4':'>½SM'};
+  const r = countBy(d,'FX_RFPC',rm);
+  makeBarChart('chart-renda', r.labels, r.values, ['#e85d26','#f5a623','#2d6ea8','#2e9e55']);
+
+  const pm = {'1':'Beneficiário PBF','2':'Não beneficiário'};
+  makeDoughnutChart('chart-pbf', countBy(d,'MARC_PBF',pm).labels, countBy(d,'MARC_PBF',pm).values);
+
+  const am = {'1':'Rede geral','2':'Poço/Nasc.','3':'Cisterna','4':'Outra'};
+  makeDoughnutChart('chart-agua', countBy(d,'COD_ABASTE_AGUA_DOMIC_FAM',am).labels, countBy(d,'COD_ABASTE_AGUA_DOMIC_FAM',am).values);
+
+  const lm = {'1':'Coleta direta','2':'Coleta indireta','3':'Queimado','4':'Terreno','5':'Rio/Mar','6':'Outro'};
+  const l = countBy(d,'COD_DESTINO_LIXO_DOMIC_FAM',lm);
+  makeBarChart('chart-lixo', l.labels, l.values);
+
+  const im = {'0':'Outros','1':'Sem instrução','2':'Fund.Inc.','3':'Fund.Comp.','4':'Méd.Inc.','5':'Méd.Comp.','6':'Sup.Inc.'};
+  const i = countBy(d,'GRAU_INSTRUCAO',im);
+  makeBarChart('chart-instrucao', i.labels, i.values, ['#2d6ea8','#3a84c9','#4d9bde','#63b0ef','#7ac3f7','#9ad4ff','#b8e0ff']);
+
+  const tm = {'1':'Autônomo','2':'Rural','3':'Sem cart.','4':'Com cart.','5':'Dom.s/c.','6':'Dom.c/c.','7':'Não remun.','8':'Militar','9':'Empregador','10':'Estag.','11':'Aprendiz'};
+  const t = countBy(d,'COD_PRINCIPAL_TRAB_MEMB',tm);
+  makeBarChart('chart-trabalho', t.labels, t.values, PALETTE_BAR);
+}
+
+// ── TABLE ─────────────────────────────────────────────────────────────────────
+function renderTable() {
+  const loading  = document.getElementById('loading');
+  const wrap     = document.getElementById('table-wrap');
+  const empty    = document.getElementById('empty-msg');
+
+  loading.style.display = 'none';
+
+  if (!filteredData.length) {
+    wrap.style.display = 'none';
+    empty.style.display = 'block';
+    document.getElementById('rows-info').textContent = '0 registros';
+    document.getElementById('pagination').innerHTML = '';
+    return;
+  }
+
+  empty.style.display = 'none';
+  wrap.style.display  = 'block';
+
+  const sortedCols = [
+    ...PRIORITY_COLS.filter(c => columns.includes(c)),
+    ...columns.filter(c => !PRIORITY_COLS.includes(c))
+  ];
+
+  // THEAD
+  const thead = document.getElementById('thead');
+  thead.innerHTML = '';
+  const tr = document.createElement('tr');
+  sortedCols.forEach(col => {
+    const th = document.createElement('th');
+    const info = DICT[col] || { short: col.replace(/_/g,' ').toLowerCase(), desc: col };
+    const valsHtml = info.values
+      ? `<div class="values-list">${Object.entries(info.values).map(([k,v])=>`<b>${k}</b> = ${v}`).join(' · ')}</div>`
+      : '';
+    th.innerHTML = `
+      <span class="tip">
+        ${info.short}
+        <span class="tip-icon">?</span>
+        <span class="tip-box">
+          <strong>${col}</strong>
+          <p>${info.desc}</p>
+          ${valsHtml}
+        </span>
+      </span>`;
+    tr.appendChild(th);
+  });
+  thead.appendChild(tr);
+
+  // TBODY
+  const start = (currentPage-1)*PAGE_SIZE;
+  const pageData = filteredData.slice(start, start+PAGE_SIZE);
+  const tbody = document.getElementById('tbody');
+  tbody.innerHTML = '';
+
+  pageData.forEach(row => {
+    const tr = document.createElement('tr');
+    sortedCols.forEach(col => {
+      const td = document.createElement('td');
+      const raw = String(row[col]??'').trim();
+      const lmap = VALUE_LABELS[col];
+      const display = lmap && lmap[raw] ? lmap[raw] : (row[col]??'');
+      const pc = pillClass(col, raw);
+      if (pc) td.innerHTML = `<span class="pill ${pc}">${display}</span>`;
+      else td.textContent = display;
+      td.title = raw;
+      tr.appendChild(td);
+    });
+    tbody.appendChild(tr);
+  });
+
+  const total = filteredData.length;
+  document.getElementById('rows-info').textContent = `${total.toLocaleString('pt-BR')} registros`;
+  renderPagination(total);
+}
+
+function renderPagination(total) {
+  const totalPages = Math.ceil(total/PAGE_SIZE);
+  const pg = document.getElementById('pagination');
+  pg.innerHTML = '';
+  if (totalPages <= 1) return;
+
+  const prev = document.createElement('button');
+  prev.className='pg-btn'; prev.textContent='‹'; prev.disabled=currentPage===1;
+  prev.onclick = () => { currentPage--; renderTable(); };
+
+  const next = document.createElement('button');
+  next.className='pg-btn'; next.textContent='›'; next.disabled=currentPage===totalPages;
+  next.onclick = () => { currentPage++; renderTable(); };
+
+  let pages = [];
+  if (totalPages<=7) { pages = Array.from({length:totalPages},(_,i)=>i+1); }
+  else {
+    pages = [1];
+    if (currentPage>3) pages.push('…');
+    for (let i=Math.max(2,currentPage-1); i<=Math.min(totalPages-1,currentPage+1); i++) pages.push(i);
+    if (currentPage<totalPages-2) pages.push('…');
+    pages.push(totalPages);
+  }
+
+  const info = document.createElement('span');
+  info.className='pg-info';
+  info.textContent=`Pág. ${currentPage} / ${totalPages}`;
+
+  pg.appendChild(prev);
+  pages.forEach(p => {
+    if (p==='…') {
+      const s=document.createElement('span');
+      s.style.cssText='color:#8494a8;padding:0 4px;font-size:13px;';
+      s.textContent='…'; pg.appendChild(s);
+    } else {
+      const btn=document.createElement('button');
+      btn.className='pg-btn'+(p===currentPage?' active':'');
+      btn.textContent=p;
+      btn.onclick = () => { currentPage=p; renderTable(); };
+      pg.appendChild(btn);
+    }
+  });
+  pg.appendChild(info);
+  pg.appendChild(next);
+}
+</script>
+</body>
+</html>

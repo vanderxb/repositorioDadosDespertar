@@ -776,18 +776,27 @@ tbody td {
         <span class="filter-label">Bolsa Família</span>
         <select id="f-pbf">
           <option value="">Todos</option>
-          <option value="1">Beneficiário</option>
-          <option value="2">Não beneficiário</option>
+          <option value="SIM">Beneficiário</option>
+          <option value="NAO">Não beneficiário</option>
         </select>
       </div>
       <div class="filter-group">
         <span class="filter-label">Faixa de Renda</span>
         <select id="f-renda">
           <option value="">Todas as faixas</option>
-          <option value="1">Até R$ 109</option>
-          <option value="2">R$109 – R$218</option>
-          <option value="3">R$218 – ½ salário</option>
-          <option value="4">Acima de ½ salário</option>
+          <option value="1 - 1">Até R$ 109</option>
+          <option value="2 - 110">R$110 – R$218</option>
+          <option value="3 - 219">R$219 – ½ SM</option>
+          <option value="4 - SM/2">½ SM – 1 SM</option>
+          <option value="5 - SM+1">1 SM – 2 SM</option>
+        </select>
+      </div>
+      <div class="filter-group">
+        <span class="filter-label">Status Cadastro</span>
+        <select id="f-status">
+          <option value="">Todos</option>
+          <option value="ATUALIZADO">Atualizado</option>
+          <option value="DESATUALIZADO">Desatualizado</option>
         </select>
       </div>
       <div class="filter-group">
@@ -879,6 +888,8 @@ const DICT = {
 };
 
 const VALUE_LABELS = {
+  // Estes mapeamentos são aplicados apenas se o valor for numérico.
+  // Se o CSV já trouxer texto (ex: "Sim"/"Não"), o valor original é exibido.
   MARC_PBF:                    {'1':'Sim','2':'Não'},
   FAM_FAM_MULHER_RF:           {'1':'Sim','2':'Não'},
   COD_BANHEIRO_DOMIC_FAM:      {'1':'Sim','2':'Não'},
@@ -894,22 +905,36 @@ const VALUE_LABELS = {
   COD_RACA_COR_PESSOA:         {'1':'Branca','2':'Preta','3':'Amarela','4':'Parda','5':'Indígena'},
 };
 
+// Aplica label apenas se o valor for código numérico puro; caso contrário usa o valor original
+function applyLabel(col, raw) {
+  const map = VALUE_LABELS[col];
+  if (!map) return raw;
+  const trimmed = String(raw).trim();
+  return map[trimmed] || raw;
+}
+
 const PRIORITY_COLS = [
-  'COD_FAMILIAR','COD_FAMILIAR_FAM','GR_FAM','DISTRITO','NOM_LOCALIDADE_FAM',
+  'GR_FAM','COD_FAMILIAR','DISTRITO','NOM_LOCALIDADE_FAM',
   'STATUS_CADUNICO','MARC_PBF','QTD_PESSOAS_DOMIC_FAM','VLR_RENDA_MEDIA_FAM',
-  'FX_RFPC','COD_SEXO_PESSOA','IDADE_PESSOA','GRAU_INSTRUCAO',
-  'COD_TRABALHOU_MEMB','COD_BANHEIRO_DOMIC_FAM','COD_AGUA_CANALIZADA_FAM',
-  'COD_ABASTE_AGUA_DOMIC_FAM','COD_DESTINO_LIXO_DOMIC_FAM',
+  'FX_RND_VAL_REMUNER_EMPREGO_MEMB','COD_SEXO_PESSOA','IDADE_PESSOA','GRAU_INSTRUCAO',
+  'COD_TRABALHOU_MEMB','COD_PRINCIPAL_TRAB_MEMB','COD_BANHEIRO_DOMIC_FAM',
+  'COD_AGUA_CANALIZADA_FAM','COD_ABASTE_AGUA_DOMIC_FAM','COD_DESTINO_LIXO_DOMIC_FAM',
+  'DAT_ATUALIZACAO_FAMILIA','DAT_CADASTRAMENTO_FAM',
 ];
 
+function normalizeVal(v) { return String(v).trim().toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,''); }
+
 function pillClass(col, val) {
-  if (col === 'MARC_PBF')               return val=='1' ? 'pill-green' : 'pill-gray';
-  if (col === 'STATUS_CADUNICO')        return val=='3' ? 'pill-blue' : val=='4' ? 'pill-red' : 'pill-orange';
-  if (col === 'COD_BANHEIRO_DOMIC_FAM') return val=='1' ? 'pill-green' : 'pill-red';
-  if (col === 'COD_AGUA_CANALIZADA_FAM')return val=='1' ? 'pill-blue' : 'pill-red';
-  if (col === 'FAM_FAM_MULHER_RF')      return val=='1' ? 'pill-purple' : 'pill-gray';
-  if (col === 'COD_TRABALHOU_MEMB')     return val=='1' ? 'pill-green' : 'pill-gray';
-  if (col === 'FX_RFPC')               return val=='1' ? 'pill-red' : val=='2' ? 'pill-orange' : val=='3' ? 'pill-yellow' : 'pill-green';
+  const n = normalizeVal(val);
+  const startsWithOne = n.startsWith('1 -') || n === '1' || n === 'sim';
+  const startsWithTwo = n.startsWith('2 -') || n === '2' || n === 'nao' || n === 'não';
+  if (col === 'MARC_PBF')               return n === 'sim' ? 'pill-green' : (n === '' ? 'pill-gray' : 'pill-gray');
+  if (col === 'STATUS_CADUNICO')        return n === 'atualizado' ? 'pill-blue' : n === 'desatualizado' ? 'pill-orange' : 'pill-gray';
+  if (col === 'COD_BANHEIRO_DOMIC_FAM') return startsWithOne ? 'pill-green' : 'pill-red';
+  if (col === 'COD_AGUA_CANALIZADA_FAM')return startsWithOne ? 'pill-blue' : 'pill-red';
+  if (col === 'FAM_FAM_MULHER_RF')      return n === 'sim' ? 'pill-purple' : 'pill-gray';
+  if (col === 'COD_TRABALHOU_MEMB')     return startsWithOne ? 'pill-green' : 'pill-gray';
+  if (col === 'FX_RND_VAL_REMUNER_EMPREGO_MEMB') return n.includes('109') ? 'pill-red' : n.includes('110') ? 'pill-orange' : n.includes('219') ? 'pill-yellow' : n.includes('sm') ? 'pill-green' : null;
   return null;
 }
 
@@ -1028,27 +1053,47 @@ function populateFilters() {
 }
 
 // ── FILTERS ───────────────────────────────────────────────────────────────────
-['f-distrito','f-pbf','f-renda'].forEach(id => document.getElementById(id).addEventListener('change', applyFilters));
+['f-distrito','f-pbf','f-renda','f-status'].forEach(id => document.getElementById(id).addEventListener('change', applyFilters));
 document.getElementById('f-search').addEventListener('input', applyFilters);
 document.getElementById('btn-reset').addEventListener('click', () => {
-  ['f-distrito','f-pbf','f-renda'].forEach(id => document.getElementById(id).value = '');
+  ['f-distrito','f-pbf','f-renda','f-status'].forEach(id => document.getElementById(id).value = '');
   document.getElementById('f-search').value = '';
   applyFilters();
 });
 
 function applyFilters() {
   const distrito = document.getElementById('f-distrito').value;
-  const pbf      = document.getElementById('f-pbf').value;
-  const renda    = document.getElementById('f-renda').value;
+  const pbf      = document.getElementById('f-pbf').value;      // 'SIM' | 'NAO' | ''
+  const renda    = document.getElementById('f-renda').value;    // prefixo ex: '3 - 219'
+  const status   = document.getElementById('f-status').value;   // 'ATUALIZADO' | 'DESATUALIZADO' | ''
   const search   = document.getElementById('f-search').value.trim().toLowerCase();
 
   filteredData = allData.filter(r => {
-    if (distrito && (r.DISTRITO||r.NOM_LOCALIDADE_FAM||'') !== distrito) return false;
-    if (pbf   && String(r.MARC_PBF||'').trim() !== pbf)  return false;
-    if (renda && String(r.FX_RFPC||'').trim()  !== renda) return false;
+    // Distrito / localidade
+    if (distrito && (r.DISTRITO||r.NOM_LOCALIDADE_FAM||'').trim() !== distrito) return false;
+
+    // PBF: campo vem como 'SIM', '' (vazio = não beneficiário) ou ausente
+    if (pbf) {
+      const v = String(r.MARC_PBF||'').trim().toUpperCase();
+      if (pbf === 'SIM'  && v !== 'SIM')  return false;
+      if (pbf === 'NAO'  && v === 'SIM')  return false;
+    }
+
+    // Renda: campo FX_RND_VAL_REMUNER_EMPREGO_MEMB começa com "N - texto"
+    // O valor do select é o prefixo "N - inicio" — verificamos se o campo começa com ele
+    if (renda) {
+      const v = String(r.FX_RND_VAL_REMUNER_EMPREGO_MEMB||'').trim();
+      if (!v.startsWith(renda)) return false;
+    }
+
+    // Status cadastral
+    if (status && String(r.STATUS_CADUNICO||'').trim().toUpperCase() !== status) return false;
+
+    // Busca por código familiar (GR_FAM ou COD_FAMILIAR)
     if (search) {
-      const code = String(r.COD_FAMILIAR||r.COD_FAMILIAR_FAM||'').toLowerCase();
-      if (!code.includes(search)) return false;
+      const grp  = String(r.GR_FAM||'').toLowerCase();
+      const cod  = String(r.COD_FAMILIAR||r.COD_FAMILIAR_FAM||'').toLowerCase();
+      if (!grp.includes(search) && !cod.includes(search)) return false;
     }
     return true;
   });
@@ -1065,24 +1110,61 @@ function applyFilters() {
 }
 
 // ── STATS ─────────────────────────────────────────────────────────────────────
+// Conta por GR_FAM único para evitar dupla contagem (cada família tem múltiplas pessoas)
+function uniqFamilias(data) {
+  return [...new Set(data.map(r => r.GR_FAM||r.COD_FAMILIAR||'').filter(Boolean))];
+}
+
 function updateStats() {
   const d = filteredData;
-  document.getElementById('s-total').textContent = d.length.toLocaleString('pt-BR');
 
-  const pbf = d.filter(r => String(r.MARC_PBF||'').trim() === '1').length;
-  document.getElementById('s-pbf').textContent = pbf.toLocaleString('pt-BR');
-  document.getElementById('s-pbf-pct').textContent = d.length ? `${((pbf/d.length)*100).toFixed(1)}% do total` : '—';
+  // Total de famílias únicas
+  const familias = uniqFamilias(d);
+  document.getElementById('s-total').textContent = familias.size !== undefined ? familias.size.toLocaleString('pt-BR') : familias.length.toLocaleString('pt-BR');
 
-  const rendas = d.map(r => parseFloat(r.VLR_RENDA_MEDIA_FAM)).filter(v => !isNaN(v) && v > 0);
-  const avg = rendas.length ? rendas.reduce((a,b)=>a+b,0)/rendas.length : 0;
-  document.getElementById('s-renda').textContent = avg > 0 ? 'R$'+(avg/100).toFixed(0) : '—';
+  // PBF: conta famílias únicas onde MARC_PBF === 'SIM'
+  const pbfSet = new Set(
+    d.filter(r => String(r.MARC_PBF||'').trim().toUpperCase() === 'SIM')
+     .map(r => r.GR_FAM||r.COD_FAMILIAR||'')
+  );
+  const totalFam = familias.length;
+  document.getElementById('s-pbf').textContent = pbfSet.size.toLocaleString('pt-BR');
+  document.getElementById('s-pbf-pct').textContent = totalFam ? `${((pbfSet.size/totalFam)*100).toFixed(1)}% das famílias` : '—';
 
-  const pessoas = d.map(r => parseFloat(r.QTD_PESSOAS_DOMIC_FAM)).filter(v => !isNaN(v));
-  const avgP = pessoas.length ? pessoas.reduce((a,b)=>a+b,0)/pessoas.length : 0;
+  // Renda média per capita: VLR_RENDA_MEDIA_FAM já é por família; pegar um valor por GR_FAM
+  const rendaMap = {};
+  d.forEach(r => {
+    const k = r.GR_FAM||r.COD_FAMILIAR||'';
+    if (k && !rendaMap[k]) {
+      const v = parseFloat(r.VLR_RENDA_MEDIA_FAM);
+      if (!isNaN(v)) rendaMap[k] = v;
+    }
+  });
+  const rendaVals = Object.values(rendaMap);
+  const avgRenda = rendaVals.length ? rendaVals.reduce((a,b)=>a+b,0)/rendaVals.length : 0;
+  // VLR_RENDA_MEDIA_FAM está em centavos apenas para alguns registros; valores > 500 dividir por 100
+  const rendaFmt = avgRenda > 500 ? (avgRenda/100).toFixed(0) : avgRenda.toFixed(0);
+  document.getElementById('s-renda').textContent = avgRenda > 0 ? 'R$'+rendaFmt : '—';
+
+  // Média de pessoas por domicílio (um valor por família)
+  const pessoasMap = {};
+  d.forEach(r => {
+    const k = r.GR_FAM||r.COD_FAMILIAR||'';
+    if (k && !pessoasMap[k]) {
+      const v = parseFloat(r.QTD_PESSOAS_DOMIC_FAM);
+      if (!isNaN(v) && v > 0) pessoasMap[k] = v;
+    }
+  });
+  const pessoasVals = Object.values(pessoasMap);
+  const avgP = pessoasVals.length ? pessoasVals.reduce((a,b)=>a+b,0)/pessoasVals.length : 0;
   document.getElementById('s-pessoas').textContent = avgP > 0 ? avgP.toFixed(1) : '—';
 
-  const semBanheiro = d.filter(r => String(r.COD_BANHEIRO_DOMIC_FAM||'').trim() === '2').length;
-  document.getElementById('s-banheiro').textContent = semBanheiro.toLocaleString('pt-BR');
+  // Sem banheiro: famílias únicas onde COD_BANHEIRO começa com '2'
+  const semBanheiroSet = new Set(
+    d.filter(r => String(r.COD_BANHEIRO_DOMIC_FAM||'').trim().startsWith('2'))
+     .map(r => r.GR_FAM||r.COD_FAMILIAR||'')
+  );
+  document.getElementById('s-banheiro').textContent = semBanheiroSet.size.toLocaleString('pt-BR');
 }
 
 // ── CHARTS ────────────────────────────────────────────────────────────────────
@@ -1166,31 +1248,63 @@ function countBy(data, col, map) {
   };
 }
 
+// Extrai o prefixo "N - texto curto" de valores como "3 - 219 até SM/2"
+function labelFromCode(v, maxLen) {
+  if (!v) return '';
+  const m = v.match(/^\d+\s*-\s*(.+)/);
+  const txt = m ? m[1] : v;
+  return maxLen && txt.length > maxLen ? txt.substring(0,maxLen)+'…' : txt;
+}
+
+// countByPrefix: agrupa por início do valor (ex: "1 - ", "2 - ") e retorna label legível
+function countByPrefix(data, col, labelMap) {
+  const counts = {};
+  data.forEach(r => {
+    const v = String(r[col]||'').trim();
+    if (!v || v === '0 - 0' || v === '0') return;
+    // tenta pegar o número inicial para lookup no labelMap
+    const num = v.match(/^(\d+)/)?.[1] || v;
+    const label = (labelMap && labelMap[num]) ? labelMap[num] : labelFromCode(v, 22);
+    counts[label] = (counts[label]||0) + 1;
+  });
+  const entries = Object.entries(counts).sort((a,b)=>b[1]-a[1]);
+  return { labels: entries.map(([k])=>k), values: entries.map(([,v])=>v) };
+}
+
 function updateCharts() {
   const d = filteredData;
   if (!d.length) return;
 
-  const rm = {'1':'≤R$109','2':'R$109–218','3':'218–½SM','4':'>½SM'};
-  const r = countBy(d,'FX_RFPC',rm);
-  makeBarChart('chart-renda', r.labels, r.values, ['#e85d26','#f5a623','#2d6ea8','#2e9e55']);
+  // Renda: usa FX_RND_VAL_REMUNER_EMPREGO_MEMB (campo real com faixas)
+  const rendaMap = {'1':'≤ R$109','2':'R$110–218','3':'R$219–½SM','4':'½SM–1SM','5':'1SM–2SM','6':'2SM–3SM','7':'> 3SM'};
+  const renda = countByPrefix(d, 'FX_RND_VAL_REMUNER_EMPREGO_MEMB', rendaMap);
+  makeBarChart('chart-renda', renda.labels, renda.values, ['#e85d26','#f5a623','#f0c040','#2d6ea8','#2e9e55','#38b862','#1a3a5c']);
 
-  const pm = {'1':'Beneficiário PBF','2':'Não beneficiário'};
-  makeDoughnutChart('chart-pbf', countBy(d,'MARC_PBF',pm).labels, countBy(d,'MARC_PBF',pm).values);
+  // PBF: conta por família única (SIM vs vazio)
+  const pbfSim = new Set(d.filter(r=>String(r.MARC_PBF||'').trim().toUpperCase()==='SIM').map(r=>r.GR_FAM||r.COD_FAMILIAR||'')).size;
+  const pbfNao = uniqFamilias(d).length - pbfSim;
+  makeDoughnutChart('chart-pbf', ['Beneficiário PBF','Não beneficiário'], [pbfSim, pbfNao]);
 
-  const am = {'1':'Rede geral','2':'Poço/Nasc.','3':'Cisterna','4':'Outra'};
-  makeDoughnutChart('chart-agua', countBy(d,'COD_ABASTE_AGUA_DOMIC_FAM',am).labels, countBy(d,'COD_ABASTE_AGUA_DOMIC_FAM',am).values);
+  // Água: COD_ABASTE_AGUA_DOMIC_FAM — um por família
+  const aguaMap = {'1':'Rede geral','2':'Poço/Nascente','3':'Cisterna','4':'Outra'};
+  const agua = countByPrefix(d, 'COD_ABASTE_AGUA_DOMIC_FAM', aguaMap);
+  makeDoughnutChart('chart-agua', agua.labels, agua.values);
 
-  const lm = {'1':'Coleta direta','2':'Coleta indireta','3':'Queimado','4':'Terreno','5':'Rio/Mar','6':'Outro'};
-  const l = countBy(d,'COD_DESTINO_LIXO_DOMIC_FAM',lm);
-  makeBarChart('chart-lixo', l.labels, l.values);
+  // Lixo: COD_DESTINO_LIXO_DOMIC_FAM
+  const lixoMap = {'1':'Coleta direta','2':'Coleta indireta','3':'Queimado/Enterrado','4':'Terreno baldio','5':'Rio/Mar','6':'Outro'};
+  const lixo = countByPrefix(d, 'COD_DESTINO_LIXO_DOMIC_FAM', lixoMap);
+  makeBarChart('chart-lixo', lixo.labels, lixo.values);
 
-  const im = {'0':'Outros','1':'Sem instrução','2':'Fund.Inc.','3':'Fund.Comp.','4':'Méd.Inc.','5':'Méd.Comp.','6':'Sup.Inc.'};
-  const i = countBy(d,'GRAU_INSTRUCAO',im);
-  makeBarChart('chart-instrucao', i.labels, i.values, ['#2d6ea8','#3a84c9','#4d9bde','#63b0ef','#7ac3f7','#9ad4ff','#b8e0ff']);
+  // Instrução: GRAU_INSTRUCAO vem como texto ex: "Ensino fundamental completo"
+  const instrucao = countBy(d, 'GRAU_INSTRUCAO', null);
+  // Encurta labels longos
+  instrucao.labels = instrucao.labels.map(l => l.replace('Ensino ','').replace(' completo',' comp.').replace(' incompleto',' inc.').replace('fundamental','fund.').replace('medio','médio').replace('instrucao','instrução'));
+  makeBarChart('chart-instrucao', instrucao.labels, instrucao.values, ['#2d6ea8','#3a84c9','#4d9bde','#63b0ef','#7ac3f7','#9ad4ff','#b8e0ff']);
 
-  const tm = {'1':'Autônomo','2':'Rural','3':'Sem cart.','4':'Com cart.','5':'Dom.s/c.','6':'Dom.c/c.','7':'Não remun.','8':'Militar','9':'Empregador','10':'Estag.','11':'Aprendiz'};
-  const t = countBy(d,'COD_PRINCIPAL_TRAB_MEMB',tm);
-  makeBarChart('chart-trabalho', t.labels, t.values, PALETTE_BAR);
+  // Trabalho: COD_PRINCIPAL_TRAB_MEMB — extrai texto após "N - "
+  const trabMap = {'1':'Autônomo/Bico','2':'Rural temp.','3':'Doméstico s/cart.','4':'Empregado c/cart.','5':'Doméstico s/cart.','6':'Doméstico c/cart.','7':'Não remunerado','8':'Militar/Servidor','9':'Empregador','10':'Estagiário','11':'Aprendiz'};
+  const trab = countByPrefix(d, 'COD_PRINCIPAL_TRAB_MEMB', trabMap);
+  makeBarChart('chart-trabalho', trab.labels, trab.values, PALETTE_BAR);
 }
 
 // ── TABLE ─────────────────────────────────────────────────────────────────────
@@ -1252,8 +1366,7 @@ function renderTable() {
     sortedCols.forEach(col => {
       const td = document.createElement('td');
       const raw = String(row[col]??'').trim();
-      const lmap = VALUE_LABELS[col];
-      const display = lmap && lmap[raw] ? lmap[raw] : (row[col]??'');
+      const display = applyLabel(col, raw);
       const pc = pillClass(col, raw);
       if (pc) td.innerHTML = `<span class="pill ${pc}">${display}</span>`;
       else td.textContent = display;

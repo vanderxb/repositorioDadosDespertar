@@ -7,6 +7,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&family=Open+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Sortable/1.15.0/Sortable.min.js"></script>
 <style>
 :root {
   --azul:       #1a3a5c;
@@ -647,6 +648,77 @@ tbody td {
   .stats-strip { grid-template-columns: repeat(2,1fr); }
   .hero-badges { display: none; }
 }
+
+/* ── DRAG & MINIMIZE ──────────────────────────────────────────────────────── */
+.panel-block {
+  transition: opacity .2s;
+}
+.panel-block.is-minimized .panel-body {
+  display: none !important;
+}
+.panel-block.is-minimized {
+  opacity: .7;
+}
+.panel-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 12px;
+  cursor: grab;
+  user-select: none;
+}
+.panel-header:active { cursor: grabbing; }
+.panel-header .section-title {
+  margin-bottom: 0;
+  flex: 1;
+}
+.panel-actions {
+  display: flex;
+  gap: 6px;
+  margin-left: 12px;
+  flex-shrink: 0;
+}
+.btn-panel {
+  width: 28px; height: 28px;
+  border-radius: 7px;
+  border: 1.5px solid var(--border);
+  background: var(--white);
+  color: var(--text-light);
+  cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 13px;
+  transition: all .15s;
+  flex-shrink: 0;
+}
+.btn-panel:hover { border-color: var(--azul-light); color: var(--azul); background: var(--gray-l); }
+.btn-panel.active { background: var(--azul); border-color: var(--azul); color: #fff; }
+.panel-block.is-minimized .btn-panel.minimize { background: var(--gray-l); color: var(--azul); }
+
+/* Drag ghost */
+.sortable-ghost { opacity: .35; }
+.sortable-drag  { opacity: .95; box-shadow: 0 12px 40px rgba(26,58,92,.22) !important; }
+.drag-handle-hint {
+  display: flex; align-items: center; gap: 5px;
+}
+.drag-dots {
+  display: grid; grid-template-columns: repeat(2,4px); gap: 3px;
+  opacity: .3; transition: opacity .15s;
+}
+.panel-header:hover .drag-dots { opacity: .7; }
+.drag-dots span {
+  width: 4px; height: 4px;
+  background: var(--azul); border-radius: 50%;
+  display: block;
+}
+
+/* panels container */
+#panels-container {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+.panel-block { margin-bottom: 0; }
+.section-title { cursor: default; }
 </style>
 </head>
 <body>
@@ -699,9 +771,18 @@ tbody td {
 </div>
 
 <div class="wrapper">
+<div id="panels-container">
 
-  <!-- STATS -->
-  <div class="section-title">Indicadores gerais</div>
+  <!-- STATS PANEL -->
+  <div class="panel-block" id="panel-stats">
+    <div class="panel-header">
+      <div class="drag-handle-hint">
+        <div class="drag-dots"><span></span><span></span><span></span><span></span><span></span><span></span></div>
+        <div class="section-title">Indicadores gerais</div>
+      </div>
+      <div class="panel-actions"><button class="btn-panel minimize" onclick="togglePanel('stats')" title="Minimizar">⊟</button></div>
+    </div>
+    <div class="panel-body">
   <div class="stats-strip">
     <div class="stat-card az">
       <div class="stat-icon">👥</div>
@@ -758,9 +839,18 @@ tbody td {
       <div class="stat-sub" id="s-extrema-pct">renda ≤ R$109 p/pessoa</div>
     </div>
   </div>
+    </div>
+  </div>
 
-  <!-- CHARTS -->
-  <div class="section-title" style="margin-top:4px;">Análise do território</div>
+  <div class="panel-block" id="panel-charts">
+    <div class="panel-header">
+      <div class="drag-handle-hint">
+        <div class="drag-dots"><span></span><span></span><span></span><span></span><span></span><span></span></div>
+        <div class="section-title">Análise do território</div>
+      </div>
+      <div class="panel-actions"><button class="btn-panel minimize" onclick="togglePanel('charts')" title="Minimizar">⊟</button></div>
+    </div>
+    <div class="panel-body">
   <div class="charts-row">
     <div class="chart-card">
       <div class="chart-title">Faixa de Renda Familiar</div>
@@ -795,9 +885,18 @@ tbody td {
       <div class="chart-wrap"><canvas id="chart-raca"></canvas></div>
     </div>
   </div>
+    </div>
+  </div>
 
-  <!-- RANKING BAIRROS -->
-  <div class="section-title" style="margin-top:4px;">Vulnerabilidade por localidade</div>
+  <div class="panel-block" id="panel-ranking">
+    <div class="panel-header">
+      <div class="drag-handle-hint">
+        <div class="drag-dots"><span></span><span></span><span></span><span></span><span></span><span></span></div>
+        <div class="section-title">Vulnerabilidade por localidade</div>
+      </div>
+      <div class="panel-actions"><button class="btn-panel minimize" onclick="togglePanel('ranking')" title="Minimizar">⊟</button></div>
+    </div>
+    <div class="panel-body">
   <div id="ranking-wrap" class="table-section" style="margin-bottom:26px;">
     <div class="table-header">
       <span class="table-title">📍 Ranking de vulnerabilidade por bairro</span>
@@ -821,9 +920,18 @@ tbody td {
       </table>
     </div>
   </div>
+    </div>
+  </div>
 
-  <!-- FILTERS -->
-  <div class="section-title">Filtros e busca</div>
+  <div class="panel-block" id="panel-filters">
+    <div class="panel-header">
+      <div class="drag-handle-hint">
+        <div class="drag-dots"><span></span><span></span><span></span><span></span><span></span><span></span></div>
+        <div class="section-title">Filtros e busca</div>
+      </div>
+      <div class="panel-actions"><button class="btn-panel minimize" onclick="togglePanel('filters')" title="Minimizar">⊟</button></div>
+    </div>
+    <div class="panel-body">
   <div class="filters-card">
     <div class="filters-bar">
       <div class="filter-group">
@@ -869,9 +977,18 @@ tbody td {
       <span id="filtered-count"></span>
     </div>
   </div>
+    </div>
+  </div>
 
-  <!-- TABLE -->
-  <div class="section-title">Registros do território</div>
+  <div class="panel-block" id="panel-table">
+    <div class="panel-header">
+      <div class="drag-handle-hint">
+        <div class="drag-dots"><span></span><span></span><span></span><span></span><span></span><span></span></div>
+        <div class="section-title">Registros do território</div>
+      </div>
+      <div class="panel-actions"><button class="btn-panel minimize" onclick="togglePanel('table')" title="Minimizar">⊟</button></div>
+    </div>
+    <div class="panel-body">
   <div class="table-section">
     <div class="table-header">
       <span class="table-title">📋 Dados das famílias</span>
@@ -900,7 +1017,10 @@ tbody td {
     </div>
     <div class="pagination" id="pagination"></div>
   </div>
+    </div>
+  </div>
 
+</div><!-- /panels-container -->
 </div>
 
 <div class="footer-band">
@@ -1681,6 +1801,73 @@ function renderPagination(total) {
   pg.appendChild(info);
   pg.appendChild(next);
 }
+// ═══════════════════════════════════════════════════════════════════════════════
+// DRAG & MINIMIZE
+// ═══════════════════════════════════════════════════════════════════════════════
+
+// Restore saved order & minimized state from localStorage
+function savePanelState() {
+  try {
+    const order = [...document.querySelectorAll('#panels-container > .panel-block')].map(p => p.id);
+    const minimized = [...document.querySelectorAll('.panel-block.is-minimized')].map(p => p.id);
+    localStorage.setItem('despertar-panel-order',     JSON.stringify(order));
+    localStorage.setItem('despertar-panel-minimized', JSON.stringify(minimized));
+  } catch(e) {}
+}
+
+function restorePanelState() {
+  try {
+    const order = JSON.parse(localStorage.getItem('despertar-panel-order') || '[]');
+    const minimized = JSON.parse(localStorage.getItem('despertar-panel-minimized') || '[]');
+    const container = document.getElementById('panels-container');
+    if (order.length) {
+      order.forEach(id => {
+        const el = document.getElementById(id);
+        if (el) container.appendChild(el);
+      });
+    }
+    minimized.forEach(id => {
+      const el = document.getElementById(id);
+      if (el) {
+        el.classList.add('is-minimized');
+        const btn = el.querySelector('.btn-panel.minimize');
+        if (btn) btn.textContent = '⊞';
+      }
+    });
+  } catch(e) {}
+}
+
+function togglePanel(id) {
+  const panel = document.getElementById('panel-' + id);
+  if (!panel) return;
+  const btn = panel.querySelector('.btn-panel.minimize');
+  panel.classList.toggle('is-minimized');
+  const isMin = panel.classList.contains('is-minimized');
+  if (btn) btn.textContent = isMin ? '⊞' : '⊟';
+  savePanelState();
+  // Resize charts if expanding
+  if (!isMin) setTimeout(() => { Object.values(charts).forEach(c => c.resize && c.resize()); }, 50);
+}
+
+// Init SortableJS after DOM ready
+document.addEventListener('DOMContentLoaded', () => {
+  restorePanelState();
+  if (typeof Sortable !== 'undefined') {
+    Sortable.create(document.getElementById('panels-container'), {
+      animation: 180,
+      easing: 'cubic-bezier(.25,.1,.25,1)',
+      handle: '.panel-header',
+      ghostClass: 'sortable-ghost',
+      dragClass: 'sortable-drag',
+      onEnd() {
+        savePanelState();
+        // Redraw charts after reorder
+        setTimeout(() => { Object.values(charts).forEach(c => c.resize && c.resize()); }, 100);
+      }
+    });
+  }
+});
+
 </script>
 </body>
 </html>

@@ -719,6 +719,49 @@ tbody td {
 }
 .panel-block { margin-bottom: 0; }
 .section-title { cursor: default; }
+
+/* ── FILTRO DE FAIXA ETÁRIA ──────────────────────────────────────────────── */
+.age-range-group {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+.age-inputs {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.age-inputs input[type="number"] {
+  width: 58px;
+  padding: 7px 8px;
+  border: 1.5px solid var(--border);
+  border-radius: 8px;
+  font-family: Montserrat, sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text);
+  background: var(--white);
+  transition: border-color .15s;
+  -moz-appearance: textfield;
+}
+.age-inputs input[type="number"]::-webkit-outer-spin-button,
+.age-inputs input[type="number"]::-webkit-inner-spin-button { -webkit-appearance: none; margin: 0; }
+.age-inputs input[type="number"]:focus { outline: none; border-color: var(--azul-light); }
+.age-inputs input[type="number"].active { border-color: var(--azul); background: #f0f5ff; }
+.age-sep { font-size: 12px; color: var(--text-light); font-weight: 600; }
+.age-badge {
+  display: inline-block;
+  font-size: 10px;
+  font-family: Montserrat, sans-serif;
+  font-weight: 700;
+  color: var(--azul);
+  background: #e8f0fb;
+  border-radius: 10px;
+  padding: 2px 8px;
+  margin-top: 2px;
+  display: none;
+}
+.age-badge.visible { display: inline-block; }
 </style>
 </head>
 <body>
@@ -972,6 +1015,15 @@ tbody td {
       <div class="filter-group">
         <span class="filter-label">Buscar por código</span>
         <input type="text" id="f-search" placeholder="Código familiar…">
+      </div>
+      <div class="filter-group age-range-group">
+        <span class="filter-label">Faixa Etária</span>
+        <div class="age-inputs">
+          <input type="number" id="f-idade-min" min="0" max="120" placeholder="De" title="Idade mínima">
+          <span class="age-sep">até</span>
+          <input type="number" id="f-idade-max" min="0" max="120" placeholder="Até" title="Idade máxima">
+        </div>
+        <span class="age-badge" id="age-badge"></span>
       </div>
       <button class="btn-reset" id="btn-reset">✕ Limpar</button>
       <span id="filtered-count"></span>
@@ -1310,9 +1362,35 @@ function populateFilters() {
 // ── FILTERS ───────────────────────────────────────────────────────────────────
 ['f-distrito','f-localidade','f-pbf','f-renda','f-status'].forEach(id => document.getElementById(id).addEventListener('change', applyFilters));
 document.getElementById('f-search').addEventListener('input', applyFilters);
+document.getElementById('f-idade-min').addEventListener('input', () => { updateAgeBadge(); applyFilters(); });
+document.getElementById('f-idade-max').addEventListener('input', () => { updateAgeBadge(); applyFilters(); });
+
+function updateAgeBadge() {
+  const min = document.getElementById('f-idade-min').value;
+  const max = document.getElementById('f-idade-max').value;
+  const badge = document.getElementById('age-badge');
+  const inMin = document.getElementById('f-idade-min');
+  const inMax = document.getElementById('f-idade-max');
+  if (min !== '' || max !== '') {
+    const label = (min !== '' && max !== '') ? `${min} – ${max} anos`
+                : (min !== '') ? `A partir de ${min} anos`
+                : `Até ${max} anos`;
+    badge.textContent = label;
+    badge.classList.add('visible');
+    inMin.classList.toggle('active', min !== '');
+    inMax.classList.toggle('active', max !== '');
+  } else {
+    badge.classList.remove('visible');
+    inMin.classList.remove('active');
+    inMax.classList.remove('active');
+  }
+}
 document.getElementById('btn-reset').addEventListener('click', () => {
   ['f-distrito','f-localidade','f-pbf','f-renda','f-status'].forEach(id => document.getElementById(id).value = '');
   document.getElementById('f-search').value = '';
+  document.getElementById('f-idade-min').value = '';
+  document.getElementById('f-idade-max').value = '';
+  updateAgeBadge();
   applyFilters();
 });
 
@@ -1323,6 +1401,8 @@ function applyFilters() {
   const renda      = document.getElementById('f-renda').value;    // prefixo ex: '3 - 219'
   const status     = document.getElementById('f-status').value;   // 'ATUALIZADO' | 'DESATUALIZADO' | ''
   const search     = document.getElementById('f-search').value.trim().toLowerCase();
+  const idadeMin   = document.getElementById('f-idade-min').value !== '' ? parseInt(document.getElementById('f-idade-min').value) : null;
+  const idadeMax   = document.getElementById('f-idade-max').value !== '' ? parseInt(document.getElementById('f-idade-max').value) : null;
 
   filteredData = allData.filter(r => {
     // Distrito
@@ -1353,6 +1433,16 @@ function applyFilters() {
       const cod  = String(r.COD_FAMILIAR||r.COD_FAMILIAR_FAM||'').toLowerCase();
       if (!grp.includes(search) && !cod.includes(search)) return false;
     }
+
+    // Faixa etária — filtra por membro (IDADE_PESSOA)
+    // Mantém a linha se a pessoa está na faixa; ou se a família tem ao menos 1 membro na faixa
+    if (idadeMin !== null || idadeMax !== null) {
+      const age = parseInt(r.IDADE_PESSOA);
+      if (isNaN(age)) return false;
+      if (idadeMin !== null && age < idadeMin) return false;
+      if (idadeMax !== null && age > idadeMax) return false;
+    }
+
     return true;
   });
 

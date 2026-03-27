@@ -98,72 +98,14 @@ header{background:var(--azul);padding:0 32px;display:flex;align-items:center;min
 .stat-missing.visible{display:block}
 
 /* TOOLTIP ? BUTTON */
-/* ── TOOLTIP ? ──────────────────────────────────────────────────────────── */
-/* O tooltip é renderizado em portal fixo via JS para nunca ficar atrás de nada */
-.info-btn{width:17px;height:17px;border-radius:50%;background:var(--gray);border:none;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;font-family:'Montserrat',sans-serif;font-size:9px;font-weight:700;color:var(--text-med);flex-shrink:0;transition:background .15s,color .15s;position:relative;vertical-align:middle;margin-left:4px}
+.info-btn{width:16px;height:16px;border-radius:50%;background:var(--gray);border:none;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;font-family:'Montserrat',sans-serif;font-size:9px;font-weight:700;color:var(--text-med);flex-shrink:0;transition:background .15s,color .15s;position:relative;vertical-align:middle}
 .info-btn:hover{background:var(--amarelo);color:var(--azul)}
-
-/* Stat card: ? fica embaixo do label, acima do valor — não conflita com o ícone */
-.stat-label{padding-right:44px}
-.stat-label .info-btn{margin-left:auto}
-
-/* Tooltip portal — posicionado via JS, sempre z-index máximo */
-#tooltip-portal{
-  position:fixed;
-  z-index:99999;
-  pointer-events:none;
-  display:none;
-}
-#tooltip-portal .tip-inner{
-  background:var(--azul);
-  color:#fff;
-  border-radius:12px;
-  padding:14px 16px;
-  min-width:260px;
-  max-width:320px;
-  box-shadow:0 12px 40px rgba(26,58,92,.35);
-  position:relative;
-}
-#tooltip-portal .tip-inner::before{
-  content:'';
-  position:absolute;
-  top:-6px;
-  left:20px;
-  width:12px;height:12px;
-  background:var(--azul);
-  transform:rotate(45deg);
-  border-radius:2px;
-}
-#tooltip-portal .tip-inner.flip::before{
-  top:auto;
-  bottom:-6px;
-}
-#tooltip-portal .tip-title{
-  font-family:'Montserrat',sans-serif;
-  font-size:11px;
-  font-weight:800;
-  color:var(--amarelo);
-  text-transform:uppercase;
-  letter-spacing:.8px;
-  margin-bottom:8px;
-}
-#tooltip-portal .tip-desc{
-  font-size:12.5px;
-  line-height:1.65;
-  color:rgba(255,255,255,.92);
-}
-#tooltip-portal .tip-calc{
-  margin-top:9px;
-  padding-top:9px;
-  border-top:1px solid rgba(255,255,255,.15);
-  font-size:11px;
-  color:rgba(255,255,255,.6);
-  line-height:1.65;
-}
-#tooltip-portal .tip-calc b{
-  color:rgba(255,255,255,.85);
-  font-weight:600;
-}
+.info-btn .info-pop{display:none;position:absolute;top:calc(100% + 8px);left:50%;transform:translateX(-50%);background:var(--azul);color:#fff;border-radius:10px;padding:13px 15px;min-width:240px;max-width:300px;z-index:1000;box-shadow:0 10px 32px rgba(26,58,92,.3);pointer-events:none;text-align:left}
+.info-btn .info-pop::before{content:'';position:absolute;top:-6px;left:50%;transform:translateX(-50%) rotate(45deg);width:12px;height:12px;background:var(--azul);border-radius:2px}
+.info-btn:hover .info-pop,.info-btn:focus .info-pop{display:block}
+.info-pop strong{display:block;font-family:'Montserrat',sans-serif;font-size:10px;color:var(--amarelo);margin-bottom:6px;text-transform:uppercase;letter-spacing:.8px}
+.info-pop p{font-size:12px;line-height:1.6;color:rgba(255,255,255,.88)}
+.info-pop .ip-campo{margin-top:7px;padding-top:7px;border-top:1px solid rgba(255,255,255,.12);font-size:11px;color:rgba(255,255,255,.55);line-height:1.6}
 
 /* CHARTS */
 .charts-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(290px,1fr));gap:16px;margin-bottom:26px}
@@ -174,7 +116,7 @@ header{background:var(--azul);padding:0 32px;display:flex;align-items:center;min
 .chart-wrap{position:relative;height:200px}
 
 /* RANKING */
-.ranking-card{background:var(--white);border:1px solid var(--border);border-radius:var(--radius);box-shadow:var(--shadow);overflow:visible;margin-bottom:26px}
+.ranking-card{background:var(--white);border:1px solid var(--border);border-radius:var(--radius);box-shadow:var(--shadow);overflow:hidden;margin-bottom:26px}
 .ranking-head{background:var(--azul);padding:14px 20px;display:flex;align-items:center;justify-content:space-between}
 .ranking-head span{font-family:'Montserrat',sans-serif;font-size:12px;font-weight:800;text-transform:uppercase;letter-spacing:1px;color:#fff}
 .ranking-head small{font-size:11px;color:rgba(255,255,255,.5)}
@@ -195,7 +137,7 @@ input[type=number]::-webkit-outer-spin-button,input[type=number]::-webkit-inner-
 #filtered-count{margin-left:auto;font-size:12px;color:var(--text-light);font-family:'Montserrat',sans-serif;font-weight:600;align-self:flex-end}
 
 /* TABLE */
-.table-section{background:var(--white);border:1px solid var(--border);border-radius:var(--radius);box-shadow:var(--shadow);overflow:visible}
+.table-section{background:var(--white);border:1px solid var(--border);border-radius:var(--radius);box-shadow:var(--shadow);overflow:hidden}
 .table-header{display:flex;align-items:center;justify-content:space-between;padding:16px 20px;border-bottom:1px solid var(--border);background:var(--azul);border-radius:var(--radius) var(--radius) 0 0}
 .table-title{font-family:'Montserrat',sans-serif;font-size:12px;font-weight:800;text-transform:uppercase;letter-spacing:1px;color:#fff}
 .rows-info{font-size:12px;color:rgba(255,255,255,.6);font-family:'Montserrat',sans-serif;font-weight:500}
@@ -337,17 +279,17 @@ tbody td{padding:9px 13px;font-size:13px;color:var(--text-med);white-space:nowra
     <div class="stats-strip" id="strip-ciclovida"></div>
     <div class="charts-row">
       <div class="chart-card">
-        <div class="chart-title">Pirâmide Etária <button class="info-btn" tabindex="0" data-title="Pirâmide Etária" data-desc="Mostra quantas pessoas existem em cada faixa de idade (0–5, 6–14, 15–17, 18–29, 30–39, 40–49, 50–59, 60+), separadas por sexo masculino e feminino. Quanto mais larga a base, mais jovem a população." data-calc="Campo usado: IDADE_PESSOA (faixa) + COD_SEXO_PESSOA (cor da barra). Registros sem idade são excluídos e contabilizados como missing.">?</button></div>
+        <div class="chart-title">Pirâmide Etária <button class="info-btn" tabindex="0">?<div class="info-pop"><strong>Pirâmide Etária</strong><p>Distribuição de pessoas por faixa etária e sexo. Cada barra representa o número de indivíduos naquela faixa.</p><div class="ip-campo">Campos: IDADE_PESSOA, COD_SEXO_PESSOA</div></div></button></div>
         <div class="chart-missing" id="miss-etaria"></div>
         <div class="chart-wrap"><canvas id="chart-etaria"></canvas></div>
       </div>
       <div class="chart-card">
-        <div class="chart-title">Distribuição por Sexo <button class="info-btn" tabindex="0" data-title="Distribuição por Sexo" data-desc="Proporção de pessoas do sexo masculino e feminino entre todos os membros cadastrados. Registros sem sexo informado aparecem como &quot;Não informado&quot;." data-calc="Campo: COD_SEXO_PESSOA. Valor &quot;1&quot; = Masculino, &quot;2&quot; = Feminino. Vazios contados separadamente.">?</button></div>
+        <div class="chart-title">Distribuição por Sexo <button class="info-btn" tabindex="0">?<div class="info-pop"><strong>Distribuição por Sexo</strong><p>Total de pessoas por sexo entre os registros com o campo preenchido.</p><div class="ip-campo">Campo: COD_SEXO_PESSOA</div></div></button></div>
         <div class="chart-missing" id="miss-sexo"></div>
         <div class="chart-wrap"><canvas id="chart-sexo"></canvas></div>
       </div>
       <div class="chart-card">
-        <div class="chart-title">Raça / Cor <button class="info-btn" tabindex="0" data-title="Raça / Cor" data-desc="Distribuição de todos os membros por raça/cor autodeclarada no momento do cadastro. Reflete a composição racial do território, não da família." data-calc="Campo: COD_RACA_COR_PESSOA. Valores: 1=Branca, 2=Preta, 3=Amarela, 4=Parda, 5=Indígena. Vazios = &quot;Não informado&quot;.">?</button></div>
+        <div class="chart-title">Raça / Cor <button class="info-btn" tabindex="0">?<div class="info-pop"><strong>Raça / Cor</strong><p>Distribuição por autodeclaração de raça/cor de todos os membros cadastrados.</p><div class="ip-campo">Campo: COD_RACA_COR_PESSOA</div></div></button></div>
         <div class="chart-missing" id="miss-raca"></div>
         <div class="chart-wrap"><canvas id="chart-raca"></canvas></div>
       </div>
@@ -368,17 +310,17 @@ tbody td{padding:9px 13px;font-size:13px;color:var(--text-med);white-space:nowra
     <div class="stats-strip" id="strip-renda"></div>
     <div class="charts-row">
       <div class="chart-card">
-        <div class="chart-title">Faixa de Renda Familiar <button class="info-btn" tabindex="0" data-title="Faixa de Renda Familiar" data-desc="Distribuição das famílias por faixa de renda total mensal declarada. Cada família é contada uma única vez (pelo GR_FAM). Famílias com renda zero aparecem na primeira barra." data-calc="Campo: VLR_RENDA_MEDIA_FAM (renda total da família em R$). Dividido em faixas: R$0 / R$1–109 / R$110–218 / R$219–½SM / ½SM–1SM / 1SM–2SM / acima de 2SM. Famílias sem dado excluídas.">?</button></div>
+        <div class="chart-title">Faixa de Renda Familiar <button class="info-btn" tabindex="0">?<div class="info-pop"><strong>Faixa de Renda Familiar</strong><p>Distribuição das famílias por faixa de renda total mensal (VLR_RENDA_MEDIA_FAM). Uma entrada por família.</p><div class="ip-campo">Campo: VLR_RENDA_MEDIA_FAM · Base: famílias com renda ≥ 0</div></div></button></div>
         <div class="chart-missing" id="miss-faixarenda"></div>
         <div class="chart-wrap"><canvas id="chart-faixarenda"></canvas></div>
       </div>
       <div class="chart-card">
-        <div class="chart-title">Faixa de Renda do Trabalho <button class="info-btn" tabindex="0" data-title="Faixa de Renda do Trabalho" data-desc="Distribuição dos membros por faixa de renda proveniente do trabalho na semana de referência do cadastro. Um membro pode aparecer em uma faixa diferente da renda total da família." data-calc="Campo: FX_RND_VAL_REMUNER_EMPREGO_MEMB. Valores que aparecem como &quot;0 - 0&quot; ou vazios são excluídos — indicam quem não trabalhou ou não declarou renda de trabalho.">?</button></div>
+        <div class="chart-title">Faixa de Renda do Trabalho <button class="info-btn" tabindex="0">?<div class="info-pop"><strong>Faixa de Renda do Trabalho</strong><p>Distribuição por faixa de renda proveniente do trabalho, por membro. Exclui registros sem valor informado.</p><div class="ip-campo">Campo: FX_RND_VAL_REMUNER_EMPREGO_MEMB</div></div></button></div>
         <div class="chart-missing" id="miss-rendatrab"></div>
         <div class="chart-wrap"><canvas id="chart-rendatrab"></canvas></div>
       </div>
       <div class="chart-card">
-        <div class="chart-title">Bolsa Família + Aposentadoria <button class="info-btn" tabindex="0" data-title="Benefícios Sociais" data-desc="Mostra quantas famílias recebem Bolsa Família (PBF) e quantas têm ao menos um membro com aposentadoria ou pensão. Uma família pode aparecer nos dois grupos ao mesmo tempo." data-calc="PBF: MARC_PBF = &quot;SIM&quot; por GR_FAM único. Aposentadoria/pensão: FX_RND_VAL_RENDA_APOSENT_MEMB preenchido e diferente de &quot;0 - 0&quot;. Atenção: este campo inclui tanto aposentadoria previdenciária quanto BPC/LOAS — não é possível separá-los.">?</button></div>
+        <div class="chart-title">Bolsa Família + Aposentadoria <button class="info-btn" tabindex="0">?<div class="info-pop"><strong>Benefícios Sociais</strong><p>Famílias beneficiárias do PBF (MARC_PBF=SIM). Aposentadoria/pensão calculada por membros com FX_RND_VAL_RENDA_APOSENT_MEMB preenchido.</p><div class="ip-campo">Campos: MARC_PBF, FX_RND_VAL_RENDA_APOSENT_MEMB</div></div></button></div>
         <div class="chart-missing" id="miss-beneficios"></div>
         <div class="chart-wrap"><canvas id="chart-beneficios"></canvas></div>
       </div>
@@ -399,17 +341,17 @@ tbody td{padding:9px 13px;font-size:13px;color:var(--text-med);white-space:nowra
     <div class="stats-strip" id="strip-escola"></div>
     <div class="charts-row">
       <div class="chart-card">
-        <div class="chart-title">Grau de Instrução — Responsáveis <button class="info-btn" tabindex="0" data-title="Grau de Instrução — Responsáveis" data-desc="Nível de escolaridade apenas dos responsáveis familiares (quem é o &quot;chefe&quot; cadastrado). Um registro por família. Esta visão é mais útil para entender o perfil de quem toma decisões e acessa políticas públicas." data-calc="Campo: GRAU_INSTRUCAO. Filtro: COD_PARENTESCO_RF_PESSOA começa com &quot;1 - PESSOA RESPONSAVEL&quot;. Vazios excluídos e contados como missing.">?</button></div>
+        <div class="chart-title">Grau de Instrução — Responsáveis <button class="info-btn" tabindex="0">?<div class="info-pop"><strong>Grau de Instrução dos Responsáveis</strong><p>Distribuição por grau de instrução apenas dos responsáveis familiares (COD_PARENTESCO_RF_PESSOA = 1). Um registro por família.</p><div class="ip-campo">Campos: GRAU_INSTRUCAO · Filtro: COD_PARENTESCO_RF_PESSOA começa com "1"</div></div></button></div>
         <div class="chart-missing" id="miss-instrucao-rf"></div>
         <div class="chart-wrap"><canvas id="chart-instrucao-rf"></canvas></div>
       </div>
       <div class="chart-card">
-        <div class="chart-title">Grau de Instrução — Adultos 18+ <button class="info-btn" tabindex="0" data-title="Grau de Instrução — Adultos 18+" data-desc="Nível de escolaridade de todos os membros com 18 anos ou mais. Crianças e adolescentes foram excluídos propositalmente — incluí-los distorceria os dados pois ainda estão em fase escolar." data-calc="Campo: GRAU_INSTRUCAO. Filtro: IDADE_PESSOA ≥ 18. Cada pessoa conta individualmente (não por família). Vazios excluídos e contados como missing.">?</button></div>
+        <div class="chart-title">Grau de Instrução — Adultos 18+ <button class="info-btn" tabindex="0">?<div class="info-pop"><strong>Grau de Instrução — Adultos</strong><p>Distribuição por grau de instrução de todos os membros com 18 anos ou mais. Exclui crianças e adolescentes para evitar distorção.</p><div class="ip-campo">Campos: GRAU_INSTRUCAO, IDADE_PESSOA ≥ 18</div></div></button></div>
         <div class="chart-missing" id="miss-instrucao-adulto"></div>
         <div class="chart-wrap"><canvas id="chart-instrucao-adulto"></canvas></div>
       </div>
       <div class="chart-card">
-        <div class="chart-title">Frequência Escolar — 5 a 17 anos <button class="info-btn" tabindex="0" data-title="Frequência Escolar — 5 a 17 anos" data-desc="Situação escolar de crianças e adolescentes entre 5 e 17 anos — faixa de escolaridade obrigatória no Brasil. &quot;Fora da escola&quot; inclui quem nunca frequentou e quem frequentou mas abandonou. &quot;Rede pública&quot; e &quot;Rede privada&quot; indicam quem está matriculado." data-calc="Campo: IND_FREQUENTA_ESCOLA_MEMB. Filtro: IDADE_PESSOA entre 5 e 17. Valores: 1=Pública, 2=Privada, 3=Já frequentou (fora), 4=Nunca frequentou (fora). Vazios = &quot;Não informado&quot;.">?</button></div>
+        <div class="chart-title">Frequência Escolar — 5 a 17 anos <button class="info-btn" tabindex="0">?<div class="info-pop"><strong>Frequência Escolar</strong><p>Situação de frequência escolar de pessoas entre 5 e 17 anos (faixa de obrigatoriedade escolar). "Fora" = nunca frequentou ou já frequentou mas não frequenta mais.</p><div class="ip-campo">Campos: IND_FREQUENTA_ESCOLA_MEMB, IDADE_PESSOA 5–17</div></div></button></div>
         <div class="chart-missing" id="miss-escola517"></div>
         <div class="chart-wrap"><canvas id="chart-escola517"></canvas></div>
       </div>
@@ -430,12 +372,12 @@ tbody td{padding:9px 13px;font-size:13px;color:var(--text-med);white-space:nowra
     <div class="stats-strip" id="strip-trabalho"></div>
     <div class="charts-row">
       <div class="chart-card">
-        <div class="chart-title">Tipo de Trabalho — Adultos 18–64 <button class="info-btn" tabindex="0" data-title="Tipo de Trabalho Principal" data-desc="Como os adultos em idade ativa estão ocupados: com carteira assinada (CLT), como autônomos, trabalhadores domésticos etc. Conta apenas quem declarou ter trabalhado na semana anterior ao cadastro." data-calc="Campo: COD_PRINCIPAL_TRAB_MEMB. Filtro: IDADE 18–64 + COD_TRABALHOU_MEMB começa com &quot;1&quot; (trabalhou). Quem trabalhou mas não informou o tipo aparece como missing.">?</button></div>
+        <div class="chart-title">Tipo de Trabalho — Adultos 18–64 <button class="info-btn" tabindex="0">?<div class="info-pop"><strong>Tipo de Trabalho Principal</strong><p>Distribuição por tipo de ocupação de membros entre 18 e 64 anos que declararam ter trabalhado. Exclui crianças e idosos.</p><div class="ip-campo">Campos: COD_PRINCIPAL_TRAB_MEMB · Filtro: COD_TRABALHOU_MEMB="1", IDADE 18–64</div></div></button></div>
         <div class="chart-missing" id="miss-trabalho"></div>
         <div class="chart-wrap"><canvas id="chart-trabalho"></canvas></div>
       </div>
       <div class="chart-card">
-        <div class="chart-title">Situação de Trabalho — 18 a 64 anos <button class="info-btn" tabindex="0" data-title="Situação de Trabalho — Adultos" data-desc="Proporção de adultos em idade ativa (18 a 64 anos) que trabalharam vs. não trabalharam na semana de referência do cadastro. &quot;Sem informação&quot; são adultos nessa faixa sem o campo preenchido." data-calc="Campo: COD_TRABALHOU_MEMB. Filtro: IDADE_PESSOA entre 18 e 64. Valor &quot;1&quot; = trabalhou, &quot;2&quot; = não trabalhou. Não confundir com desemprego — quem está aposentado ou em licença também aparece como &quot;não trabalhou&quot;.">?</button></div>
+        <div class="chart-title">Situação de Trabalho — 18 a 64 anos <button class="info-btn" tabindex="0">?<div class="info-pop"><strong>Situação de Trabalho</strong><p>Proporção de adultos em idade ativa (18–64) que trabalharam vs não trabalharam na semana de referência do cadastro.</p><div class="ip-campo">Campos: COD_TRABALHOU_MEMB · Filtro: IDADE 18–64</div></div></button></div>
         <div class="chart-missing" id="miss-sittrab"></div>
         <div class="chart-wrap"><canvas id="chart-sittrab"></canvas></div>
       </div>
@@ -456,17 +398,17 @@ tbody td{padding:9px 13px;font-size:13px;color:var(--text-med);white-space:nowra
     <div class="stats-strip" id="strip-saneamento"></div>
     <div class="charts-row">
       <div class="chart-card">
-        <div class="chart-title">Abastecimento de Água <button class="info-btn" tabindex="0" data-title="Abastecimento de Água" data-desc="Como cada domicílio é abastecido com água. Um registro por família (o dado é do domicílio, não da pessoa). Domicílios sem rede geral têm maior risco sanitário." data-calc="Campo: COD_ABASTE_AGUA_DOMIC_FAM. Base: uma entrada por GR_FAM. Famílias sem dado são exibidas como &quot;Não informado&quot; — não são descartadas silenciosamente.">?</button></div>
+        <div class="chart-title">Abastecimento de Água <button class="info-btn" tabindex="0">?<div class="info-pop"><strong>Abastecimento de Água</strong><p>Distribuição das famílias por fonte de abastecimento de água. Base: famílias com campo preenchido. Famílias sem dado são contadas separadamente.</p><div class="ip-campo">Campo: COD_ABASTE_AGUA_DOMIC_FAM · Base: famílias únicas</div></div></button></div>
         <div class="chart-missing" id="miss-agua"></div>
         <div class="chart-wrap"><canvas id="chart-agua"></canvas></div>
       </div>
       <div class="chart-card">
-        <div class="chart-title">Esgotamento Sanitário <button class="info-btn" tabindex="0" data-title="Esgotamento Sanitário" data-desc="Como o esgoto do domicílio é descartado. Rede coletora e fossa séptica são consideradas adequadas. Fossa rudimentar, vala a céu aberto, rio/mar e outros indicam situação de saneamento precário." data-calc="Campo: COD_ESCOA_SANITARIO_DOMIC_FAM. Base: uma entrada por GR_FAM. Famílias sem dado aparecem como &quot;Não informado&quot;. O score de vulnerabilidade classifica como precário tudo fora de rede coletora e fossa séptica.">?</button></div>
+        <div class="chart-title">Esgotamento Sanitário <button class="info-btn" tabindex="0">?<div class="info-pop"><strong>Esgotamento Sanitário</strong><p>Distribuição das famílias por tipo de escoamento sanitário do domicílio. Famílias com campo vazio são contadas como "Não informado".</p><div class="ip-campo">Campo: COD_ESCOA_SANITARIO_DOMIC_FAM · Base: famílias únicas</div></div></button></div>
         <div class="chart-missing" id="miss-esgoto"></div>
         <div class="chart-wrap"><canvas id="chart-esgoto"></canvas></div>
       </div>
       <div class="chart-card">
-        <div class="chart-title">Destino do Lixo <button class="info-btn" tabindex="0" data-title="Destino do Lixo" data-desc="Como o lixo doméstico é descartado. Coleta direta e indireta são adequadas. Queimar, jogar em terreno baldio ou em rios indica ausência de saneamento e risco ambiental." data-calc="Campo: COD_DESTINO_LIXO_DOMIC_FAM. Base: uma entrada por GR_FAM. Famílias sem dado aparecem como &quot;Não informado&quot;.">?</button></div>
+        <div class="chart-title">Destino do Lixo <button class="info-btn" tabindex="0">?<div class="info-pop"><strong>Destino do Lixo</strong><p>Distribuição das famílias por forma de descarte do lixo doméstico. Famílias com campo vazio são contadas como "Não informado".</p><div class="ip-campo">Campo: COD_DESTINO_LIXO_DOMIC_FAM · Base: famílias únicas</div></div></button></div>
         <div class="chart-missing" id="miss-lixo"></div>
         <div class="chart-wrap"><canvas id="chart-lixo"></canvas></div>
       </div>
@@ -752,15 +694,18 @@ function makeGroupedBar(id,labels,datasets){
 // ═══════════════════════════════════════════════════════════════════════════════
 function makeCard({id,label,value,sub,missing,color,icon,method,campo}){
   const colorClass=color||'';
-  const missingHtml=missing?`<div class="stat-missing visible">⚠ ${missing}</div>`:'';
-  const t=label.replace(/"/g,'&quot;');
-  const d=(method||'').replace(/"/g,'&quot;');
-  const c=(campo||'').replace(/"/g,'&quot;');
+  const missingHtml=missing?`<div class="stat-missing visible">${missing}</div>`:'';
   return`<div class="stat-card ${colorClass}">
     <div class="stat-icon">${icon||'📊'}</div>
     <div class="stat-label">
-      <span>${label}</span>
-      <button class="info-btn" tabindex="0" data-title="${t}" data-desc="${d}" data-calc="${c}">?</button>
+      ${label}
+      <button class="info-btn" tabindex="0">?
+        <div class="info-pop">
+          <strong>${label}</strong>
+          <p>${method||''}</p>
+          ${campo?`<div class="ip-campo">${campo}</div>`:''}
+        </div>
+      </button>
     </div>
     <div class="stat-value" id="${id}">${value||'—'}</div>
     <div class="stat-sub" id="${id}-sub">${sub||''}</div>
@@ -830,22 +775,22 @@ function updateEstrutura(){
 
   renderStrip('strip-estrutura',[
     {id:'s-total-fams',label:'Total de Famílias',value:total.toLocaleString('pt-BR'),sub:'grupos familiares únicos',color:'az',icon:'👥',
-     method:'Conta quantos grupos familiares distintos existem no arquivo. Cada linha do CSV representa uma pessoa; este número agrupa todas as pessoas pelo código GR_FAM e conta as famílias.',campo:'<b>Campo:</b> GR_FAM (identificador único da família)'},
+     method:'Contagem de valores únicos de GR_FAM no arquivo carregado.',campo:'Campo: GR_FAM'},
     {id:'s-total-pessoas',label:'Total de Pessoas',value:d.length.toLocaleString('pt-BR'),sub:'membros cadastrados',color:'',icon:'🧑‍🤝‍🧑',
-     method:'Conta o total de linhas no arquivo após aplicar os filtros. No CECAD, cada linha representa um membro da família — portanto este número equivale ao total de pessoas cadastradas.',campo:'<b>Base:</b> todas as linhas do arquivo filtrado'},
+     method:'Contagem total de linhas (uma linha = uma pessoa) no arquivo filtrado.',campo:'Campo: todas as linhas'},
     {id:'s-avg-tam',label:'Média Membros/Família',value:avgTam>0?avgTam.toFixed(1):'—',sub:missT?`${missT} sem dado`:'',color:'am',icon:'🏠',
-     method:'Soma de QTD_PESSOAS_DOMIC_FAM de todas as famílias, dividida pelo número de famílias com dado preenchido. Famílias com valor zero ou vazio são excluídas da conta e aparecem como missing.',
-     campo:'<b>Campo:</b> QTD_PESSOAS_DOMIC_FAM · Exclui valores 0 e nulos da média',
+     method:'Média aritmética do campo QTD_PESSOAS_DOMIC_FAM por família (um valor por GR_FAM). Registros com valor zero ou vazio são excluídos da média mas contabilizados como missing.',
+     campo:'Campo: QTD_PESSOAS_DOMIC_FAM · Base: famílias com valor > 0',
      missing:missT?`${missT} família(s) sem dado de tamanho`:null},
     {id:'s-sozinhas',label:'Famílias Unipessoais',value:sozinhas.toLocaleString('pt-BR'),sub:`${total?Math.round(sozinhas/total*100):0}% das famílias`,color:'',icon:'🧍',
-     method:'Famílias formadas por apenas uma pessoa morando sozinha. Relevante para identificar idosos ou adultos sem rede de suporte domiciliar.',campo:'<b>Campo:</b> QTD_PESSOAS_DOMIC_FAM = 1'},
+     method:'Famílias com QTD_PESSOAS_DOMIC_FAM igual a 1.',campo:'Campo: QTD_PESSOAS_DOMIC_FAM = 1'},
     {id:'s-multifam',label:'Múltiplas Famílias/Dom.',value:multifam.toLocaleString('pt-BR'),sub:'compartilham domicílio',color:'lr',icon:'🏘️',
-     method:'Domicílios com mais de um grupo familiar cadastrado no mesmo endereço. Pode indicar famílias estendidas, coabitação por necessidade econômica ou aluguel compartilhado.',campo:'<b>Campo:</b> QTD_FAMILIAS_DOMIC_FAM > 1'},
+     method:'Famílias onde QTD_FAMILIAS_DOMIC_FAM > 1, indicando mais de uma família no mesmo domicílio.',campo:'Campo: QTD_FAMILIAS_DOMIC_FAM > 1'},
     {id:'s-desatual',label:'Cadastros Desatualizados',value:desatFams.toLocaleString('pt-BR'),sub:`${desatPct}% — busca ativa`,color:'lr',icon:'📋',
-     method:'Famílias cujo cadastro não foi atualizado nos últimos 24 meses. Cadastros desatualizados podem ser cancelados pelo MDS, resultando em perda de benefícios como o Bolsa Família. Exige busca ativa pelos agentes sociais.',campo:'<b>Campo:</b> STATUS_CADUNICO = "DESATUALIZADO"'},
+     method:'Famílias com STATUS_CADUNICO = "DESATUALIZADO". Famílias desatualizadas podem perder benefícios. Um registro por família.',campo:'Campo: STATUS_CADUNICO'},
     {id:'s-aglom',label:'Aglomeração Domiciliar',value:aglom.toLocaleString('pt-BR'),sub:'> 2 pess. por dormitório',color:'am',icon:'⚠️',
-     method:'Famílias com mais de 2 pessoas por quarto de dormir — critério usado pelo IBGE para definir aglomeração domiciliar. Situações de aglomeração estão associadas a piores condições de saúde e dificuldade de estudo.',
-     campo:'<b>Cálculo:</b> QTD_PESSOAS_DOMIC_FAM ÷ QTD_COMODOS_DORMITORIO_FAM > 2. Famílias sem dado de dormitório são excluídas.'},
+     method:'Famílias com razão QTD_PESSOAS_DOMIC_FAM ÷ QTD_COMODOS_DORMITORIO_FAM > 2. Famílias sem campo de dormitório preenchido são excluídas.',
+     campo:'Campos: QTD_PESSOAS_DOMIC_FAM ÷ QTD_COMODOS_DORMITORIO_FAM'},
   ]);
 }
 
@@ -882,16 +827,16 @@ function updateCicloVida(){
 
   renderStrip('strip-ciclovida',[
     {id:'s-prim-infancia',label:'Primeira Infância (0–6)',value:prim.toLocaleString('pt-BR'),sub:'crianças de 0 a 6 anos',color:'vd',icon:'👶',
-     method:'Contagem de membros cadastrados com até 6 anos. A primeira infância (0–6) é a fase de maior plasticidade cerebral — intervenções nessa faixa têm o maior retorno social. Famílias com crianças 0–6 são elegíveis a programas como o Criança Feliz.',campo:'<b>Campo:</b> IDADE_PESSOA entre 0 e 6 anos',
+     method:'Pessoas com IDADE_PESSOA entre 0 e 6 anos.',campo:'Campo: IDADE_PESSOA 0–6',
      missing:missIdade?`${missIdade} pessoa(s) sem idade informada`:null},
     {id:'s-adolescentes',label:'Adolescentes (15–17)',value:adol.toLocaleString('pt-BR'),sub:'faixa de proteção especial',color:'am',icon:'🎒',
-     method:'Adolescentes de 15 a 17 anos — faixa de proteção especial pelo ECA. Maior risco de evasão escolar, ingresso no mercado informal e situações de vulnerabilidade. São o público central dos programas da Despertar.',campo:'<b>Campo:</b> IDADE_PESSOA entre 15 e 17 anos'},
+     method:'Pessoas com IDADE_PESSOA entre 15 e 17 anos.',campo:'Campo: IDADE_PESSOA 15–17'},
     {id:'s-jovens',label:'Jovens (18–29)',value:jovens.toLocaleString('pt-BR'),sub:'adultos jovens',color:'az',icon:'🎓',
-     method:'Adultos jovens de 18 a 29 anos. Faixa com maior incidência de NEET (sem escola e sem trabalho), vulnerabilidade à informalidade e primeiro acesso ao mercado de trabalho. Público prioritário para cursos profissionalizantes.',campo:'<b>Campo:</b> IDADE_PESSOA entre 18 e 29 anos'},
+     method:'Pessoas com IDADE_PESSOA entre 18 e 29 anos.',campo:'Campo: IDADE_PESSOA 18–29'},
     {id:'s-idosos',label:'Idosos (60+)',value:idosos.toLocaleString('pt-BR'),sub:`${total?Math.round(idosos/total*100):0}% da população`,color:'rx',icon:'🧓',
-     method:'Pessoas com 60 anos ou mais (critério do Estatuto do Idoso). Tendem a ser a principal fonte de renda via aposentadoria/BPC em famílias vulneráveis. Famílias com idosos e crianças pequenas simultaneamente indicam sobrecarga de cuidados.',campo:'<b>Campo:</b> IDADE_PESSOA ≥ 60 anos'},
+     method:'Pessoas com IDADE_PESSOA igual ou maior que 60 anos.',campo:'Campo: IDADE_PESSOA ≥ 60'},
     {id:'s-mulher-rf',label:'Mulher Responsável',value:famMulher.toLocaleString('pt-BR'),sub:`${totalFams?Math.round(famMulher/totalFams*100):0}% das famílias`,color:'vd',icon:'👩',
-     method:'Famílias onde o responsável declarado é uma mulher. Famílias chefiadas por mulheres sem parceiro têm, em média, renda menor e maior carga de trabalho doméstico e de cuidado. São elegíveis a benefícios específicos como o PBF.',campo:'<b>Campo:</b> FAM_FAM_MULHER_RF = "SIM" (um registro por GR_FAM)'},
+     method:'Famílias onde FAM_FAM_MULHER_RF = "SIM". Um registro por GR_FAM.',campo:'Campo: FAM_FAM_MULHER_RF = SIM'},
   ]);
 
   // Pirâmide
@@ -970,28 +915,28 @@ function updateRenda(){
   renderStrip('strip-renda',[
     {id:'s-avg-renda',label:'Renda Média Familiar',value:avgRenda>0?'R$'+Math.round(avgRenda).toLocaleString('pt-BR'):'—',
      sub:'renda total mensal',color:'am',icon:'💰',
-     method:'Soma da renda total declarada de todas as famílias (com renda > 0), dividida pelo número dessas famílias. Famílias com renda zero são excluídas da média para não distorcer o resultado — elas aparecem no card "Renda Zero". O campo VLR_RENDA_MEDIA_FAM representa a renda mensal total da família em reais.',
-     campo:'<b>Campo:</b> VLR_RENDA_MEDIA_FAM. Exclui valores 0 e nulos da média',
+     method:'Média de VLR_RENDA_MEDIA_FAM por família (um valor por GR_FAM). Famílias com renda zero são excluídas da média mas contadas separadamente. Famílias sem dado são excluídas e contabilizadas como missing.',
+     campo:'Campo: VLR_RENDA_MEDIA_FAM · Exclui zeros e nulos da média',
      missing:missRenda?`${missRenda} família(s) sem renda informada`:null},
     {id:'s-extrema',label:'Extrema Pobreza',value:extrema.toLocaleString('pt-BR'),
      sub:`${total?Math.round(extrema/total*100):0}% · renda p/c ≤ R$109`,color:'lr',icon:'🔴',
-     method:'Famílias cuja renda dividida pelo número de membros resulta em até R$109 por pessoa por mês. Esse é o limite oficial de extrema pobreza do Ministério do Desenvolvimento Social (MDS). São as famílias com maior prioridade para o Bolsa Família e outros programas.',
-     campo:'<b>Cálculo:</b> VLR_RENDA_MEDIA_FAM ÷ QTD_PESSOAS_DOMIC_FAM ≤ R$109'},
+     method:'Famílias com renda per capita (VLR_RENDA_MEDIA_FAM ÷ QTD_PESSOAS_DOMIC_FAM) igual ou inferior a R$109 — linha de extrema pobreza do MDS.',
+     campo:'VLR_RENDA_MEDIA_FAM ÷ QTD_PESSOAS_DOMIC_FAM ≤ R$109'},
     {id:'s-pobreza',label:'Pobreza',value:pobreza.toLocaleString('pt-BR'),
      sub:`${total?Math.round(pobreza/total*100):0}% · renda p/c R$110–218`,color:'lr',icon:'🟠',
-     method:'Famílias com renda per capita entre R$110 e R$218 por mês. São elegíveis ao CadÚnico e a benefícios sociais, mas estão acima da linha de extrema pobreza. Uma perda de renda pode empurrá-las para a extrema pobreza.',
-     campo:'<b>Cálculo:</b> VLR_RENDA_MEDIA_FAM ÷ QTD_PESSOAS_DOMIC_FAM entre R$110 e R$218'},
+     method:'Famílias com renda per capita entre R$110 e R$218 — faixa de pobreza do CadÚnico.',
+     campo:'VLR_RENDA_MEDIA_FAM ÷ QTD_PESSOAS_DOMIC_FAM entre R$110 e R$218'},
     {id:'s-renda-zero',label:'Renda Zero',value:zero.toLocaleString('pt-BR'),
      sub:'sem renda declarada',color:'',icon:'⚠️',
-     method:'Famílias que declararam renda total igual a zero. Podem estar dependendo exclusivamente de benefícios como o Bolsa Família, ou o cadastrador pode ter deixado o campo em branco. Cruzar com MARC_PBF ajuda a entender a situação real.',
-     campo:'<b>Campo:</b> VLR_RENDA_MEDIA_FAM = 0'},
+     method:'Famílias com VLR_RENDA_MEDIA_FAM = 0. Podem depender exclusivamente de benefícios sociais ou ter renda não declarada.',
+     campo:'Campo: VLR_RENDA_MEDIA_FAM = 0'},
     {id:'s-pbf',label:'Beneficiárias PBF',value:pbfFams.toLocaleString('pt-BR'),
      sub:`${total?Math.round(pbfFams/total*100):0}% das famílias`,color:'vd',icon:'✅',
-     method:'Famílias beneficiárias do Programa Bolsa Família (PBF) no momento da extração. O PBF exige atualização cadastral a cada 2 anos e renda per capita abaixo de R$218. Famílias desatualizadas podem ter perdido o benefício mesmo aparecendo aqui.',campo:'<b>Campo:</b> MARC_PBF = "SIM" (um registro por GR_FAM)'},
+     method:'Famílias com MARC_PBF = "SIM". Contagem de GR_FAM únicos.',campo:'Campo: MARC_PBF = SIM'},
     {id:'s-apos',label:'Com Aposentadoria/Pensão',value:aposFams.toLocaleString('pt-BR'),
      sub:`${total?Math.round(aposFams/total*100):0}% das famílias`,color:'az',icon:'🏦',
-     method:'Famílias com ao menos um membro recebendo aposentadoria, pensão por morte ou BPC/LOAS. Atenção: o campo não distingue previdência de BPC — ambos aparecem juntos. Em famílias com idosos, esse benefício costuma ser a principal ou única renda.',
-     campo:'<b>Campo:</b> FX_RND_VAL_RENDA_APOSENT_MEMB preenchido e ≠ "0 - 0"'},
+     method:'Famílias com ao menos um membro com FX_RND_VAL_RENDA_APOSENT_MEMB preenchido e diferente de "0 - 0". Inclui aposentadoria, pensão e BPC — o campo não distingue as fontes.',
+     campo:'Campo: FX_RND_VAL_RENDA_APOSENT_MEMB ≠ vazio e ≠ "0 - 0"'},
   ]);
 
   // Gráfico: distribuição de renda total familiar
@@ -1082,16 +1027,16 @@ function updateEscola(){
   renderStrip('strip-escola',[
     {id:'s-fora-escola',label:'Fora da Escola (5–17)',value:foraEscola517.toLocaleString('pt-BR'),
      sub:`${escola517.length?Math.round(foraEscola517/escola517.length*100):0}% dos 5–17 anos`,color:'lr',icon:'📚',
-     method:'Crianças e adolescentes de 5 a 17 anos que não estão matriculados em nenhuma escola. No Brasil, a escolaridade é obrigatória dos 4 aos 17 anos. "Fora" inclui quem abandonou e quem nunca foi — ambos representam situação de vulnerabilidade.',
-     campo:'<b>Campo:</b> IND_FREQUENTA_ESCOLA_MEMB = "3" (já frequentou) ou "4" (nunca frequentou). Filtro: IDADE_PESSOA entre 5 e 17.'},
+     method:'Pessoas de 5 a 17 anos com IND_FREQUENTA_ESCOLA_MEMB indicando "já frequentou" ou "nunca frequentou". Exclui registros sem informação.',
+     campo:'Campo: IND_FREQUENTA_ESCOLA_MEMB · Filtro: IDADE 5–17'},
     {id:'s-neet',label:'NEET (18–24 anos)',value:neet.toLocaleString('pt-BR'),
      sub:`${jovens1824.length?Math.round(neet/jovens1824.length*100):0}% dos jovens 18–24`,color:'lr',icon:'🔍',
-     method:'NEET (sigla em inglês: Nem empregado, Nem em educação, Nem em treinamento). Conta jovens de 18 a 24 anos que simultaneamente não trabalharam na semana de referência E não estão matriculados em nenhum curso. É o indicador mais usado para medir jovens em risco de exclusão permanente do mercado de trabalho.',
-     campo:'<b>Critério:</b> IDADE 18–24 + COD_TRABALHOU_MEMB ≠ "1" + IND_FREQUENTA_ESCOLA_MEMB ≠ "1" ou "2"'},
+     method:'Jovens de 18 a 24 anos que não trabalham (COD_TRABALHOU_MEMB ≠ "1") e não estão na escola (IND_FREQUENTA_ESCOLA_MEMB ≠ "1" ou "2"). Indicador internacional NEET (Not in Employment, Education or Training).',
+     campo:'Campos: COD_TRABALHOU_MEMB, IND_FREQUENTA_ESCOLA_MEMB · Filtro: IDADE 18–24'},
     {id:'s-sem-instr',label:'Resp. Sem Instrução',value:semInstrRF.toLocaleString('pt-BR'),
      sub:`${rfs.length?Math.round(semInstrRF/rfs.length*100):0}% dos responsáveis`,color:'am',icon:'📖',
-     method:'Responsáveis familiares sem nenhum grau de instrução formal — nunca frequentaram escola ou declararam "Sem instrução". A escolaridade do responsável é um dos maiores preditores do desempenho escolar dos filhos e da mobilidade socioeconômica da família.',
-     campo:'<b>Campos:</b> GRAU_INSTRUCAO = "Sem instrucao" ou COD_CURSO_FREQUENTOU_PESSOA_MEMB = "4 - NUNCA FREQUENTOU"'},
+     method:'Responsáveis familiares com GRAU_INSTRUCAO = "Sem instrucao" ou que nunca frequentaram a escola.',
+     campo:'Campos: GRAU_INSTRUCAO = "Sem instrucao" ou COD_CURSO_FREQUENTOU_PESSOA_MEMB = "4 - NUNCA FREQUENTOU"'},
   ]);
 }
 
@@ -1149,16 +1094,16 @@ function updateTrabalho(){
   renderStrip('strip-trabalho',[
     {id:'s-sem-renda-lab',label:'Sem Renda de Trabalho (18–64)',value:naoTrabalharam.length.toLocaleString('pt-BR'),
      sub:`${totalAtivos?Math.round(naoTrabalharam.length/totalAtivos*100):0}% dos adultos ativos`,color:'lr',icon:'💼',
-     method:'Adultos em idade ativa (18–64 anos) que não trabalharam na semana anterior ao cadastro. Inclui desempregados, pessoas em licença, cuidadores informais e quem nunca entrou no mercado de trabalho. Não significa necessariamente desemprego involuntário.',
-     campo:'<b>Campo:</b> COD_TRABALHOU_MEMB = "2 - NAO" · Filtro: IDADE_PESSOA entre 18 e 64'},
+     method:'Adultos entre 18 e 64 anos que declararam não ter trabalhado na semana de referência (COD_TRABALHOU_MEMB = "2 - NAO").',
+     campo:'Campo: COD_TRABALHOU_MEMB = "2 - NAO" · Filtro: IDADE 18–64'},
     {id:'s-informal',label:'Trabalho Informal',value:informal.toLocaleString('pt-BR'),
      sub:`${trabalharam.length?Math.round(informal/trabalharam.length*100):0}% dos que trabalham`,color:'am',icon:'🔧',
-     method:'Trabalhadores que não têm carteira assinada — autônomos, trabalhadores domésticos sem carteira, bicos etc. Trabalho informal significa ausência de FGTS, INSS, férias e outros direitos trabalhistas, aumentando a vulnerabilidade em situações de doença ou desemprego.',
-     campo:'<b>Cálculo:</b> quem trabalhou (COD_TRABALHOU_MEMB="1") com tipo diferente de "4" (CLT) e "6" (doméstico c/carteira)'},
+     method:'Trabalhadores sem carteira assinada: exclui tipos "4 - EMPREGADO COM CARTEIRA" e "6 - TRABALHADOR DOMÉSTICO COM CARTEIRA". Considera apenas quem declarou ter trabalhado.',
+     campo:'Campo: COD_PRINCIPAL_TRAB_MEMB ≠ "4" e ≠ "6" · Base: quem trabalhou'},
     {id:'s-cri06-semtrab',label:'Família c/ 0–6 e RF Desempregado',value:famCrianca06SemTrab.toLocaleString('pt-BR'),
      sub:'famílias em dupla vulnerabilidade',color:'lr',icon:'👶',
-     method:'Cruzamento de dois fatores de vulnerabilidade: ter criança pequena (0–6 anos) que exige cuidado intensivo, e ter o responsável sem renda de trabalho. Famílias nessa situação dependem quase exclusivamente de benefícios sociais e têm menor capacidade de investir na estimulação da primeira infância.',
-     campo:'<b>Cruzamento:</b> GR_FAM com membro de 0–6 anos + responsável (COD_PARENTESCO_RF começa com "1") com COD_TRABALHOU_MEMB = "2 - NAO"'},
+     method:'Famílias com ao menos uma criança de 0 a 6 anos E cujo responsável familiar (RF) entre 18 e 64 anos não trabalhou na semana de referência.',
+     campo:'Cruzamento: criança 0–6 no GR_FAM + RF COD_TRABALHOU_MEMB = "2"'},
   ]);
 }
 
@@ -1229,18 +1174,18 @@ function updateSaneamento(){
   renderStrip('strip-saneamento',[
     {id:'s-sem-banheiro',label:'Sem Banheiro',value:(banh.nao).toLocaleString('pt-BR'),
      sub:`${total?Math.round(banh.nao/total*100):0}% das famílias`,color:'lr',icon:'🚽',
-     method:'Famílias cujo domicílio não possui banheiro de uso exclusivo. Ausência de banheiro está associada a doenças de veiculação hídrica, condições insalubres e violação de dignidade. Um dos indicadores mais básicos de precariedade habitacional.',
-     campo:'<b>Campo:</b> COD_BANHEIRO_DOMIC_FAM = "2 - NAO"',
+     method:'Famílias com COD_BANHEIRO_DOMIC_FAM começando com "2 - NAO".',
+     campo:'Campo: COD_BANHEIRO_DOMIC_FAM = "2"',
      missing:banh.miss?`${banh.miss} família(s) sem dado — não incluídas`:null},
     {id:'s-sem-agua-rede',label:'Sem Água de Rede',value:semAguaRede.toLocaleString('pt-BR'),
      sub:`${total?Math.round(semAguaRede/total*100):0}% das famílias`,color:'am',icon:'💧',
-     method:'Famílias que não são abastecidas pela rede pública de distribuição de água tratada. Incluem poços, cisternas e outras fontes. Água sem tratamento é a principal causa de doenças diarreicas, especialmente em crianças.',
-     campo:'<b>Campo:</b> COD_ABASTE_AGUA_DOMIC_FAM diferente de "1 - REDE GERAL DE DISTRIBUICAO"',
+     method:'Famílias sem abastecimento por rede geral de distribuição.',
+     campo:'Campo: COD_ABASTE_AGUA_DOMIC_FAM ≠ "1 - REDE GERAL"',
      missing:missAgua?`${missAgua} família(s) sem dado`:null},
     {id:'s-esgoto-prec',label:'Esgoto Precário',value:esgotoPrecario.toLocaleString('pt-BR'),
      sub:`${total?Math.round(esgotoPrecario/total*100):0}% das famílias`,color:'lr',icon:'⚠️',
-     method:'Famílias sem acesso a rede coletora ou fossa séptica — formas adequadas de esgotamento sanitário. Fossa rudimentar, vala a céu aberto e descarte em rios ou terrenos são situações de alto risco sanitário e ambiental para todo o entorno.',
-     campo:'<b>Campo:</b> COD_ESCOA_SANITARIO_DOMIC_FAM. Classificado como precário: fossa rudimentar (3), vala a céu aberto (4), rio/mar (5), outro (6), e vazios.'
+     method:'Famílias com esgotamento sanitário por fossa rudimentar, vala a céu aberto, rio/mar, outro ou sem informação.',
+     campo:'Campo: COD_ESCOA_SANITARIO_DOMIC_FAM ≠ "1" e ≠ "2"',
      missing:missEsg?`${missEsg} família(s) sem dado — contadas como precário`:null},
   ]);
 }
@@ -1579,7 +1524,5 @@ function togglePanel(id){
   if(!isMin)setTimeout(()=>{Object.values(charts).forEach(c=>c.resize&&c.resize());},50);
 }
 </script>
-
-<div id="tooltip-portal"><div class="tip-inner"><div class="tip-title"></div><div class="tip-desc"></div><div class="tip-calc"></div></div></div>
 </body>
 </html>

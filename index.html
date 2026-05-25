@@ -807,12 +807,24 @@ function startProcessing(text,src){
   const totalChars=text.length;
   let charsSeen=0;
 
-  Papa.parse(text,{
+  // Detecta delimitador manualmente a partir da primeira linha
+  // para evitar o bug "Invalid regular expression" do PapaParse
+  // quando o CSV contém barras invertidas nos dados
+  const firstLine = text.substring(0, text.indexOf('\n') < 0 ? text.length : text.indexOf('\n'));
+  const delimiter = firstLine.includes(';') ? ';' : ',';
+
+  // Sanitiza o texto removendo barras invertidas soltas que
+  // quebram o regex interno do PapaParse
+  const safeText = text.replace(/\\/g, '/');
+
+  Papa.parse(safeText,{
     header:true,
     skipEmptyLines:true,
     dynamicTyping:false,
+    delimiter: delimiter,
+    newline: '',        // detecção automática de \r\n / \n
     transformHeader:h=>h.trim(),
-    chunkSize:1024*128, // 128KB por chunk — equilibra velocidade vs responsividade
+    chunkSize:1024*128,
     chunk(results){
       if(!fields.length&&results.meta&&results.meta.fields) fields=results.meta.fields;
       Array.prototype.push.apply(rows, results.data);
@@ -822,6 +834,11 @@ function startProcessing(text,src){
       prog(p, `Lendo CSV… ${rowCount.toLocaleString('pt-BR')} registros`);
     },
     complete(){
+      if(!rows.length){
+        setStatus('CSV vazio ou formato inválido','err');
+        hideOv();
+        return;
+      }
       prog(62,'Normalizando localidades…');
       allData=rows;
       columns=fields;

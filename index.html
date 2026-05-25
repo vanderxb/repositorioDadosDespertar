@@ -907,19 +907,108 @@ function renderPager(total){
 function goPage(p){currentPage=p;renderTable();window.scrollTo({top:document.getElementById('panel-tabela').offsetTop-80,behavior:'smooth'});}
 
 // ── LOAD ──
-function parseLoad(text,src){
-  const res=Papa.parse(text,{header:true,skipEmptyLines:true,dynamicTyping:false,transformHeader:h=>h.trim()});
-  if(!res.data.length){setStatus('Arquivo vazio ou inválido','err');return;}
-  allData=res.data;columns=res.meta.fields||[];
-  localidadeMap=buildLocMap(allData,0.28);
-  filteredData=[...allData];
-  populateFilters();setStatus(`✓ ${src} · ${allData.length.toLocaleString('pt-BR')} registros`,'ok');
-  currentPage=0;updateAll();
-}
 function setStatus(msg,cls){const el=document.getElementById('load-status');el.textContent=msg;el.className=cls||'';}
+
+function applyLoadedData(rows, fields, src){
+  if(!rows.length){setStatus('Arquivo vazio ou inválido','err');return;}
+  allData=rows; columns=fields;
+
+  setStatus('Normalizando localidades…');
+  // Defer heavy work so browser can breathe
+  setTimeout(()=>{
+    localidadeMap=buildLocMap(allData,0.28);
+    filteredData=[...allData];
+    populateFilters();
+    setStatus(`✓ ${src} · ${allData.length.toLocaleString('pt-BR')} registros`,'ok');
+    currentPage=0;
+    // Hide loading spinner, show table wrapper
+    document.getElementById('loading').style.display='none';
+    // Render panels in sequence with small breaks between
+    renderAllDeferred();
+  },50);
+}
+
+// Render each panel section with a small async gap to keep UI responsive
+function renderAllDeferred(){
+  const steps=[
+    ()=>updateHero(),
+    ()=>updateEstrutura(),
+    ()=>updateCicloVida(),
+    ()=>updateRenda(),
+    ()=>updateEscola(),
+    ()=>updateTrabalho(),
+    ()=>updateSaneamento(),
+    ()=>updateRanking(),
+    ()=>renderTable(),
+  ];
+  let i=0;
+  function next(){
+    if(i>=steps.length)return;
+    try{steps[i]();}catch(e){console.error('Panel render error step '+i,e);}
+    i++;
+    setTimeout(next,0);
+  }
+  next();
+}
+
+// Parsing em streaming chunk a chunk — não trava a UI
+function parseStream(text, src){
+  setStatus('Processando CSV…');
+  const rows=[];
+  let fields=[];
+  let rowCount=0;
+
+  // Show progress in loading area
+  const loadEl=document.getElementById('loading');
+  loadEl.style.display='flex';
+  loadEl.innerHTML=`<div class="upload-hint">
+    <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="12" y1="18" x2="12" y2="12"/><line x1="9" y1="15" x2="15" y2="15"/></svg>
+    <p>Processando dados…<span id="parse-progress">Iniciando…</span></p>
+    <div style="width:240px;height:4px;background:var(--border);border-radius:4px;margin-top:8px"><div id="parse-bar" style="height:4px;background:var(--gold);border-radius:4px;width:0%;transition:width .3s"></div></div>
+  </div>`;
+
+  const totalChars=text.length;
+  let processedChars=0;
+
+  Papa.parse(text,{
+    header:true,
+    skipEmptyLines:true,
+    dynamicTyping:false,
+    transformHeader:h=>h.trim(),
+    chunkSize:1024*64, // 64 KB por chunk
+    chunk:function(results, parser){
+      if(!fields.length && results.meta && results.meta.fields)
+        fields=results.meta.fields;
+      rows.push(...results.data);
+      rowCount+=results.data.length;
+      processedChars+=1024*64;
+      const pct=Math.min(99,Math.round((processedChars/totalChars)*100));
+      const pg=document.getElementById('parse-progress');
+      const pb=document.getElementById('parse-bar');
+      if(pg) pg.textContent=`${rowCount.toLocaleString('pt-BR')} registros (${pct}%)`;
+      if(pb) pb.style.width=pct+'%';
+      setStatus(`Carregando… ${pct}%`);
+    },
+    complete:function(){
+      const pb=document.getElementById('parse-bar');
+      if(pb) pb.style.width='100%';
+      setStatus('Finalizando…');
+      setTimeout(()=>applyLoadedData(rows, fields, src), 100);
+    },
+    error:function(err){
+      setStatus('Erro ao processar CSV','err');
+      console.error(err);
+      showUploadHint('Erro ao processar','O arquivo pode estar corrompido. Tente recarregar ou use "Carregar CSV".');
+    }
+  });
+}
+
 document.getElementById('csv-input').addEventListener('change',e=>{
-  const f=e.target.files[0];if(!f)return;setStatus('Lendo…');
-  const r=new FileReader();r.onload=ev=>parseLoad(ev.target.result,f.name);r.readAsText(f,'UTF-8');
+  const f=e.target.files[0];if(!f)return;
+  setStatus('Lendo arquivo…');
+  const r=new FileReader();
+  r.onload=ev=>parseStream(ev.target.result, f.name);
+  r.readAsText(f,'UTF-8');
 });
 
 // ── PANEL ──
@@ -935,25 +1024,47 @@ function savePanelState(){try{const ord=[...document.querySelectorAll('#panels-c
 function restorePanelState(){try{const ord=JSON.parse(localStorage.getItem('desp3-ord')||'[]'),mn=JSON.parse(localStorage.getItem('desp3-mn')||'[]'),c=document.getElementById('panels-container');if(ord.length)ord.forEach(id=>{const el=document.getElementById(id);if(el)c.appendChild(el);});mn.forEach(id=>{const el=document.getElementById(id);if(!el)return;el.classList.add('minimized');const b=el.querySelector('.btn-min');if(b)b.textContent='+';});}catch(e){}}
 
 document.addEventListener('DOMContentLoaded',()=>{
-  restorePanelState();setStatus('Buscando dados…');
-  const xhr=new XMLHttpRequest();
-  xhr.open('GET',SUPABASE_URL,true);
-  xhr.setRequestHeader('Cache-Control','no-cache');
-  xhr.onload=function(){
-    if(xhr.status>=200&&xhr.status<300){
-      parseLoad(xhr.responseText,'Supabase · base.csv');
-    } else {
-      setStatus('Use "Carregar CSV" para importar','err');
-      showUploadHint();
-    }
-  };
-  xhr.onerror=function(){setStatus('Use "Carregar CSV" para importar','err');showUploadHint();};
-  xhr.ontimeout=function(){setStatus('Tempo esgotado — use "Carregar CSV"','err');showUploadHint();};
-  xhr.timeout=15000;
-  xhr.send();
-  if(typeof Sortable!=='undefined')Sortable.create(document.getElementById('panels-container'),{animation:180,handle:'.panel-header',ghostClass:'sortable-ghost',onEnd(){savePanelState();setTimeout(()=>Object.values(CHARTS).forEach(c=>c.resize&&c.resize()),120);}});
+  restorePanelState();
+  setStatus('Buscando dados…');
+
+  if(location.protocol==='file:'){
+    setStatus('Use "Carregar CSV"','err');
+    showUploadHint('Arquivo aberto localmente','Use o botão "Carregar CSV" para importar os dados.');
+    initSortable();
+    return;
+  }
+
+  fetch(SUPABASE_URL)
+    .then(r=>{
+      if(!r.ok) throw new Error('HTTP '+r.status);
+      setStatus('Baixando CSV…');
+      return r.text();
+    })
+    .then(text=>{
+      parseStream(text,'Supabase · base.csv');
+    })
+    .catch(err=>{
+      console.error('Erro Supabase:',err);
+      setStatus('Falha ao carregar — use "Carregar CSV"','err');
+      showUploadHint('Não foi possível carregar do Supabase','Clique em "Carregar CSV" para importar manualmente.');
+    });
+
+  initSortable();
 });
-function showUploadHint(){document.getElementById('loading').innerHTML=`<div class="upload-hint"><svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="12" y1="18" x2="12" y2="12"/><line x1="9" y1="15" x2="15" y2="15"/></svg><p>Dados não encontrados no Supabase.<span>Clique em "Carregar CSV" para importar manualmente.</span></p></div>`;}
+
+function initSortable(){
+  if(typeof Sortable!=='undefined')
+    Sortable.create(document.getElementById('panels-container'),{
+      animation:180,handle:'.panel-header',ghostClass:'sortable-ghost',
+      onEnd(){savePanelState();setTimeout(()=>Object.values(CHARTS).forEach(c=>c.resize&&c.resize()),120);}
+    });
+}
+function showUploadHint(titulo,msg){
+  document.getElementById('loading').innerHTML=`<div class="upload-hint">
+    <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="12" y1="18" x2="12" y2="12"/><line x1="9" y1="15" x2="15" y2="15"/></svg>
+    <p>${titulo||'Erro ao carregar'}<span>${msg||'Clique em "Carregar CSV" para importar manualmente.'}</span></p>
+  </div>`;
+}
 </script>
 </body>
 </html>

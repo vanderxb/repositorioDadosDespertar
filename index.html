@@ -88,50 +88,43 @@ header{background:var(--navy);padding:0 28px;display:flex;align-items:center;min
 
 /* STAT CARDS */
 .stat-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(185px,1fr));gap:12px;margin-bottom:16px}
-.stat-card{background:var(--surface);border:1px solid var(--border);border-top:3px solid var(--border2);border-radius:var(--rl);padding:16px 18px;box-shadow:var(--sh);position:relative;transition:box-shadow .2s,transform .2s; display: flex; flex-direction: column;}
-.stat-card:hover{box-shadow:var(--sh-lg);transform:translateY(-1px)}
+.stat-card{background:var(--surface);border:1px solid var(--border);border-top:3px solid var(--border2);border-radius:var(--rl);padding:16px 18px;box-shadow:var(--sh);position:relative;z-index:1;transition:box-shadow .2s,transform .2s; display: flex; flex-direction: column;}
+.stat-card:hover, .stat-card:focus-within{box-shadow:var(--sh-lg);transform:translateY(-1px);z-index:50;}
 .stat-card.cg{border-top-color:var(--gold)}.stat-card.ct{border-top-color:var(--teal2)}.stat-card.cc{border-top-color:var(--coral)}.stat-card.cs{border-top-color:var(--sky)}.stat-card.cl{border-top-color:var(--lav)}
 .stat-icon{position:absolute;right:14px;top:14px;font-size:19px;opacity:.65}
 .stat-label{font-family:var(--fh);font-size:9px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--text3);margin-bottom:8px;padding-right:24px;display:flex;align-items:center;flex-wrap:wrap;gap:4px}
-
-/* Mudança sugerida: A fonte dos números agora é limpa (DM Sans) */
 .stat-val{font-family:var(--fb);font-weight:700;font-size:26px;line-height:1;color:var(--navy);letter-spacing:-1px}
 .stat-card.cg .stat-val{color:var(--gold)}.stat-card.ct .stat-val{color:var(--teal)}.stat-card.cc .stat-val{color:var(--coral)}.stat-card.cs .stat-val{color:var(--sky)}.stat-card.cl .stat-val{color:var(--lav)}
 .stat-sub{font-size:11px;color:var(--text3);margin-top:4px;font-weight:400; line-height: 1.3}
 .stat-miss{font-size:10px;color:var(--text3);margin-top:auto;padding-top:6px;border-top:1px dashed var(--border);font-style:italic}
 
-/* TOGGLE BUTTON NAS CARDS */
+/* TOGGLE BUTTON NAS CARDS E GRÁFICOS */
 .card-toggle {
   background: var(--surface2); border: 1px solid var(--border);
   border-radius: 4px; padding: 2px 5px; font-size: 10px; color: var(--navy);
   cursor: pointer; display: inline-flex; align-items: center; justify-content: center;
-  transition: all 0.2s;
+  transition: all 0.2s; font-family: var(--fb); font-weight: 700;
 }
 .card-toggle:hover { background: var(--sky); border-color: var(--sky); color: #fff; }
 
-/* TOOLTIP OTIMIZADO RESPONSIVO */
-.tip-btn{width:14px;height:14px;border-radius:50%;background:var(--surface3);border:none;cursor:pointer;font-family:var(--fh);font-size:8px;font-weight:700;color:var(--text3);display:inline-flex;align-items:center;justify-content:center;position:relative;vertical-align:middle;transition:background .15s;flex-shrink:0}
+/* TOOLTIP */
+.tip-btn{width:14px;height:14px;border-radius:50%;background:var(--surface3);border:none;cursor:pointer;font-family:var(--fh);font-size:8px;font-weight:700;color:var(--text3);display:inline-flex;align-items:center;justify-content:center;position:static;vertical-align:middle;transition:background .15s;flex-shrink:0}
 .tip-btn:hover,.tip-btn:focus{background:var(--gold);color:var(--navy);outline:none}
-.tip-pop{display:none;position:absolute;top:calc(100% + 7px);left:50%;transform:translateX(-50%);background:var(--navy);color:#fff;border-radius:var(--r);padding:12px 14px;min-width:220px;width:max-content;max-width:270px;z-index:999;box-shadow:var(--sh-lg);pointer-events:none;text-align:left}
-.tip-pop::before{content:'';position:absolute;top:-5px;left:50%;transform:translateX(-50%) rotate(45deg);width:10px;height:10px;background:var(--navy);border-radius:2px}
+.tip-pop{display:none;position:absolute;top:38px;left:50%;transform:translateX(-50%);background:var(--navy);color:#fff;border-radius:var(--r);padding:12px 14px;min-width:200px;width:max-content;max-width:250px;z-index:999;box-shadow:var(--sh-lg);pointer-events:none;text-align:left}
 .tip-btn:hover .tip-pop,.tip-btn:focus .tip-pop{display:block}
 .tip-pop strong{display:block;font-family:var(--fh);font-size:9px;color:var(--gold2);margin-bottom:5px;text-transform:uppercase;letter-spacing:.8px}
 .tip-pop p{font-size:11px;line-height:1.5;color:rgba(255,255,255,.9); font-family: var(--fb); font-weight: 400;}
 .tip-campo{margin-top:6px;padding-top:6px;border-top:1px solid rgba(255,255,255,.1);font-size:9.5px;color:rgba(255,255,255,.5);line-height:1.4; font-family: monospace;}
-/* Ajuste de tooltip na borda da tela mobile */
-@media(max-width:640px){
-  .tip-pop { left: auto; right: -20px; transform: none; }
-  .tip-pop::before { left: auto; right: 23px; transform: rotate(45deg); }
-}
 
 /* CHARTS */
 .chart-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:14px;margin-bottom:16px}
-.chart-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--rl);padding:18px 20px;box-shadow:var(--sh);min-width:0}
+.chart-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--rl);padding:18px 20px;box-shadow:var(--sh);min-width:0;position:relative;z-index:1;}
+.chart-card:hover, .chart-card:focus-within{z-index:50;}
 .chart-title{font-family:var(--fh);font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--navy);margin-bottom:4px;display:flex;align-items:center;gap:5px;flex-wrap:wrap}
 .chart-miss{font-size:10px;color:var(--text3);font-style:italic;margin-bottom:10px;min-height:14px}
 .chart-wrap{position:relative;height:200px}.chart-wrap.tall{height:240px}
 
-/* FORMULA (Atualizado hover de bug branco) */
+/* FORMULA */
 .formula-card{background:var(--navy);border-radius:var(--rl);padding:20px 22px;margin-bottom:16px; margin-top: 16px;}
 .formula-title{font-family:var(--fh);font-weight:700;font-size:11px;letter-spacing:1.5px;text-transform:uppercase;color:var(--gold2);margin-bottom:12px}
 .formula-expr{font-family:monospace;font-size:13px;color:#fff;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.1);border-radius:8px;padding:12px 16px;margin-bottom:14px;line-height:1.9;white-space:pre-wrap}
@@ -141,7 +134,6 @@ header{background:var(--navy);padding:0 28px;display:flex;align-items:center;min
 .formula-tbl td:first-child{color:rgba(255,255,255,.95);font-weight:500}
 .formula-tbl td:nth-child(2){color:var(--gold3);font-family:var(--fh);font-weight:700;font-size:11px}
 .formula-tbl td:last-child{color:rgba(255,255,255,.4);font-style:italic;font-size:11px}
-/* Resolvido Bug do Hover */
 .formula-tbl tbody tr { transition: background 0.2s ease; }
 .formula-tbl tbody tr:hover { background: rgba(255,255,255,0.08) !important; }
 .formula-note{font-size:11px;color:rgba(255,255,255,.4);line-height:1.6;font-style:italic;margin-top:10px}
@@ -242,9 +234,27 @@ footer strong{color:var(--gold2);font-weight:700}
   <div class="panel-body">
     <div class="stat-grid" id="strip-ciclovida"></div>
     <div class="chart-grid">
-      <div class="chart-card"><div class="chart-title">Pirâmide etária</div><div class="chart-miss" id="miss-etaria"></div><div class="chart-wrap"><canvas id="chart-etaria"></canvas></div></div>
-      <div class="chart-card"><div class="chart-title">Distribuição por sexo</div><div class="chart-miss" id="miss-sexo"></div><div class="chart-wrap"><canvas id="chart-sexo"></canvas></div></div>
-      <div class="chart-card"><div class="chart-title">Raça / cor</div><div class="chart-miss" id="miss-raca"></div><div class="chart-wrap"><canvas id="chart-raca"></canvas></div></div>
+      <div class="chart-card">
+        <div class="chart-title">Pirâmide etária
+          <button class="tip-btn" tabindex="0">?<div class="tip-pop"><strong>Pirâmide etária</strong><p>Distribuição da população agrupada por faixa etária e sexo.</p><div class="tip-campo">IDADE_PESSOA · COD_SEXO_PESSOA</div></div></button>
+          <button class="card-toggle" style="margin-left:auto" onclick="toggleChart(this, 'chart-etaria')" title="Alternar N / %">⇅</button>
+        </div>
+        <div class="chart-miss" id="miss-etaria"></div><div class="chart-wrap"><canvas id="chart-etaria"></canvas></div>
+      </div>
+      <div class="chart-card">
+        <div class="chart-title">Distribuição por sexo
+          <button class="tip-btn" tabindex="0">?<div class="tip-pop"><strong>Distribuição por sexo</strong><p>Proporção declarada de gênero entre todos os membros cadastrados.</p><div class="tip-campo">COD_SEXO_PESSOA</div></div></button>
+          <button class="card-toggle" style="margin-left:auto" onclick="toggleChart(this, 'chart-sexo')" title="Alternar N / %">⇅</button>
+        </div>
+        <div class="chart-miss" id="miss-sexo"></div><div class="chart-wrap"><canvas id="chart-sexo"></canvas></div>
+      </div>
+      <div class="chart-card">
+        <div class="chart-title">Raça / cor
+          <button class="tip-btn" tabindex="0">?<div class="tip-pop"><strong>Raça / cor</strong><p>Autodeclaração de raça ou cor para todos os membros da base.</p><div class="tip-campo">COD_RACA_COR_PESSOA</div></div></button>
+          <button class="card-toggle" style="margin-left:auto" onclick="toggleChart(this, 'chart-raca')" title="Alternar N / %">⇅</button>
+        </div>
+        <div class="chart-miss" id="miss-raca"></div><div class="chart-wrap"><canvas id="chart-raca"></canvas></div>
+      </div>
     </div>
   </div>
 </div>
@@ -254,9 +264,27 @@ footer strong{color:var(--gold2);font-weight:700}
   <div class="panel-body">
     <div class="stat-grid" id="strip-renda"></div>
     <div class="chart-grid">
-      <div class="chart-card"><div class="chart-title">Faixa de renda familiar</div><div class="chart-miss" id="miss-faixarenda"></div><div class="chart-wrap"><canvas id="chart-faixarenda"></canvas></div></div>
-      <div class="chart-card"><div class="chart-title">Renda do trabalho — membros</div><div class="chart-miss" id="miss-rendatrab"></div><div class="chart-wrap"><canvas id="chart-rendatrab"></canvas></div></div>
-      <div class="chart-card"><div class="chart-title">Composição da renda familiar</div><div class="chart-miss" id="miss-composicao"></div><div class="chart-wrap"><canvas id="chart-composicao"></canvas></div></div>
+      <div class="chart-card">
+        <div class="chart-title">Faixa de renda familiar
+          <button class="tip-btn" tabindex="0">?<div class="tip-pop"><strong>Renda familiar</strong><p>Distribuição das famílias baseada na soma total da renda mensal informada.</p><div class="tip-campo">VLR_RENDA_MEDIA_FAM</div></div></button>
+          <button class="card-toggle" style="margin-left:auto" onclick="toggleChart(this, 'chart-faixarenda')" title="Alternar N / %">⇅</button>
+        </div>
+        <div class="chart-miss" id="miss-faixarenda"></div><div class="chart-wrap"><canvas id="chart-faixarenda"></canvas></div>
+      </div>
+      <div class="chart-card">
+        <div class="chart-title">Renda do trabalho — membros
+          <button class="tip-btn" tabindex="0">?<div class="tip-pop"><strong>Renda do trabalho</strong><p>Faixas de remuneração declarada proveniente exclusivamente do trabalho principal.</p><div class="tip-campo">FX_RND_VAL_REMUNER_EMPREGO</div></div></button>
+          <button class="card-toggle" style="margin-left:auto" onclick="toggleChart(this, 'chart-rendatrab')" title="Alternar N / %">⇅</button>
+        </div>
+        <div class="chart-miss" id="miss-rendatrab"></div><div class="chart-wrap"><canvas id="chart-rendatrab"></canvas></div>
+      </div>
+      <div class="chart-card">
+        <div class="chart-title">Composição da renda familiar
+          <button class="tip-btn" tabindex="0">?<div class="tip-pop"><strong>Composição da renda</strong><p>Classifica a família pela fonte principal: trabalho, benefício social (PBF/BPC) ou mista.</p><div class="tip-campo">MARC_PBF · RE_APOSENT · RE_EMPREGO</div></div></button>
+          <button class="card-toggle" style="margin-left:auto" onclick="toggleChart(this, 'chart-composicao')" title="Alternar N / %">⇅</button>
+        </div>
+        <div class="chart-miss" id="miss-composicao"></div><div class="chart-wrap"><canvas id="chart-composicao"></canvas></div>
+      </div>
     </div>
   </div>
 </div>
@@ -266,13 +294,43 @@ footer strong{color:var(--gold2);font-weight:700}
   <div class="panel-body">
     <div class="stat-grid" id="strip-escola"></div>
     <div class="chart-grid">
-      <div class="chart-card"><div class="chart-title">Instrução — responsáveis</div><div class="chart-miss" id="miss-instrucao-rf"></div><div class="chart-wrap"><canvas id="chart-instrucao-rf"></canvas></div></div>
-      <div class="chart-card"><div class="chart-title">Instrução — adultos 18+</div><div class="chart-miss" id="miss-instrucao-adulto"></div><div class="chart-wrap"><canvas id="chart-instrucao-adulto"></canvas></div></div>
-      <div class="chart-card"><div class="chart-title">Instrução detalhada — responsáveis</div><div class="chart-miss" id="miss-instr-detalhe"></div><div class="chart-wrap"><canvas id="chart-instr-detalhe"></canvas></div></div>
+      <div class="chart-card">
+        <div class="chart-title">Instrução — responsáveis
+          <button class="tip-btn" tabindex="0">?<div class="tip-pop"><strong>Instrução (RF)</strong><p>Nível de escolaridade consolidado apenas para os Responsáveis Familiares.</p><div class="tip-campo">GRAU_INSTRUCAO (RF)</div></div></button>
+          <button class="card-toggle" style="margin-left:auto" onclick="toggleChart(this, 'chart-instrucao-rf')" title="Alternar N / %">⇅</button>
+        </div>
+        <div class="chart-miss" id="miss-instrucao-rf"></div><div class="chart-wrap"><canvas id="chart-instrucao-rf"></canvas></div>
+      </div>
+      <div class="chart-card">
+        <div class="chart-title">Instrução — adultos 18+
+          <button class="tip-btn" tabindex="0">?<div class="tip-pop"><strong>Instrução (18+)</strong><p>Nível de escolaridade alcançado por todos os membros maiores de 18 anos.</p><div class="tip-campo">GRAU_INSTRUCAO · IDADE_PESSOA</div></div></button>
+          <button class="card-toggle" style="margin-left:auto" onclick="toggleChart(this, 'chart-instrucao-adulto')" title="Alternar N / %">⇅</button>
+        </div>
+        <div class="chart-miss" id="miss-instrucao-adulto"></div><div class="chart-wrap"><canvas id="chart-instrucao-adulto"></canvas></div>
+      </div>
+      <div class="chart-card">
+        <div class="chart-title">Instrução detalhada — responsáveis
+          <button class="tip-btn" tabindex="0">?<div class="tip-pop"><strong>Instrução Detalhada</strong><p>Detalhamento cruzado da situação educacional e cursos frequentados pelos RFs.</p><div class="tip-campo">GRAU_INSTRUCAO · COD_CURSO_FREQUENTOU</div></div></button>
+          <button class="card-toggle" style="margin-left:auto" onclick="toggleChart(this, 'chart-instr-detalhe')" title="Alternar N / %">⇅</button>
+        </div>
+        <div class="chart-miss" id="miss-instr-detalhe"></div><div class="chart-wrap"><canvas id="chart-instr-detalhe"></canvas></div>
+      </div>
     </div>
     <div class="chart-grid">
-      <div class="chart-card"><div class="chart-title">Fora da escola por ciclo (5–17)</div><div class="chart-miss" id="miss-ciclo"></div><div class="chart-wrap tall"><canvas id="chart-ciclo"></canvas></div></div>
-      <div class="chart-card"><div class="chart-title">Frequência escolar por ciclo e rede</div><div class="chart-miss" id="miss-rede-ciclo"></div><div class="chart-wrap tall"><canvas id="chart-rede-ciclo"></canvas></div></div>
+      <div class="chart-card">
+        <div class="chart-title">Fora da escola por ciclo (5–17)
+          <button class="tip-btn" tabindex="0">?<div class="tip-pop"><strong>Acesso à Escola</strong><p>Comparativo de menores (5 a 17 anos) que frequentam ou não a escola, agrupados pelo ciclo ideal.</p><div class="tip-campo">IND_FREQUENTA_ESCOLA · IDADE_PESSOA</div></div></button>
+          <button class="card-toggle" style="margin-left:auto" onclick="toggleChart(this, 'chart-ciclo')" title="Alternar N / %">⇅</button>
+        </div>
+        <div class="chart-miss" id="miss-ciclo"></div><div class="chart-wrap tall"><canvas id="chart-ciclo"></canvas></div>
+      </div>
+      <div class="chart-card">
+        <div class="chart-title">Frequência escolar por ciclo e rede
+          <button class="tip-btn" tabindex="0">?<div class="tip-pop"><strong>Rede de Ensino</strong><p>Distribuição dos estudantes entre rede pública, rede privada ou evasão (fora da escola).</p><div class="tip-campo">IND_FREQUENTA_ESCOLA_MEMB</div></div></button>
+          <button class="card-toggle" style="margin-left:auto" onclick="toggleChart(this, 'chart-rede-ciclo')" title="Alternar N / %">⇅</button>
+        </div>
+        <div class="chart-miss" id="miss-rede-ciclo"></div><div class="chart-wrap tall"><canvas id="chart-rede-ciclo"></canvas></div>
+      </div>
     </div>
   </div>
 </div>
@@ -282,9 +340,27 @@ footer strong{color:var(--gold2);font-weight:700}
   <div class="panel-body">
     <div class="stat-grid" id="strip-trabalho"></div>
     <div class="chart-grid">
-      <div class="chart-card"><div class="chart-title">Tipo de trabalho — adultos 18–64</div><div class="chart-miss" id="miss-trabalho"></div><div class="chart-wrap"><canvas id="chart-trabalho"></canvas></div></div>
-      <div class="chart-card"><div class="chart-title">Formal vs informal</div><div class="chart-miss" id="miss-formal"></div><div class="chart-wrap"><canvas id="chart-formal"></canvas></div></div>
-      <div class="chart-card"><div class="chart-title">Situação de trabalho — 18 a 64 anos</div><div class="chart-miss" id="miss-sittrab"></div><div class="chart-wrap"><canvas id="chart-sittrab"></canvas></div></div>
+      <div class="chart-card">
+        <div class="chart-title">Tipo de trabalho — adultos 18–64
+          <button class="tip-btn" tabindex="0">?<div class="tip-pop"><strong>Ocupação</strong><p>Vínculo principal de ocupação das pessoas que declararam ter trabalhado no período.</p><div class="tip-campo">COD_PRINCIPAL_TRAB_MEMB</div></div></button>
+          <button class="card-toggle" style="margin-left:auto" onclick="toggleChart(this, 'chart-trabalho')" title="Alternar N / %">⇅</button>
+        </div>
+        <div class="chart-miss" id="miss-trabalho"></div><div class="chart-wrap"><canvas id="chart-trabalho"></canvas></div>
+      </div>
+      <div class="chart-card">
+        <div class="chart-title">Formal vs informal
+          <button class="tip-btn" tabindex="0">?<div class="tip-pop"><strong>Formalidade</strong><p>Agrupamento de vínculos formais (CLT/Público) contra os autônomos e informais.</p><div class="tip-campo">COD_PRINCIPAL_TRAB_MEMB</div></div></button>
+          <button class="card-toggle" style="margin-left:auto" onclick="toggleChart(this, 'chart-formal')" title="Alternar N / %">⇅</button>
+        </div>
+        <div class="chart-miss" id="miss-formal"></div><div class="chart-wrap"><canvas id="chart-formal"></canvas></div>
+      </div>
+      <div class="chart-card">
+        <div class="chart-title">Situação de trabalho — 18 a 64 anos
+          <button class="tip-btn" tabindex="0">?<div class="tip-pop"><strong>Situação de Trabalho</strong><p>Proporção de adultos ativos que exerceram ou não atividade remunerada nos últimos 12 meses.</p><div class="tip-campo">COD_TRABALHOU_MEMB</div></div></button>
+          <button class="card-toggle" style="margin-left:auto" onclick="toggleChart(this, 'chart-sittrab')" title="Alternar N / %">⇅</button>
+        </div>
+        <div class="chart-miss" id="miss-sittrab"></div><div class="chart-wrap"><canvas id="chart-sittrab"></canvas></div>
+      </div>
     </div>
   </div>
 </div>
@@ -294,9 +370,27 @@ footer strong{color:var(--gold2);font-weight:700}
   <div class="panel-body">
     <div class="stat-grid" id="strip-saneamento"></div>
     <div class="chart-grid">
-      <div class="chart-card"><div class="chart-title">Abastecimento de água</div><div class="chart-miss" id="miss-agua"></div><div class="chart-wrap"><canvas id="chart-agua"></canvas></div></div>
-      <div class="chart-card"><div class="chart-title">Esgotamento sanitário</div><div class="chart-miss" id="miss-esgoto"></div><div class="chart-wrap"><canvas id="chart-esgoto"></canvas></div></div>
-      <div class="chart-card"><div class="chart-title">Destino do lixo</div><div class="chart-miss" id="miss-lixo"></div><div class="chart-wrap"><canvas id="chart-lixo"></canvas></div></div>
+      <div class="chart-card">
+        <div class="chart-title">Abastecimento de água
+          <button class="tip-btn" tabindex="0">?<div class="tip-pop"><strong>Água</strong><p>Origem do abastecimento principal de água para a moradia da família.</p><div class="tip-campo">COD_ABASTE_AGUA_DOMIC_FAM</div></div></button>
+          <button class="card-toggle" style="margin-left:auto" onclick="toggleChart(this, 'chart-agua')" title="Alternar N / %">⇅</button>
+        </div>
+        <div class="chart-miss" id="miss-agua"></div><div class="chart-wrap"><canvas id="chart-agua"></canvas></div>
+      </div>
+      <div class="chart-card">
+        <div class="chart-title">Esgotamento sanitário
+          <button class="tip-btn" tabindex="0">?<div class="tip-pop"><strong>Esgotamento</strong><p>Tipo de escoadouro utilizado para os dejetos sanitários do domicílio.</p><div class="tip-campo">COD_ESCOA_SANITARIO_DOMIC_FAM</div></div></button>
+          <button class="card-toggle" style="margin-left:auto" onclick="toggleChart(this, 'chart-esgoto')" title="Alternar N / %">⇅</button>
+        </div>
+        <div class="chart-miss" id="miss-esgoto"></div><div class="chart-wrap"><canvas id="chart-esgoto"></canvas></div>
+      </div>
+      <div class="chart-card">
+        <div class="chart-title">Destino do lixo
+          <button class="tip-btn" tabindex="0">?<div class="tip-pop"><strong>Lixo</strong><p>Forma como a família descarta predominantemente seus resíduos sólidos.</p><div class="tip-campo">COD_DESTINO_LIXO_DOMIC_FAM</div></div></button>
+          <button class="card-toggle" style="margin-left:auto" onclick="toggleChart(this, 'chart-lixo')" title="Alternar N / %">⇅</button>
+        </div>
+        <div class="chart-miss" id="miss-lixo"></div><div class="chart-wrap"><canvas id="chart-lixo"></canvas></div>
+      </div>
     </div>
   </div>
 </div>
@@ -411,9 +505,87 @@ function buildLocMap(data){
 }
 function getLoc(r){return localidadeMap[String(r.NOME_DA_LOCALIDADE||'').trim()]||String(r.NOME_DA_LOCALIDADE||'').trim()||'Não informado'}
 
-// ── CHART HELPERS ─────────────────────────────────────────
+// ── TOGGLE ENGINE & CHART HELPERS ─────────────────────────
+window.toggleCard = function(btn) {
+  const card = btn.closest('.stat-card');
+  const valTarget = card.querySelector('.card-val-target');
+  const subTarget = card.querySelector('.card-sub-target');
+  const isPct = card.hasAttribute('data-showing-pct');
+  
+  if (isPct) {
+      valTarget.textContent = card.getAttribute('data-val');
+      subTarget.textContent = card.getAttribute('data-sub');
+      card.removeAttribute('data-showing-pct');
+  } else {
+      valTarget.textContent = card.getAttribute('data-pct');
+      subTarget.textContent = card.getAttribute('data-subpct');
+      card.setAttribute('data-showing-pct', 'true');
+  }
+};
+
+window.toggleChart = function(btn, chartId) {
+   const chart = CHARTS[chartId];
+   if(!chart) return;
+   const card = btn.closest('.chart-card');
+   const isPct = card.hasAttribute('data-showing-pct');
+   
+   if (isPct) {
+       // Voltar para Números Absolutos
+       chart.data.datasets.forEach(ds => {
+           if(ds._absData) ds.data = [...ds._absData];
+       });
+       if (chart.options.scales && chart.options.scales.y) {
+           chart.options.scales.y.ticks.callback = Chart.Ticks.formatters.numeric;
+       }
+       card.removeAttribute('data-showing-pct');
+   } else {
+       // Converter para Porcentagem
+       let isCategoryPct = (chartId === 'chart-ciclo' || chartId === 'chart-rede-ciclo');
+       
+       chart.data.datasets.forEach(ds => {
+           if(!ds._absData) ds._absData = [...ds.data]; // Backup
+       });
+       
+       let totalAll = 0;
+       if (!isCategoryPct) {
+           chart.data.datasets.forEach(d => d._absData.forEach(v => totalAll += v));
+       }
+       
+       chart.data.datasets.forEach((ds) => {
+           ds.data = ds._absData.map((val, i) => {
+               let denom = totalAll;
+               if (isCategoryPct) {
+                   denom = 0;
+                   chart.data.datasets.forEach(d => denom += (d._absData[i] || 0));
+               }
+               return denom ? parseFloat(((val / denom) * 100).toFixed(1)) : 0;
+           });
+       });
+       
+       if (chart.options.scales && chart.options.scales.y) {
+           chart.options.scales.y.ticks.callback = function(val) { return val + '%'; };
+       }
+       card.setAttribute('data-showing-pct', 'true');
+   }
+   chart.update();
+}
+
+// Tooltip Global adaptado para a checagem dinâmica de porcentagem
+const tooltip = {
+  backgroundColor: NVY, cornerRadius: 8, padding: 10, titleColor: '#e0ab48', bodyColor: '#fff',
+  callbacks: {
+    label: function(context) {
+       let val = context.raw;
+       let label = context.dataset.label || context.label || '';
+       if(label) label += ': ';
+       const card = context.chart.canvas.closest('.chart-card');
+       const isPct = card && card.hasAttribute('data-showing-pct');
+       return label + val + (isPct ? '%' : '');
+    }
+  }
+};
+
 function dc(id){if(CHARTS[id]){CHARTS[id].destroy();delete CHARTS[id];}}
-const tooltip={backgroundColor:NVY,cornerRadius:8,padding:10,titleColor:'#e0ab48',bodyColor:'#fff'};
 function barChart(id,labels,values,colors){
   dc(id);const ctx=document.getElementById(id);if(!ctx)return;
   CHARTS[id]=new Chart(ctx,{type:'bar',data:{labels,datasets:[{data:values,backgroundColor:colors||PAL,borderRadius:5,borderSkipped:false}]},
@@ -431,24 +603,6 @@ function groupedBar(id,labels,datasets){
     options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{position:'top',labels:{color:'#4a4a4a',font:{size:10,family:'Syne',weight:'600'},boxWidth:10,padding:8}},tooltip},
       scales:{x:{ticks:{color:'#7a7a7a',font:{size:10,family:'Syne',weight:'600'}},grid:{display:false}},y:{ticks:{color:'#7a7a7a',font:{size:10}},grid:{color:'#edeae3'}}}}});
 }
-
-// ── TOGGLE ENGINE ─────────────────────────────────────────
-window.toggleCard = function(btn) {
-  const card = btn.closest('.stat-card');
-  const valTarget = card.querySelector('.card-val-target');
-  const subTarget = card.querySelector('.card-sub-target');
-  const isPct = card.hasAttribute('data-showing-pct');
-  
-  if (isPct) {
-      valTarget.textContent = card.getAttribute('data-val');
-      subTarget.textContent = card.getAttribute('data-sub');
-      card.removeAttribute('data-showing-pct');
-  } else {
-      valTarget.textContent = card.getAttribute('data-pct');
-      subTarget.textContent = card.getAttribute('data-subpct');
-      card.setAttribute('data-showing-pct', 'true');
-  }
-};
 
 // ── CARD BUILDER ──────────────────────────────────────────
 function card({id,label,value,pctValue,sub,subPct,miss,color,icon,tip,campo}){
@@ -544,8 +698,8 @@ function computeAndRender(data){
       document.getElementById('badge-atualizado').textContent=pct(atual,total)+'% atualizados';
       
       strip('strip-estrutura',[
-        { id:'s-tf', label:'Total de famílias', value:n(total), sub:'grupos familiares únicos', color:'cs', icon:'👥', tip:'Contagem de grupos familiares distintos na base carregada.', campo:'COD_FAMILIAR' },
-        { id:'s-tp', label:'Total de pessoas', value:n(totalP), sub:'membros cadastrados', icon:'🧑‍🤝‍🧑', tip:'Total absoluto de pessoas cadastradas nestas famílias.', campo:'(Total de registros na base)' },
+        { id:'s-tf', label:'Total de famílias', value:n(total), pctValue:'100%', sub:'grupos familiares únicos', subPct:'do total da base', color:'cs', icon:'👥', tip:'Contagem de grupos familiares distintos na base carregada.', campo:'COD_FAMILIAR' },
+        { id:'s-tp', label:'Total de pessoas', value:n(totalP), pctValue:'100%', sub:'membros cadastrados', subPct:'do total da base', icon:'🧑‍🤝‍🧑', tip:'Total absoluto de pessoas cadastradas nestas famílias.', campo:'(Total de registros na base)' },
         { id:'s-avg', label:'Média membros/família', value:avg>0?avg.toFixed(1):'—', sub:missT?`${missT} sem dado`:'pessoas por família em média', color:'cg', icon:'🏠', miss:missT?`${missT} família(s) sem dado`:null, tip:'Média simples da quantidade de pessoas no domicílio por família.', campo:'QTD_PESSOAS_DOMIC_FAM' },
         { id:'s-acima', label:'Acima da média', value:n(acimaMed), pctValue: pct(acimaMed, total)+'%', sub:`das famílias (> ${avg.toFixed(1)} pessoas)`, subPct:`${n(acimaMed)} famílias grandes`, color:'cg', icon:'📊', tip:'Quantidade de famílias cujo número de membros é maior que a média do território.', campo:'QTD_PESSOAS_DOMIC_FAM > MÉDIA' },
         { id:'s-soz', label:'Famílias unipessoais', value:n(sozinhas), pctValue: pct(sozinhas, total)+'%', sub:'do total de famílias', subPct:`${n(sozinhas)} famílias compostas por 1 membro`, icon:'🧍', tip:'Famílias compostas por apenas um indivíduo morando sozinho.', campo:'QTD_PESSOAS_DOMIC_FAM == 1' },
@@ -846,10 +1000,10 @@ function computeAndRender(data){
       fams06.forEach(k => { if (rfD.has(k)) cri06D++; });
 
       strip('strip-trabalho',[
-        { id:'s-prod', label:'Força de trabalho (18–64)', value:n(totalAt), sub:'população economicamente ativa (potencial)', icon:'👷', tip:'Total de pessoas na faixa etária considerada produtiva (18 a 64 anos completos).', campo:'IDADE_PESSOA ENTRE 18 E 64' },
+        { id:'s-prod', label:'Força de trab. (18–64)', value:n(totalAt), pctValue: pct(totalAt, totalP)+'%', sub:'população ativa (potencial)', subPct:`${n(totalAt)} adultos na faixa etária`, icon:'👷', tip:'Total de pessoas na faixa etária considerada produtiva (18 a 64 anos completos).', campo:'IDADE_PESSOA ENTRE 18 E 64' },
         { id:'s-ntr', label:'Não trabalhou', value:n(nTrabCount), pctValue:pct(nTrabCount, totalAt)+'%', sub:'da força de trabalho (18-64)', subPct:`${n(nTrabCount)} desocupados ou inativos`, color:'cc', icon:'💼', tip:'Adultos que declararam não ter exercido atividade remunerada nos 12 meses anteriores.', campo:'COD_TRABALHOU_MEMB == "Não"' },
         { id:'s-inf', label:'Trabalho informal', value:n(informal), pctValue:pct(informal, trabCount)+'%', sub:'dos que trabalharam', subPct:`${n(informal)} atuam sem carteira ou autônomos`, color:'cg', icon:'🔧', tip:'Trabalhadores sem vínculo de proteção social formal (CLT/Estatutário). Engloba bicos e autônomos.', campo:'COD_PRINCIPAL_TRAB_MEMB' },
-        { id:'s-cri06', label:'RF desempr. + Crianças 0–6', value:n(cri06D), sub:'famílias sob dupla vulnerabilidade', color:'cc', icon:'👶', tip:'Cruza duas fragilidades: Presença de filhos pequenos (0-6 anos) e Responsável Familiar sem emprego declarado.', campo:'(CRIA <= 6) AND (RF TRABALHA == Não)' }
+        { id:'s-cri06', label:'RF desempr. + Crianças 0–6', value:n(cri06D), pctValue:pct(cri06D, tf)+'%', sub:'famílias com dupla vulnerabilidade', subPct:`${n(cri06D)} domicílios afetados`, color:'cc', icon:'👶', tip:'Cruza duas fragilidades: Presença de filhos pequenos (0-6 anos) e Responsável Familiar sem emprego declarado.', campo:'(CRIA <= 6) AND (RF TRABALHA == Não)' }
       ]);
       
       document.getElementById('miss-trabalho').textContent=missT?`${missT} sem tipo de trabalho`:'';

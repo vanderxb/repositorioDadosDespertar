@@ -136,21 +136,6 @@ header{background:var(--navy);padding:0 28px;display:flex;align-items:center;min
 .ranking-head span{font-family:var(--fh);font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:#fff}
 .ranking-head small{font-size:11px;color:rgba(255,255,255,.4)}
 
-/* EXTERNAL DATA */
-.ext-card{background:var(--surface2);border:1px solid var(--border);border-radius:var(--rl);padding:18px 20px;margin-bottom:16px}
-.ext-title{font-family:var(--fh);font-weight:700;font-size:11px;letter-spacing:1.5px;text-transform:uppercase;color:var(--navy);margin-bottom:4px}
-.ext-intro{font-size:12px;color:var(--text3);line-height:1.6;margin-bottom:14px}
-.ext-source{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:12px 14px;margin-bottom:10px;display:flex;align-items:flex-start;gap:12px}
-.ext-badge{font-family:var(--fh);font-size:9px;font-weight:700;letter-spacing:.8px;text-transform:uppercase;padding:3px 8px;border-radius:4px;flex-shrink:0;margin-top:2px;white-space:nowrap}
-.badge-free{background:#e1f5ee;color:#0b5c3a}
-.badge-scrape{background:#faeeda;color:#7a4500}
-.badge-paid{background:#fde8e8;color:#8a1c1c}
-.ext-body strong{font-size:13px;font-weight:500;color:var(--text);display:block;margin-bottom:3px}
-.ext-body p{font-size:12px;color:var(--text3);line-height:1.5;margin-bottom:3px}
-.ext-body a{color:var(--sky);text-decoration:none;font-size:11px}
-.ext-body a:hover{text-decoration:underline}
-.ext-tip{font-size:11px;color:var(--text3);font-style:italic;line-height:1.6;margin-top:12px;padding-top:12px;border-top:1px dashed var(--border)}
-
 /* FILTERS */
 .filters-wrap{background:var(--surface);border:1px solid var(--border);border-radius:var(--rl);padding:16px 18px;box-shadow:var(--sh);margin-bottom:16px}
 .filters-bar{display:flex;flex-wrap:wrap;gap:12px;align-items:flex-end}
@@ -405,63 +390,7 @@ Renda Score = max(0,  100 − (Renda Média ÷ 1.518 × 50))</div>
   </div>
 </div>
 
-<!-- DADOS EXTERNOS -->
-<div class="panel-block" id="panel-externo">
-  <div class="panel-header">
-    <div class="drag-wrap">
-      <div class="drag-dots"><span></span><span></span><span></span><span></span><span></span><span></span></div>
-      <div class="sec-title">Dados externos — média de aluguel</div>
-    </div>
-    <button class="btn-min" onclick="togglePanel('externo')">−</button>
-  </div>
-  <div class="panel-body">
-    <div class="ext-card">
-      <div class="ext-title">Como obter a média de aluguel em Cidade Ademar</div>
-      <p class="ext-intro">O CSV do CECAD não possui campo de aluguel. O dado precisa vir de fontes externas. As opções abaixo estão ordenadas do mais acessível ao mais complexo:</p>
-      <div class="ext-source">
-        <span class="ext-badge badge-free">Gratuito</span>
-        <div class="ext-body">
-          <strong>IBGE — Censo Demográfico 2022 (microdados de domicílios)</strong>
-          <p>Variável V0011 (valor do aluguel pago). Disponível por município. Filtre pelo subdistrito de Cidade Ademar. Requer R, Python ou SPSS para processar os microdados.</p>
-          <a href="https://www.ibge.gov.br/estatisticas/downloads-estatisticas.html" target="_blank">→ ibge.gov.br — Downloads Estatísticas</a>
-        </div>
-      </div>
-      <div class="ext-source">
-        <span class="ext-badge badge-free">Gratuito</span>
-        <div class="ext-body">
-          <strong>SEADE — Informações dos Municípios Paulistas</strong>
-          <p>Indicadores de habitação por distrito/subdistrito de SP. Tabelas de renda e habitação em CSV.</p>
-          <a href="https://www.imp.seade.gov.br" target="_blank">→ imp.seade.gov.br</a>
-        </div>
-      </div>
-      <div class="ext-source">
-        <span class="ext-badge badge-free">Gratuito</span>
-        <div class="ext-body">
-          <strong>Prefeitura de SP — GeoSampa / Dados Abertos SP</strong>
-          <p>Dados abertos de habitação por distrito. Filtre por "habitação" ou "aluguel".</p>
-          <a href="https://geosampa.prefeitura.sp.gov.br" target="_blank">→ geosampa.prefeitura.sp.gov.br</a> &nbsp;·&nbsp; <a href="https://dadosabertos.prefeitura.sp.gov.br" target="_blank">dadosabertos.prefeitura.sp.gov.br</a>
-        </div>
-      </div>
-      <div class="ext-source">
-        <span class="ext-badge badge-scrape">Web scraping</span>
-        <div class="ext-body">
-          <strong>ZAP Imóveis / VivaReal / OLX</strong>
-          <p>Anúncios de aluguel atuais em Cidade Ademar. Coletáveis via Python (requests + BeautifulSoup) ou APIs como Apify. Fornece preço médio por tipo de imóvel em tempo quase real.</p>
-          <a href="https://www.zapimoveis.com.br" target="_blank">→ zapimoveis.com.br</a> &nbsp;·&nbsp; <a href="https://www.vivareal.com.br" target="_blank">vivareal.com.br</a>
-        </div>
-      </div>
-      <div class="ext-source">
-        <span class="ext-badge badge-paid">Pago</span>
-        <div class="ext-body">
-          <strong>FipeZAP / QuintoAndar Relatórios</strong>
-          <p>Índice FipeZAP de locação por bairro de SP — atualizado mensalmente. QuintoAndar publica relatórios periódicos gratuitos com médias por zona da cidade.</p>
-          <a href="https://fipezap.zapimoveis.com.br" target="_blank">→ fipezap.zapimoveis.com.br</a>
-        </div>
-      </div>
-      <p class="ext-tip">Recomendação: para uso oficial e gratuito, use o IBGE Censo 2022 (variável V0011). Para dados de mercado atuais, use FipeZAP ou scraping do ZAP. Uma vez obtida a média, ela pode ser adicionada como card estático no painel de renda.</p>
-    </div>
-  </div>
-</div>
+
 
 <!-- FILTROS -->
 <div class="panel-block" id="panel-filtros">
@@ -1007,12 +936,24 @@ function restorePanelState(){try{const ord=JSON.parse(localStorage.getItem('desp
 
 document.addEventListener('DOMContentLoaded',()=>{
   restorePanelState();setStatus('Buscando dados…');
-  fetch(SUPABASE_URL,{cache:'no-cache'})
-    .then(r=>{if(!r.ok)throw new Error();return r.text();})
-    .then(t=>parseLoad(t,'Supabase · base.csv'))
-    .catch(()=>{setStatus('Use "Carregar CSV" para importar','err');document.getElementById('loading').innerHTML=`<div class="upload-hint"><svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="12" y1="18" x2="12" y2="12"/><line x1="9" y1="15" x2="15" y2="15"/></svg><p>Dados não encontrados no Supabase.<span>Clique em "Carregar CSV" para importar.</span></p></div>`;});
+  const xhr=new XMLHttpRequest();
+  xhr.open('GET',SUPABASE_URL,true);
+  xhr.setRequestHeader('Cache-Control','no-cache');
+  xhr.onload=function(){
+    if(xhr.status>=200&&xhr.status<300){
+      parseLoad(xhr.responseText,'Supabase · base.csv');
+    } else {
+      setStatus('Use "Carregar CSV" para importar','err');
+      showUploadHint();
+    }
+  };
+  xhr.onerror=function(){setStatus('Use "Carregar CSV" para importar','err');showUploadHint();};
+  xhr.ontimeout=function(){setStatus('Tempo esgotado — use "Carregar CSV"','err');showUploadHint();};
+  xhr.timeout=15000;
+  xhr.send();
   if(typeof Sortable!=='undefined')Sortable.create(document.getElementById('panels-container'),{animation:180,handle:'.panel-header',ghostClass:'sortable-ghost',onEnd(){savePanelState();setTimeout(()=>Object.values(CHARTS).forEach(c=>c.resize&&c.resize()),120);}});
 });
+function showUploadHint(){document.getElementById('loading').innerHTML=`<div class="upload-hint"><svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="12" y1="18" x2="12" y2="12"/><line x1="9" y1="15" x2="15" y2="15"/></svg><p>Dados não encontrados no Supabase.<span>Clique em "Carregar CSV" para importar manualmente.</span></p></div>`;}
 </script>
 </body>
 </html>

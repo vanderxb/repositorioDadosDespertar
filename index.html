@@ -1,10 +1,3 @@
-Aqui está o arquivo completo e corrigido. Refatorei **todos os passos de cálculo** (não apenas o Passo 2) para remover os "gargalos" de performance (loops encadeados e múltiplos `filter`/`map` que causavam o travamento).
-
-Com essas otimizações, a página processará dezenas de milhares de registros de forma quase instantânea, sem congelar o navegador.
-
-Basta copiar o código abaixo e substituir o conteúdo do seu arquivo `index.html`:
-
-```html
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
@@ -12,7 +5,7 @@ Basta copiar o código abaixo e substituir o conteúdo do seu arquivo `index.htm
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Painel do Território — Despertar</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,700&display=swap" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Sortable/1.15.0/Sortable.min.js"></script>
@@ -61,7 +54,7 @@ header{background:var(--navy);padding:0 28px;display:flex;align-items:center;min
 .hbadge{font-family:var(--fh);font-size:10px;font-weight:600;letter-spacing:.8px;text-transform:uppercase;padding:5px 12px;border-radius:20px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.15);color:rgba(255,255,255,.75)}
 .hbadge.gold{background:rgba(200,151,58,.15);border-color:var(--gold);color:var(--gold2)}
 
-/* PROGRESS BAR (sticky below header) */
+/* PROGRESS BAR */
 #pbar-wrap{height:3px;background:var(--navy3);position:sticky;top:64px;z-index:299}
 #pbar{height:3px;background:var(--gold);width:0%;transition:width .5s ease}
 
@@ -94,26 +87,42 @@ header{background:var(--navy);padding:0 28px;display:flex;align-items:center;min
 .sortable-ghost{opacity:.3}
 
 /* STAT CARDS */
-.stat-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(178px,1fr));gap:12px;margin-bottom:16px}
-.stat-card{background:var(--surface);border:1px solid var(--border);border-top:3px solid var(--border2);border-radius:var(--rl);padding:16px 18px;box-shadow:var(--sh);position:relative;transition:box-shadow .2s,transform .2s}
+.stat-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(185px,1fr));gap:12px;margin-bottom:16px}
+.stat-card{background:var(--surface);border:1px solid var(--border);border-top:3px solid var(--border2);border-radius:var(--rl);padding:16px 18px;box-shadow:var(--sh);position:relative;transition:box-shadow .2s,transform .2s; display: flex; flex-direction: column;}
 .stat-card:hover{box-shadow:var(--sh-lg);transform:translateY(-1px)}
 .stat-card.cg{border-top-color:var(--gold)}.stat-card.ct{border-top-color:var(--teal2)}.stat-card.cc{border-top-color:var(--coral)}.stat-card.cs{border-top-color:var(--sky)}.stat-card.cl{border-top-color:var(--lav)}
 .stat-icon{position:absolute;right:14px;top:14px;font-size:19px;opacity:.65}
-.stat-label{font-family:var(--fh);font-size:9px;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;color:var(--text3);margin-bottom:8px;padding-right:30px;display:flex;align-items:center;gap:4px}
-.stat-val{font-family:var(--fh);font-weight:800;font-size:27px;line-height:1;color:var(--navy);letter-spacing:-1px}
-.stat-card.cg .stat-val{color:var(--gold)}.stat-card.ct .stat-val{color:var(--teal)}.stat-card.cc .stat-val{color:var(--coral)}.stat-card.cs .stat-val{color:var(--sky)}.stat-card.cl .stat-val{color:var(--lav)}
-.stat-sub{font-size:11px;color:var(--text3);margin-top:4px;font-weight:300}
-.stat-miss{font-size:10px;color:var(--text3);margin-top:6px;padding-top:6px;border-top:1px dashed var(--border);font-style:italic}
+.stat-label{font-family:var(--fh);font-size:9px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--text3);margin-bottom:8px;padding-right:24px;display:flex;align-items:center;flex-wrap:wrap;gap:4px}
 
-/* TOOLTIP */
+/* Mudança sugerida: A fonte dos números agora é limpa (DM Sans) */
+.stat-val{font-family:var(--fb);font-weight:700;font-size:26px;line-height:1;color:var(--navy);letter-spacing:-1px}
+.stat-card.cg .stat-val{color:var(--gold)}.stat-card.ct .stat-val{color:var(--teal)}.stat-card.cc .stat-val{color:var(--coral)}.stat-card.cs .stat-val{color:var(--sky)}.stat-card.cl .stat-val{color:var(--lav)}
+.stat-sub{font-size:11px;color:var(--text3);margin-top:4px;font-weight:400; line-height: 1.3}
+.stat-miss{font-size:10px;color:var(--text3);margin-top:auto;padding-top:6px;border-top:1px dashed var(--border);font-style:italic}
+
+/* TOGGLE BUTTON NAS CARDS */
+.card-toggle {
+  background: var(--surface2); border: 1px solid var(--border);
+  border-radius: 4px; padding: 2px 5px; font-size: 10px; color: var(--navy);
+  cursor: pointer; display: inline-flex; align-items: center; justify-content: center;
+  transition: all 0.2s;
+}
+.card-toggle:hover { background: var(--sky); border-color: var(--sky); color: #fff; }
+
+/* TOOLTIP OTIMIZADO RESPONSIVO */
 .tip-btn{width:14px;height:14px;border-radius:50%;background:var(--surface3);border:none;cursor:pointer;font-family:var(--fh);font-size:8px;font-weight:700;color:var(--text3);display:inline-flex;align-items:center;justify-content:center;position:relative;vertical-align:middle;transition:background .15s;flex-shrink:0}
 .tip-btn:hover,.tip-btn:focus{background:var(--gold);color:var(--navy);outline:none}
-.tip-pop{display:none;position:absolute;top:calc(100% + 7px);left:50%;transform:translateX(-50%);background:var(--navy);color:#fff;border-radius:var(--r);padding:12px 14px;min-width:210px;max-width:270px;z-index:999;box-shadow:var(--sh-lg);pointer-events:none;text-align:left}
+.tip-pop{display:none;position:absolute;top:calc(100% + 7px);left:50%;transform:translateX(-50%);background:var(--navy);color:#fff;border-radius:var(--r);padding:12px 14px;min-width:220px;width:max-content;max-width:270px;z-index:999;box-shadow:var(--sh-lg);pointer-events:none;text-align:left}
 .tip-pop::before{content:'';position:absolute;top:-5px;left:50%;transform:translateX(-50%) rotate(45deg);width:10px;height:10px;background:var(--navy);border-radius:2px}
 .tip-btn:hover .tip-pop,.tip-btn:focus .tip-pop{display:block}
 .tip-pop strong{display:block;font-family:var(--fh);font-size:9px;color:var(--gold2);margin-bottom:5px;text-transform:uppercase;letter-spacing:.8px}
-.tip-pop p{font-size:11px;line-height:1.6;color:rgba(255,255,255,.85)}
-.tip-campo{margin-top:6px;padding-top:6px;border-top:1px solid rgba(255,255,255,.1);font-size:10px;color:rgba(255,255,255,.4);line-height:1.5}
+.tip-pop p{font-size:11px;line-height:1.5;color:rgba(255,255,255,.9); font-family: var(--fb); font-weight: 400;}
+.tip-campo{margin-top:6px;padding-top:6px;border-top:1px solid rgba(255,255,255,.1);font-size:9.5px;color:rgba(255,255,255,.5);line-height:1.4; font-family: monospace;}
+/* Ajuste de tooltip na borda da tela mobile */
+@media(max-width:640px){
+  .tip-pop { left: auto; right: -20px; transform: none; }
+  .tip-pop::before { left: auto; right: 23px; transform: rotate(45deg); }
+}
 
 /* CHARTS */
 .chart-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:14px;margin-bottom:16px}
@@ -122,8 +131,8 @@ header{background:var(--navy);padding:0 28px;display:flex;align-items:center;min
 .chart-miss{font-size:10px;color:var(--text3);font-style:italic;margin-bottom:10px;min-height:14px}
 .chart-wrap{position:relative;height:200px}.chart-wrap.tall{height:240px}
 
-/* FORMULA */
-.formula-card{background:var(--navy);border-radius:var(--rl);padding:20px 22px;margin-bottom:16px}
+/* FORMULA (Atualizado hover de bug branco) */
+.formula-card{background:var(--navy);border-radius:var(--rl);padding:20px 22px;margin-bottom:16px; margin-top: 16px;}
 .formula-title{font-family:var(--fh);font-weight:700;font-size:11px;letter-spacing:1.5px;text-transform:uppercase;color:var(--gold2);margin-bottom:12px}
 .formula-expr{font-family:monospace;font-size:13px;color:#fff;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.1);border-radius:8px;padding:12px 16px;margin-bottom:14px;line-height:1.9;white-space:pre-wrap}
 .formula-tbl{width:100%;border-collapse:collapse;margin-bottom:12px}
@@ -132,6 +141,9 @@ header{background:var(--navy);padding:0 28px;display:flex;align-items:center;min
 .formula-tbl td:first-child{color:rgba(255,255,255,.95);font-weight:500}
 .formula-tbl td:nth-child(2){color:var(--gold3);font-family:var(--fh);font-weight:700;font-size:11px}
 .formula-tbl td:last-child{color:rgba(255,255,255,.4);font-style:italic;font-size:11px}
+/* Resolvido Bug do Hover */
+.formula-tbl tbody tr { transition: background 0.2s ease; }
+.formula-tbl tbody tr:hover { background: rgba(255,255,255,0.08) !important; }
 .formula-note{font-size:11px;color:rgba(255,255,255,.4);line-height:1.6;font-style:italic;margin-top:10px}
 .score-legend{display:flex;gap:10px;flex-wrap:wrap;margin-top:10px}
 .score-pill{font-family:var(--fh);font-size:10px;font-weight:600;padding:3px 10px;border-radius:12px}
@@ -244,7 +256,7 @@ footer strong{color:var(--gold2);font-weight:700}
     <div class="chart-grid">
       <div class="chart-card"><div class="chart-title">Faixa de renda familiar</div><div class="chart-miss" id="miss-faixarenda"></div><div class="chart-wrap"><canvas id="chart-faixarenda"></canvas></div></div>
       <div class="chart-card"><div class="chart-title">Renda do trabalho — membros</div><div class="chart-miss" id="miss-rendatrab"></div><div class="chart-wrap"><canvas id="chart-rendatrab"></canvas></div></div>
-      <div class="chart-card"><div class="chart-title">Composição da renda familiar<button class="tip-btn" tabindex="0">?<div class="tip-pop"><strong>Composição da renda</strong><p>Classifica cada família pela fonte principal: só trabalho, trabalho + benefício, só benefício, sem renda.</p><div class="tip-campo">MARC_PBF · FX_RND_VAL_RENDA_APOSENT_MEMB · FX_RND_VAL_REMUNER_EMPREGO_MEMB</div></div></button></div><div class="chart-miss" id="miss-composicao"></div><div class="chart-wrap"><canvas id="chart-composicao"></canvas></div></div>
+      <div class="chart-card"><div class="chart-title">Composição da renda familiar</div><div class="chart-miss" id="miss-composicao"></div><div class="chart-wrap"><canvas id="chart-composicao"></canvas></div></div>
     </div>
   </div>
 </div>
@@ -292,6 +304,11 @@ footer strong{color:var(--gold2);font-weight:700}
 <div class="panel-block" id="panel-vuln">
   <div class="panel-header"><div class="drag-wrap"><div class="drag-dots"><span></span><span></span><span></span><span></span><span></span><span></span></div><div class="sec-title">Vulnerabilidade por localidade</div></div><button class="btn-min" onclick="togglePanel('vuln')">−</button></div>
   <div class="panel-body">
+    <div class="ranking-wrap">
+      <div class="ranking-head"><span>Ranking de vulnerabilidade — por localidade</span><small id="ranking-info"></small></div>
+      <div class="table-scroll"><table style="min-width:880px"><thead><tr id="ranking-thead"></tr></thead><tbody id="ranking-body"></tbody></table></div>
+    </div>
+    
     <div class="formula-card">
       <div class="formula-title">Índice de vulnerabilidade — fórmula e metodologia</div>
       <div class="formula-expr">Score = (% Extrema Pobreza  × 0,30)
@@ -318,10 +335,6 @@ Renda Score = max(0,  100 − (Renda Média ÷ 1.518 × 50))</div>
         <span class="score-pill" style="background:#e1f5ee;color:#0b5c3a">&lt; 25 = Baixa</span>
       </div>
       <div class="formula-note">O score varia de 0 a 100. Quanto maior, maior a vulnerabilidade estimada. Não substitui análises qualitativas de campo.</div>
-    </div>
-    <div class="ranking-wrap">
-      <div class="ranking-head"><span>Ranking de vulnerabilidade — por localidade</span><small id="ranking-info"></small></div>
-      <div class="table-scroll"><table style="min-width:880px"><thead><tr id="ranking-thead"></tr></thead><tbody id="ranking-body"></tbody></table></div>
     </div>
   </div>
 </div>
@@ -419,13 +432,36 @@ function groupedBar(id,labels,datasets){
       scales:{x:{ticks:{color:'#7a7a7a',font:{size:10,family:'Syne',weight:'600'}},grid:{display:false}},y:{ticks:{color:'#7a7a7a',font:{size:10}},grid:{color:'#edeae3'}}}}});
 }
 
+// ── TOGGLE ENGINE ─────────────────────────────────────────
+window.toggleCard = function(btn) {
+  const card = btn.closest('.stat-card');
+  const valTarget = card.querySelector('.card-val-target');
+  const subTarget = card.querySelector('.card-sub-target');
+  const isPct = card.hasAttribute('data-showing-pct');
+  
+  if (isPct) {
+      valTarget.textContent = card.getAttribute('data-val');
+      subTarget.textContent = card.getAttribute('data-sub');
+      card.removeAttribute('data-showing-pct');
+  } else {
+      valTarget.textContent = card.getAttribute('data-pct');
+      subTarget.textContent = card.getAttribute('data-subpct');
+      card.setAttribute('data-showing-pct', 'true');
+  }
+};
+
 // ── CARD BUILDER ──────────────────────────────────────────
-function card({id,label,value,sub,miss,color,icon,tip,campo}){
-  return`<div class="stat-card ${color||''}">
+function card({id,label,value,pctValue,sub,subPct,miss,color,icon,tip,campo}){
+  const hasToggle = pctValue !== undefined;
+  return `<div class="stat-card ${color||''}" ${hasToggle ? `data-val="${value}" data-pct="${pctValue}" data-sub="${sub}" data-subpct="${subPct}"` : ''}>
     <div class="stat-icon">${icon||''}</div>
-    <div class="stat-label">${label}${tip?` <button class="tip-btn" tabindex="0">?<div class="tip-pop"><strong>${label}</strong><p>${tip}</p>${campo?`<div class="tip-campo">${campo}</div>`:''}</div></button>`:''}</div>
-    <div class="stat-val">${value||'—'}</div>
-    <div class="stat-sub">${sub||''}</div>
+    <div class="stat-label">
+      ${label}
+      ${hasToggle ? `<button class="card-toggle" onclick="toggleCard(this)" title="Alternar N / %">⇅</button>` : ''}
+      ${tip?` <button class="tip-btn" tabindex="0">?<div class="tip-pop"><strong>${label}</strong><p>${tip}</p>${campo?`<div class="tip-campo">${campo}</div>`:''}</div></button>`:''}
+    </div>
+    <div class="stat-val card-val-target">${value||'—'}</div>
+    <div class="stat-sub card-sub-target">${sub||''}</div>
     ${miss?`<div class="stat-miss">${miss}</div>`:''}
   </div>`;
 }
@@ -438,15 +474,14 @@ function lblCode(v,mx){if(!v)return'';const m=String(v).match(/^\d+\s*-\s*(.+)/)
 const n=v=>Number(v).toLocaleString('pt-BR');
 const pct=(a,b)=>b?Math.round(a/b*100):0;
 
-// ── COMPUTE + RENDER (em passos assíncronos e otimizados) ──────────────
+// ── COMPUTE + RENDER (Otimizados com Tooltips + Toggles) ─
 function computeAndRender(data){
   const totalP = data.length;
   
-  // PRE-PROCESSAMENTO OTIMIZADO (Apenas 1 loop principal)
   prog(64,'Indexando famílias…');
-  const fR = []; // Apenas 1 registro por família
-  const rfs = []; // Apenas os Responsáveis Familiares
-  const famGroups = {}; // Agrupamento de membros por família para lookup O(1)
+  const fR = []; 
+  const rfs = []; 
+  const famGroups = {}; 
   const famSet = new Set();
   
   for (let i = 0; i < totalP; i++) {
@@ -477,13 +512,7 @@ function computeAndRender(data){
       let tamSum = 0, tamCount = 0;
       let sozinhas = 0, multi = 0, aglom = 0;
       let desat = 0, atual = 0;
-
-      for (let i = 0; i < totalP; i++) {
-        const st = String(data[i].STATUS_CADUNICO||'').trim().toUpperCase();
-        if (st === 'DESATUALIZADO') desat++; // Famílias repetem, corrigiremos abaixo com o Group
-      }
       
-      desat = 0; atual = 0;
       for (let i = 0; i < total; i++) {
         const r = fR[i];
         const p = parseInt(r.QTD_PESSOAS_DOMIC_FAM);
@@ -515,14 +544,14 @@ function computeAndRender(data){
       document.getElementById('badge-atualizado').textContent=pct(atual,total)+'% atualizados';
       
       strip('strip-estrutura',[
-        {id:'s-tf',label:'Total de famílias',value:n(total),sub:'grupos familiares únicos',color:'cs',icon:'👥'},
-        {id:'s-tp',label:'Total de pessoas',value:n(totalP),sub:'membros cadastrados',icon:'🧑‍🤝‍🧑'},
-        {id:'s-avg',label:'Média membros/família',value:avg>0?avg.toFixed(1):'—',sub:missT?`${missT} sem dado`:'',color:'cg',icon:'🏠',miss:missT?`${missT} família(s) sem dado`:null},
-        {id:'s-acima',label:'Acima da média',value:n(acimaMed),sub:`${pct(acimaMed,total)}% com >${avg.toFixed(1)} membros`,color:'cg',icon:'📊'},
-        {id:'s-soz',label:'Famílias unipessoais',value:n(sozinhas),sub:`${pct(sozinhas,total)}% das famílias`,icon:'🧍'},
-        {id:'s-multi',label:'Múltiplas famílias/dom.',value:n(multi),sub:'compartilham domicílio',color:'cc',icon:'🏘️'},
-        {id:'s-desat',label:'Cadastros desatualizados',value:n(desat),sub:`${pct(desat,total)}% — busca ativa`,color:'cc',icon:'📋'},
-        {id:'s-aglom',label:'Aglomeração domiciliar',value:n(aglom),sub:'> 2 pessoas/dormitório',color:'cg',icon:'⚠️'},
+        { id:'s-tf', label:'Total de famílias', value:n(total), sub:'grupos familiares únicos', color:'cs', icon:'👥', tip:'Contagem de grupos familiares distintos na base carregada.', campo:'COD_FAMILIAR' },
+        { id:'s-tp', label:'Total de pessoas', value:n(totalP), sub:'membros cadastrados', icon:'🧑‍🤝‍🧑', tip:'Total absoluto de pessoas cadastradas nestas famílias.', campo:'(Total de registros na base)' },
+        { id:'s-avg', label:'Média membros/família', value:avg>0?avg.toFixed(1):'—', sub:missT?`${missT} sem dado`:'pessoas por família em média', color:'cg', icon:'🏠', miss:missT?`${missT} família(s) sem dado`:null, tip:'Média simples da quantidade de pessoas no domicílio por família.', campo:'QTD_PESSOAS_DOMIC_FAM' },
+        { id:'s-acima', label:'Acima da média', value:n(acimaMed), pctValue: pct(acimaMed, total)+'%', sub:`das famílias (> ${avg.toFixed(1)} pessoas)`, subPct:`${n(acimaMed)} famílias grandes`, color:'cg', icon:'📊', tip:'Quantidade de famílias cujo número de membros é maior que a média do território.', campo:'QTD_PESSOAS_DOMIC_FAM > MÉDIA' },
+        { id:'s-soz', label:'Famílias unipessoais', value:n(sozinhas), pctValue: pct(sozinhas, total)+'%', sub:'do total de famílias', subPct:`${n(sozinhas)} famílias compostas por 1 membro`, icon:'🧍', tip:'Famílias compostas por apenas um indivíduo morando sozinho.', campo:'QTD_PESSOAS_DOMIC_FAM == 1' },
+        { id:'s-multi', label:'Múltiplas famílias/dom.', value:n(multi), pctValue: pct(multi, total)+'%', sub:'compartilham domicílio', subPct:`${n(multi)} coabitam com outros núcleos`, color:'cc', icon:'🏘️', tip:'Sinaliza domicílios onde convivem duas ou mais famílias diferentes.', campo:'QTD_FAMILIAS_DOMIC_FAM > 1' },
+        { id:'s-desat', label:'Cad. desatualizados', value:n(desat), pctValue: pct(desat, total)+'%', sub:'das famílias (busca ativa)', subPct:`${n(desat)} grupos em risco de perder benefício`, color:'cc', icon:'📋', tip:'Cadastros não atualizados há mais de 24 meses (regra federal do Cadastro Único).', campo:'STATUS_CADUNICO' },
+        { id:'s-aglom', label:'Aglomeração domiciliar', value:n(aglom), pctValue: pct(aglom, total)+'%', sub:'> 2 pessoas por dormitório', subPct:`${n(aglom)} famílias em adensamento excessivo`, color:'cg', icon:'⚠️', tip:'Indica superlotação: média de mais de 2 pessoas dormindo no mesmo cômodo.', campo:'QTD_PESSOAS / QTD_COMODOS_DORMITORIO' }
       ]);
     },
 
@@ -571,14 +600,14 @@ function computeAndRender(data){
       }
 
       strip('strip-ciclovida',[
-        {id:'s-prim',label:'Primeira infância (0–6)',value:n(prim),sub:'crianças de 0 a 6 anos',color:'ct',icon:'👶',miss:missI?`${missI} sem idade`:null},
-        {id:'s-adol',label:'Adolescentes (15–17)',value:n(adol),sub:'faixa de proteção especial',color:'cg',icon:'🎒'},
-        {id:'s-jov',label:'Jovens (18–29)',value:n(jov),sub:'adultos jovens',color:'cs',icon:'🎓'},
-        {id:'s-id',label:'Idosos (60+)',value:n(ido),sub:`${pct(ido,totalP)}% da população`,color:'cl',icon:'🧓'},
-        {id:'s-mrf',label:'Mulher responsável',value:n(mrfCount),sub:`${pct(mrfCount,tf)}% das famílias`,color:'ct',icon:'👩'},
+        { id:'s-prim', label:'1ª infância (0–6)', value:n(prim), pctValue:pct(prim, totalP)+'%', sub:'da população total', subPct:`${n(prim)} crianças de 0 a 6 anos`, color:'ct', icon:'👶', miss:missI?`${missI} sem idade`:null, tip:'Crianças na fase de Primeira Infância, fundamental para políticas de desenvolvimento cognitivo e assistência básica.', campo:'IDADE_PESSOA <= 6' },
+        { id:'s-adol', label:'Adolescentes (15–17)', value:n(adol), pctValue:pct(adol, totalP)+'%', sub:'da população (Prot. Especial)', subPct:`${n(adol)} adolescentes`, color:'cg', icon:'🎒', tip:'Jovens em idade de transição escolar e início da aprendizagem profissional.', campo:'IDADE_PESSOA ENTRE 15 e 17' },
+        { id:'s-jov', label:'Jovens (18–29)', value:n(jov), pctValue:pct(jov, totalP)+'%', sub:'da população total', subPct:`${n(jov)} adultos jovens`, color:'cs', icon:'🎓', tip:'Faixa prioritária para qualificação técnica, primeiro emprego e empreendedorismo.', campo:'IDADE_PESSOA ENTRE 18 e 29' },
+        { id:'s-id', label:'Idosos (60+)', value:n(ido), pctValue:pct(ido, totalP)+'%', sub:'da população total', subPct:`${n(ido)} idosos`, color:'cl', icon:'🧓', tip:'Pessoas na terceira idade, elegíveis para BPC ou proteção social especializada.', campo:'IDADE_PESSOA >= 60' },
+        { id:'s-mrf', label:'Mulher responsável', value:n(mrfCount), pctValue:pct(mrfCount, tf)+'%', sub:'das famílias (chefia)', subPct:`${n(mrfCount)} famílias lideradas por mulheres`, color:'ct', icon:'👩', tip:'Famílias onde uma mulher é identificada como a Responsável Familiar (RF).', campo:'FAM_FAM_MULHER_RF == SIM' }
       ]);
       document.getElementById('miss-etaria').textContent = missI ? `${missI} sem idade` : '';
-      barChart('chart-etaria',faixas.map(f=>f.l), [0], null); // Placeholder, replaced below
+      barChart('chart-etaria',faixas.map(f=>f.l), [0], null); 
       CHARTS['chart-etaria'].data.datasets = [{label:'Masculino',data:masc,backgroundColor:'#2471b8',borderRadius:4},{label:'Feminino',data:fem,backgroundColor:'#c8973a',borderRadius:4}];
       CHARTS['chart-etaria'].update();
       
@@ -598,7 +627,6 @@ function computeAndRender(data){
       
       const fxRCount = [0,0,0,0,0,0,0];
 
-      // Otimização: Acesso rápido aos membros da família via famGroups (O(1) ao invés de O(N^2))
       for (let i = 0; i < total; i++) {
         const r = fR[i];
         const k = famKey(r);
@@ -625,7 +653,6 @@ function computeAndRender(data){
           else fxRCount[6]++;
         }
 
-        // Composição O(1) interno
         let hT = false, hP = false, hA = false;
         for (let j = 0; j < mb.length; j++) {
            const m = mb[j];
@@ -650,12 +677,12 @@ function computeAndRender(data){
       const avgR = avgRCount ? avgRSum / avgRCount : 0;
 
       strip('strip-renda',[
-        {id:'s-avgr',label:'Renda média familiar',value:avgR>0?'R$'+Math.round(avgR).toLocaleString('pt-BR'):'—',sub:'renda total mensal',color:'cg',icon:'💰',miss:missR?`${missR} sem dado`:null},
-        {id:'s-extr',label:'Extrema pobreza',value:n(extr),sub:`${pct(extr,total)}% · renda p/c ≤ R$109`,color:'cc',icon:'🔴'},
-        {id:'s-pob',label:'Pobreza',value:n(pob),sub:`${pct(pob,total)}% · R$110–218 p/c`,color:'cc',icon:'🟠'},
-        {id:'s-zero',label:'Renda zero',value:n(zero),sub:'sem renda declarada',icon:'⚠️'},
-        {id:'s-pbf',label:'Beneficiárias PBF',value:n(pbfF),sub:`${pct(pbfF,total)}% das famílias`,color:'ct',icon:'✅'},
-        {id:'s-apos',label:'Com aposentadoria/pensão',value:n(aposF),sub:`${pct(aposF,total)}% das famílias`,color:'cs',icon:'🏦'},
+        { id:'s-avgr', label:'Renda média da fam.', value:avgR>0?'R$'+Math.round(avgR).toLocaleString('pt-BR'):'—', sub:'renda bruta / mês', color:'cg', icon:'💰', miss:missR?`${missR} sem dado`:null, tip:'Renda bruta mensal declarada no grupo familiar (soma do ganho de todos os membros).', campo:'VLR_RENDA_MEDIA_FAM' },
+        { id:'s-extr', label:'Extrema pobreza', value:n(extr), pctValue: pct(extr, total)+'%', sub:'renda per capita ≤ R$109', subPct:`${n(extr)} famílias`, color:'cc', icon:'🔴', tip:'Famílias com renda per capita igual ou inferior à linha de extrema pobreza estabelecida pelo MDS.', campo:'(VLR_RENDA_MEDIA_FAM / QTD_PESSOAS) <= 109' },
+        { id:'s-pob', label:'Pobreza', value:n(pob), pctValue: pct(pob, total)+'%', sub:'R$110–218 per capita', subPct:`${n(pob)} famílias`, color:'cc', icon:'🟠', tip:'Famílias acima da extrema pobreza, porém na linha de pobreza oficial (R$110 a R$218 por pessoa).', campo:'(RENDA_PER_CAPITA) > 109 e <= 218' },
+        { id:'s-zero', label:'Renda zero', value:n(zero), pctValue: pct(zero, total)+'%', sub:'sem qualquer renda', subPct:`${n(zero)} famílias declararam renda R$0`, icon:'⚠️', tip:'O grupo familiar declarou que não possui nenhuma fonte de renda no momento do cadastro.', campo:'VLR_RENDA_MEDIA_FAM == 0' },
+        { id:'s-pbf', label:'Recebem PBF', value:n(pbfF), pctValue: pct(pbfF, total)+'%', sub:'são beneficiárias', subPct:`${n(pbfF)} famílias no Bolsa Família`, color:'ct', icon:'✅', tip:'Famílias com marcação ativa de recebimento do Programa Bolsa Família.', campo:'MARC_PBF == SIM' },
+        { id:'s-apos', label:'Aposent. / Pensão', value:n(aposF), pctValue: pct(aposF, total)+'%', sub:'têm membro aposentado', subPct:`${n(aposF)} famílias recebem INSS/BPC`, color:'cs', icon:'🏦', tip:'Famílias que possuem ao menos um membro com renda declarada oriunda de aposentadoria, BPC ou pensão.', campo:'FX_RND_VAL_RENDA_APOSENT_MEMB' }
       ]);
 
       const fxRLabels = ['R$0','R$1–109','R$110–218','R$219–½SM','½SM–1SM','1SM–2SM','>2SM'];
@@ -769,10 +796,10 @@ function computeAndRender(data){
       groupedBar('chart-rede-ciclo',ciclos.map(c=>c.l),[{label:'Rede pública',data:ciclos.map(c=>redes[c.l].Pública),backgroundColor:'#2471b8',borderRadius:4},{label:'Rede privada',data:ciclos.map(c=>redes[c.l].Privada),backgroundColor:'#7056c8',borderRadius:4},{label:'Fora da escola',data:ciclos.map(c=>redes[c.l].Fora),backgroundColor:'#c94f2e',borderRadius:4}]);
 
       strip('strip-escola',[
-        {id:'s-fesc',label:'Fora da escola (5–17)',value:n(foraEsc),sub:`${pct(foraEsc,e517Count)}% dos 5–17 anos`,color:'cc',icon:'📚'},
-        {id:'s-neet',label:'NEET (18–24 anos)',value:n(neet),sub:`${pct(neet,j1824Count)}% dos jovens 18–24`,color:'cc',icon:'🔍'},
-        {id:'s-sinstr',label:'Resp. sem instrução',value:n(sInstr),sub:`${pct(sInstr,rfs.length)}% dos responsáveis`,color:'cg',icon:'📖'},
-        {id:'s-analf',label:'Resp. nunca frequentou',value:n(analf),sub:`${pct(analf,rfs.length)}% — proxy analfabetismo`,color:'cc',icon:'🚫'},
+        { id:'s-fesc', label:'Fora da escola (5–17)', value:n(foraEsc), pctValue: pct(foraEsc, e517Count)+'%', sub:'da faixa etária 5 a 17 anos', subPct:`${n(foraEsc)} menores desescolarizados`, color:'cc', icon:'📚', tip:'Crianças ou adolescentes em idade escolar obrigatória (5 a 17 anos) que não frequentam creche nem escola.', campo:'IND_FREQUENTA_ESCOLA_MEMB == "Não"' },
+        { id:'s-neet', label:'Geração Nem-Nem', value:n(neet), pctValue: pct(neet, j1824Count)+'%', sub:'dos jovens de 18–24 anos', subPct:`${n(neet)} não estudam e não trabalham`, color:'cc', icon:'🔍', tip:'Jovens de 18 a 24 anos que não estudam nem possuem registro de trabalho ativo (proxy para exclusão social).', campo:'(ESCOLA == Não) AND (TRABALHO == Não)' },
+        { id:'s-sinstr', label:'RF sem instrução', value:n(sInstr), pctValue: pct(sInstr, rfs.length)+'%', sub:'dos Responsáveis Familiares', subPct:`${n(sInstr)} declarados sem ensino base`, color:'cg', icon:'📖', tip:'Grau de escolaridade formal do responsável familiar classificado como "sem instrução" ou que nunca frequentou escola.', campo:'GRAU_INSTRUCAO' },
+        { id:'s-analf', label:'RF nunca frequentou', value:n(analf), pctValue: pct(analf, rfs.length)+'%', sub:'(proxy de analfabetismo)', subPct:`${n(analf)} nunca foram à escola`, color:'cc', icon:'🚫', tip:'Marcador explícito de que a pessoa nunca frequentou nenhuma instituição de ensino (alta probabilidade de analfabetismo).', campo:'COD_CURSO_FREQUENTOU == 4' }
       ]);
     },
 
@@ -798,7 +825,7 @@ function computeAndRender(data){
              if (trab.startsWith('1')) {
                  trabCount++;
                  const v = String(r.COD_PRINCIPAL_TRAB_MEMB||'').trim();
-                 if (v.startsWith('4') || v.startsWith('6')) formal++;
+                 if (v.startsWith('4') || v.startsWith('6') || v.startsWith('8')) formal++;
                  else informal++;
 
                  if (!v) missT++;
@@ -819,10 +846,10 @@ function computeAndRender(data){
       fams06.forEach(k => { if (rfD.has(k)) cri06D++; });
 
       strip('strip-trabalho',[
-        {id:'s-prod',label:'Adultos em idade produtiva',value:n(totalAt),sub:'pessoas de 18 a 64 anos',color:'cs',icon:'👷'},
-        {id:'s-ntr',label:'Sem renda de trabalho',value:n(nTrabCount),sub:`${pct(nTrabCount,totalAt)}% dos adultos 18–64`,color:'cc',icon:'💼'},
-        {id:'s-inf',label:'Trabalho informal',value:n(informal),sub:`${pct(informal,trabCount)}% dos que trabalham`,color:'cg',icon:'🔧'},
-        {id:'s-cri06',label:'Família c/ 0–6 e RF desempr.',value:n(cri06D),sub:'dupla vulnerabilidade',color:'cc',icon:'👶'},
+        { id:'s-prod', label:'Força de trabalho (18–64)', value:n(totalAt), sub:'população economicamente ativa (potencial)', icon:'👷', tip:'Total de pessoas na faixa etária considerada produtiva (18 a 64 anos completos).', campo:'IDADE_PESSOA ENTRE 18 E 64' },
+        { id:'s-ntr', label:'Não trabalhou', value:n(nTrabCount), pctValue:pct(nTrabCount, totalAt)+'%', sub:'da força de trabalho (18-64)', subPct:`${n(nTrabCount)} desocupados ou inativos`, color:'cc', icon:'💼', tip:'Adultos que declararam não ter exercido atividade remunerada nos 12 meses anteriores.', campo:'COD_TRABALHOU_MEMB == "Não"' },
+        { id:'s-inf', label:'Trabalho informal', value:n(informal), pctValue:pct(informal, trabCount)+'%', sub:'dos que trabalharam', subPct:`${n(informal)} atuam sem carteira ou autônomos`, color:'cg', icon:'🔧', tip:'Trabalhadores sem vínculo de proteção social formal (CLT/Estatutário). Engloba bicos e autônomos.', campo:'COD_PRINCIPAL_TRAB_MEMB' },
+        { id:'s-cri06', label:'RF desempr. + Crianças 0–6', value:n(cri06D), sub:'famílias sob dupla vulnerabilidade', color:'cc', icon:'👶', tip:'Cruza duas fragilidades: Presença de filhos pequenos (0-6 anos) e Responsável Familiar sem emprego declarado.', campo:'(CRIA <= 6) AND (RF TRABALHA == Não)' }
       ]);
       
       document.getElementById('miss-trabalho').textContent=missT?`${missT} sem tipo de trabalho`:'';
@@ -830,7 +857,7 @@ function computeAndRender(data){
       barChart('chart-trabalho',ti.map(([k])=>k),ti.map(([,v])=>v));
       
       document.getElementById('miss-formal').textContent='';
-      donut('chart-formal',['Formal (CLT/Dom. c/cart.)','Informal','Sem tipo informado'],[formal,informal,missT]);
+      donut('chart-formal',['Formal (CLT/Pub)','Informal','Sem tipo informado'],[formal,informal,missT]);
       
       document.getElementById('miss-sittrab').textContent=semI?`${semI} sem informação`:'';
       barChart('chart-sittrab',['Trabalharam','Não trabalharam','Sem informação'],[trabCount,nTrabCount,semI],['#1a8a72','#c94f2e','#ccc9c0']);
@@ -881,9 +908,9 @@ function computeAndRender(data){
       const esgP = Object.entries(eC).filter(([k])=>!['Rede coletora','Fossa séptica'].includes(k)).reduce((a,[,v])=>a+v,0);
       
       strip('strip-saneamento',[
-        {id:'s-sbn',label:'Sem banheiro',value:n(bn.nao),sub:`${pct(bn.nao,total)}% das famílias`,color:'cc',icon:'🚽',miss:bn.miss?`${bn.miss} sem dado`:null},
-        {id:'s-sar',label:'Sem água de rede',value:n(semAR),sub:`${pct(semAR,total)}% das famílias`,color:'cg',icon:'💧',miss:missA?`${missA} sem dado`:null},
-        {id:'s-esgp',label:'Esgoto precário',value:n(esgP),sub:`${pct(esgP,total)}% das famílias`,color:'cc',icon:'⚠️',miss:missE?`${missE} sem dado`:null},
+        { id:'s-sbn', label:'Sem banheiro no dom.', value:n(bn.nao), pctValue:pct(bn.nao, total)+'%', sub:'das residências afetadas', subPct:`${n(bn.nao)} famílias sem vaso sanitário`, color:'cc', icon:'🚽', miss:bn.miss?`${bn.miss} sem dado`:null, tip:'Domicílios que declararam não possuir instalação sanitária básica na residência ou lote.', campo:'COD_BANHEIRO_DOMIC_FAM' },
+        { id:'s-sar', label:'Sem água encanada', value:n(semAR), pctValue:pct(semAR, total)+'%', sub:'sem acesso à rede geral', subPct:`${n(semAR)} domicílios usam poços/valas`, color:'cg', icon:'💧', miss:missA?`${missA} sem dado`:null, tip:'O abastecimento de água não é feito pela rede geral de distribuição do município (SABESP).', campo:'COD_ABASTE_AGUA_DOMIC != 1' },
+        { id:'s-esgp', label:'Esgotamento precário', value:n(esgP), pctValue:pct(esgP, total)+'%', sub:'das famílias', subPct:`${n(esgP)} descartam em valas/rios/fossas rudim.`, color:'cc', icon:'⚠️', miss:missE?`${missE} sem dado`:null, tip:'O destino dos dejetos sanitários ocorre de forma precária: fossa rudimentar, vala aberta, rios ou escoamento livre no terreno.', campo:'COD_ESCOA_SANITARIO_DOMIC' }
       ]);
       
       document.getElementById('miss-agua').textContent=missA?`${missA} sem dado`:'';
@@ -1065,7 +1092,7 @@ function applyFilter(){
   currentPage=0;renderTable();
 }
 
-// ── PARSE COM PAPAPARSE (streaming chunk a chunk) ─────────
+// ── PARSE COM PAPAPARSE ───────────────────────────────────
 function startProcessing(text,src){
   prog(10,'Analisando estrutura do CSV…');
   const rows=[];
@@ -1170,5 +1197,3 @@ document.addEventListener('DOMContentLoaded',()=>{
 </script>
 </body>
 </html>
-
-```

@@ -27,8 +27,6 @@
 html{scroll-behavior:smooth}
 body{background:var(--bg);color:var(--text);font-family:var(--fb);font-size:14px;line-height:1.55;min-height:100vh}
 ::-webkit-scrollbar{width:5px;height:5px}::-webkit-scrollbar-track{background:transparent}::-webkit-scrollbar-thumb{background:var(--border2);border-radius:10px}
-
-/* HEADER & OVERLAYS */
 header{background:var(--navy);padding:0 28px;display:flex;align-items:center;min-height:64px;gap:18px;position:sticky;top:0;z-index:300;border-bottom:2px solid var(--gold)}
 .logo-block{display:flex;align-items:center;gap:12px;flex-shrink:0}
 .logo-sun{width:38px;height:38px;background:var(--gold);border-radius:50%;display:flex;align-items:center;justify-content:center}
@@ -44,7 +42,6 @@ header{background:var(--navy);padding:0 28px;display:flex;align-items:center;min
 .file-btn{display:inline-flex;align-items:center;gap:6px;background:var(--gold);color:var(--navy);font-family:var(--fh);font-weight:700;font-size:11px;letter-spacing:.8px;text-transform:uppercase;padding:7px 16px;border-radius:6px;cursor:pointer;border:none;transition:background .18s;white-space:nowrap}
 .file-btn:hover{background:var(--gold2)}
 #csv-input{display:none}
-
 .hero{background:var(--navy2);padding:24px 28px 20px;border-bottom:1px solid var(--navy3);display:flex;align-items:flex-end;justify-content:space-between;gap:16px;flex-wrap:wrap}
 .hero h1{font-family:var(--fh);font-weight:800;font-size:24px;color:#fff;letter-spacing:-.5px;line-height:1.1}
 .hero h1 em{color:var(--gold2);font-style:normal}
@@ -52,10 +49,8 @@ header{background:var(--navy);padding:0 28px;display:flex;align-items:center;min
 .hero-badges{display:flex;gap:8px;flex-wrap:wrap}
 .hbadge{font-family:var(--fh);font-size:10px;font-weight:600;letter-spacing:.8px;text-transform:uppercase;padding:5px 12px;border-radius:20px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.15);color:rgba(255,255,255,.75)}
 .hbadge.gold{background:rgba(200,151,58,.15);border-color:var(--gold);color:var(--gold2)}
-
 #pbar-wrap{height:3px;background:var(--navy3);position:sticky;top:64px;z-index:299}
 #pbar{height:3px;background:var(--gold);width:0%;transition:width .1s ease}
-
 #lov{position:fixed;inset:0;background:rgba(10,20,34,.85);z-index:500;display:flex;align-items:center;justify-content:center}
 #lov.hidden{display:none}
 .lov-box{background:#fff;border-radius:18px;padding:36px 44px;text-align:center;max-width:380px;width:92%}
@@ -64,10 +59,7 @@ header{background:var(--navy);padding:0 28px;display:flex;align-items:center;min
 .lov-track{background:var(--surface3);border-radius:8px;height:8px;overflow:hidden;margin-bottom:10px}
 .lov-fill{background:var(--gold);height:8px;border-radius:8px;width:0%;transition:width .3s ease}
 .lov-pct{font-family:var(--fh);font-weight:800;font-size:14px;color:var(--gold)}
-
 #soft-loader{display:none;position:fixed;top:67px;left:50%;transform:translateX(-50%);background:var(--gold);color:var(--navy);padding:4px 16px;border-radius:0 0 8px 8px;font-family:var(--fh);font-weight:700;font-size:10px;text-transform:uppercase;letter-spacing:1px;z-index:400;box-shadow:var(--sh)}
-
-/* PANELS & CARDS */
 .wrapper{padding:24px 28px;max-width:1400px;margin:0 auto}
 .panel-block{margin-bottom:28px}
 .panel-block.minimized .panel-body{display:none}
@@ -82,76 +74,64 @@ header{background:var(--navy);padding:0 28px;display:flex;align-items:center;min
 .btn-min{width:26px;height:26px;border-radius:6px;border:1px solid var(--border);background:var(--surface);color:var(--text3);cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:400;line-height:1;transition:all .15s;flex-shrink:0;font-family:monospace}
 .btn-min:hover{border-color:var(--sky);color:var(--sky)}
 .sortable-ghost{opacity:.3}
-
 .stat-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(185px,1fr));gap:12px;margin-bottom:16px}
-.stat-card{background:var(--surface);border:1px solid var(--border);border-top:3px solid var(--border2);border-radius:var(--rl);padding:16px 18px;box-shadow:var(--sh);position:relative;z-index:1;transition:box-shadow .2s,transform .2s; display: flex; flex-direction: column;}
-.stat-card:hover, .stat-card:focus-within{box-shadow:var(--sh-lg);transform:translateY(-1px);z-index:50;}
-.stat-card.cg{border-top-color:var(--gold)}.stat-card.ct{border-top-color:var(--teal2)}.stat-card.cc{border-top-color:var(--coral)}.stat-card.cs{border-top-color:var(--sky)}.stat-card.cl{border-top-color:var(--lav)}.stat-card.cv{border-top-color:var(--navy)}
+.stat-card{background:var(--surface);border:1px solid var(--border);border-top:3px solid var(--border2);border-radius:var(--rl);padding:16px 18px;box-shadow:var(--sh);position:relative;z-index:1;transition:box-shadow .2s,transform .2s;display:flex;flex-direction:column}
+.stat-card:hover,.stat-card:focus-within{box-shadow:var(--sh-lg);transform:translateY(-1px);z-index:50}
+.stat-card.cg{border-top-color:var(--gold)}.stat-card.ct{border-top-color:var(--teal2)}.stat-card.cc{border-top-color:var(--coral)}.stat-card.cs{border-top-color:var(--sky)}.stat-card.cl{border-top-color:var(--lav)}
 .stat-icon{position:absolute;right:14px;top:14px;font-size:19px;opacity:.65}
 .stat-label{font-family:var(--fh);font-size:9px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--text3);margin-bottom:8px;padding-right:24px;display:flex;align-items:center;flex-wrap:wrap;gap:4px}
 .stat-val{font-family:var(--fb);font-weight:700;font-size:26px;line-height:1;color:var(--navy);letter-spacing:-1px}
-.stat-card.cg .stat-val{color:var(--gold)}.stat-card.ct .stat-val{color:var(--teal)}.stat-card.cc .stat-val{color:var(--coral)}.stat-card.cs .stat-val{color:var(--sky)}.stat-card.cl .stat-val{color:var(--lav)}.stat-card.cv .stat-val{color:var(--navy)}
-.stat-sub{font-size:11px;color:var(--text3);margin-top:4px;font-weight:400; line-height: 1.3}
+.stat-card.cg .stat-val{color:var(--gold)}.stat-card.ct .stat-val{color:var(--teal)}.stat-card.cc .stat-val{color:var(--coral)}.stat-card.cs .stat-val{color:var(--sky)}.stat-card.cl .stat-val{color:var(--lav)}
+.stat-sub{font-size:11px;color:var(--text3);margin-top:4px;font-weight:400;line-height:1.3}
 .stat-miss{font-size:10px;color:var(--text3);margin-top:auto;padding-top:6px;border-top:1px dashed var(--border);font-style:italic}
-
-.card-toggle {background: var(--surface2); border: 1px solid var(--border); border-radius: 4px; padding: 2px 5px; font-size: 10px; color: var(--navy); cursor: pointer; display: inline-flex; align-items: center; justify-content: center; transition: all 0.2s; font-family: var(--fb); font-weight: 700;}
-.card-toggle:hover { background: var(--sky); border-color: var(--sky); color: #fff; }
-
+.card-toggle{background:var(--surface2);border:1px solid var(--border);border-radius:4px;padding:2px 5px;font-size:10px;color:var(--navy);cursor:pointer;display:inline-flex;align-items:center;justify-content:center;transition:all .2s;font-family:var(--fb);font-weight:700}
+.card-toggle:hover{background:var(--sky);border-color:var(--sky);color:#fff}
 .tip-btn{width:14px;height:14px;border-radius:50%;background:var(--surface3);border:none;cursor:pointer;font-family:var(--fh);font-size:8px;font-weight:700;color:var(--text3);display:inline-flex;align-items:center;justify-content:center;position:static;vertical-align:middle;transition:background .15s;flex-shrink:0}
 .tip-btn:hover,.tip-btn:focus{background:var(--gold);color:var(--navy);outline:none}
 .tip-pop{display:none;position:absolute;top:38px;left:50%;transform:translateX(-50%);background:var(--navy);color:#fff;border-radius:var(--r);padding:12px 14px;min-width:200px;width:max-content;max-width:250px;z-index:999;box-shadow:var(--sh-lg);pointer-events:none;text-align:left}
 .tip-btn:hover .tip-pop,.tip-btn:focus .tip-pop{display:block}
 .tip-pop strong{display:block;font-family:var(--fh);font-size:9px;color:var(--gold2);margin-bottom:5px;text-transform:uppercase;letter-spacing:.8px}
-.tip-pop p{font-size:11px;line-height:1.5;color:rgba(255,255,255,.9); font-family: var(--fb); font-weight: 400;}
-.tip-campo{margin-top:6px;padding-top:6px;border-top:1px solid rgba(255,255,255,.1);font-size:9.5px;color:rgba(255,255,255,.5);line-height:1.4; font-family: monospace;}
-
-/* CHARTS */
+.tip-pop p{font-size:11px;line-height:1.5;color:rgba(255,255,255,.9);font-family:var(--fb);font-weight:400}
+.tip-campo{margin-top:6px;padding-top:6px;border-top:1px solid rgba(255,255,255,.1);font-size:9.5px;color:rgba(255,255,255,.5);line-height:1.4;font-family:monospace}
 .chart-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:14px;margin-bottom:16px}
-.chart-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--rl);padding:18px 20px;box-shadow:var(--sh);min-width:0;position:relative;z-index:1;}
-.chart-card:hover, .chart-card:focus-within{z-index:50;}
+.chart-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--rl);padding:18px 20px;box-shadow:var(--sh);min-width:0;position:relative;z-index:1}
+.chart-card:hover,.chart-card:focus-within{z-index:50}
 .chart-title{font-family:var(--fh);font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--navy);margin-bottom:4px;display:flex;align-items:center;gap:5px;flex-wrap:wrap}
 .chart-miss{font-size:10px;color:var(--text3);font-style:italic;margin-bottom:10px;min-height:14px}
 .chart-wrap{position:relative;height:200px}.chart-wrap.tall{height:250px}
-
-/* RANKING & TABLES */
 .ranking-wrap{background:var(--surface);border:1px solid var(--border);border-radius:var(--rl);box-shadow:var(--sh);overflow:hidden;margin-bottom:16px}
 .ranking-head{background:var(--navy);padding:12px 18px;display:flex;align-items:center;justify-content:space-between}
 .ranking-head span{font-family:var(--fh);font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:#fff}
 .ranking-head small{font-size:11px;color:rgba(255,255,255,.4)}
 .table-scroll{overflow-x:auto;-webkit-overflow-scrolling:touch}
 table{width:100%;border-collapse:collapse}
-thead th{background:var(--surface2);padding:9px 12px;text-align:left;font-family:var(--fh);font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:.8px;color:var(--navy);border-bottom:2px solid var(--border);white-space:nowrap; position:relative}
-th.sortable{cursor:pointer; transition:background 0.15s;}
+thead th{background:var(--surface2);padding:9px 12px;text-align:left;font-family:var(--fh);font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:.8px;color:var(--navy);border-bottom:2px solid var(--border);white-space:nowrap;position:relative}
+th.sortable{cursor:pointer;transition:background .15s}
 th.sortable:hover{background:var(--border)}
-th.sortable::after{content:'↕'; font-size:10px; opacity:0.3; margin-left:4px;}
-th.sortable.asc::after{content:'▲'; opacity:1; color:var(--sky);}
-th.sortable.desc::after{content:'▼'; opacity:1; color:var(--sky);}
+th.sortable::after{content:'↕';font-size:10px;opacity:.3;margin-left:4px}
+th.sortable.asc::after{content:'▲';opacity:1;color:var(--sky)}
+th.sortable.desc::after{content:'▼';opacity:1;color:var(--sky)}
 tbody tr{border-bottom:1px solid var(--surface3);transition:background .1s}
 tbody tr:hover{background:var(--surface2)}
 tbody td{padding:8px 12px;font-size:12px;color:var(--text2);white-space:nowrap;max-width:200px;overflow:hidden;text-overflow:ellipsis}
 .pill{display:inline-block;padding:2px 9px;border-radius:12px;font-family:var(--fh);font-size:10px;font-weight:700;letter-spacing:.3px}
 .p-green{background:#e1f5ee;color:#0b5c3a}.p-blue{background:#e6f1fb;color:#144a8a}.p-red{background:#fde8e8;color:#8a1c1c}.p-orange{background:#fff0e0;color:#8a4800}.p-purple{background:#f0ecff;color:#4a2a8a}.p-gray{background:var(--surface3);color:var(--text3)}
-
-/* FORMULA */
-.formula-card{background:var(--navy);border-radius:var(--rl);padding:20px 22px;margin-bottom:16px; margin-top: 16px;}
+.formula-card{background:var(--navy);border-radius:var(--rl);padding:20px 22px;margin-bottom:16px;margin-top:16px}
 .formula-title{font-family:var(--fh);font-weight:700;font-size:11px;letter-spacing:1.5px;text-transform:uppercase;color:var(--gold2);margin-bottom:12px}
 .formula-expr{font-family:monospace;font-size:13px;color:#fff;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.1);border-radius:8px;padding:12px 16px;margin-bottom:14px;line-height:1.9;white-space:pre-wrap}
 .formula-tbl{width:100%;border-collapse:collapse;margin-bottom:12px}
-.formula-tbl th{font-family:var(--fh);font-size:9px;letter-spacing:1px;text-transform:uppercase;color:var(--gold3);padding:5px 10px;border-bottom:1px solid rgba(255,255,255,.1);text-align:left; cursor:default;}
+.formula-tbl th{font-family:var(--fh);font-size:9px;letter-spacing:1px;text-transform:uppercase;color:var(--gold3);padding:5px 10px;border-bottom:1px solid rgba(255,255,255,.1);text-align:left;cursor:default}
 .formula-tbl th::after{display:none}
 .formula-tbl td{font-size:12px;color:rgba(255,255,255,.8);padding:5px 10px;border-bottom:1px solid rgba(255,255,255,.05)}
 .formula-tbl td:first-child{color:rgba(255,255,255,.95);font-weight:500}
 .formula-tbl td:nth-child(2){color:var(--gold3);font-family:var(--fh);font-weight:700;font-size:11px}
 .formula-tbl td:last-child{color:rgba(255,255,255,.4);font-style:italic;font-size:11px}
-.formula-tbl tbody tr:hover { background: rgba(255,255,255,0.08) !important; }
 .formula-note{font-size:11px;color:rgba(255,255,255,.4);line-height:1.6;font-style:italic;margin-top:10px}
 .score-legend{display:flex;gap:10px;flex-wrap:wrap;margin-top:10px}
 .score-pill{font-family:var(--fh);font-size:10px;font-weight:600;padding:3px 10px;border-radius:12px}
-
-/* FILTERS & MULTI-SELECT */
 .filters-wrap{background:var(--surface);border:1px solid var(--border);border-radius:var(--rl);padding:16px 18px;box-shadow:var(--sh);margin-bottom:16px}
 .filters-bar{display:flex;flex-wrap:wrap;gap:12px;align-items:flex-end}
-.fg{display:flex;flex-direction:column;gap:4px; position:relative}
+.fg{display:flex;flex-direction:column;gap:4px;position:relative}
 .fg-label{font-family:var(--fh);font-size:9px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--text3)}
 select,input[type=text],input[type=number]{background:var(--surface2);border:1px solid var(--border);color:var(--text);padding:7px 10px;border-radius:7px;font-family:var(--fb);font-size:13px;outline:none;transition:border-color .18s;min-width:148px;height:36px}
 select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%237a7a7a' stroke-width='2'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 8px center;padding-right:28px;appearance:none;-webkit-appearance:none}
@@ -162,9 +142,7 @@ input[type=number]::-webkit-inner-spin-button{-webkit-appearance:none}
 .age-sep{font-size:12px;color:var(--text3)}
 .btn-reset{background:transparent;border:1px solid var(--border);color:var(--text3);padding:7px 14px;border-radius:7px;cursor:pointer;font-family:var(--fh);font-weight:600;font-size:10px;letter-spacing:.5px;text-transform:uppercase;transition:all .18s;white-space:nowrap;height:36px}
 .btn-reset:hover{border-color:var(--coral);color:var(--coral)}
-#filtered-count{font-size:12px;color:var(--text3);font-family:var(--fh);font-weight:600;align-self:flex-end;margin-left:auto; display:flex; align-items:center; gap:8px}
-
-/* CUSTOM MULTI-SELECT */
+#filtered-count{font-size:12px;color:var(--text3);font-family:var(--fh);font-weight:600;align-self:flex-end;margin-left:auto;display:flex;align-items:center;gap:8px}
 .ms-btn{background:var(--surface2);border:1px solid var(--border);color:var(--text);padding:0 28px 0 10px;border-radius:7px;font-family:var(--fb);font-size:13px;cursor:pointer;height:36px;display:flex;align-items:center;position:relative;min-width:180px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;transition:border .18s}
 .ms-btn::after{content:'';position:absolute;right:10px;top:50%;transform:translateY(-50%);width:12px;height:12px;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%237a7a7a' stroke-width='2'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E");background-repeat:no-repeat;pointer-events:none}
 .ms-btn:hover{border-color:var(--sky);background:#fff}
@@ -176,7 +154,6 @@ input[type=number]::-webkit-inner-spin-button{-webkit-appearance:none}
 .ms-actions{display:flex;justify-content:space-between;padding:8px 12px;border-bottom:1px solid var(--surface3);margin-bottom:4px}
 .ms-act-btn{background:none;border:none;color:var(--sky);font-family:var(--fh);font-size:9px;font-weight:700;text-transform:uppercase;cursor:pointer}
 .ms-act-btn:hover{text-decoration:underline}
-
 .table-section{background:var(--surface);border:1px solid var(--border);border-radius:var(--rl);box-shadow:var(--sh);overflow:hidden}
 .table-hd{display:flex;align-items:center;justify-content:space-between;padding:12px 18px;background:var(--navy)}
 .table-hd span{font-family:var(--fh);font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:#fff}
@@ -187,9 +164,40 @@ input[type=number]::-webkit-inner-spin-button{-webkit-appearance:none}
 .pg-info{font-size:11px;color:var(--text3);margin:0 6px;font-family:var(--fh)}
 #empty-msg{text-align:center;padding:36px;color:var(--text3);font-size:13px;font-family:var(--fh);display:none}
 
+/* ── COMPARATIVO VILAS BOAS ── */
+.comp-header{background:var(--navy);border-radius:var(--rl) var(--rl) 0 0;padding:16px 20px;display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.comp-header-left h2{font-family:var(--fh);font-weight:800;font-size:14px;color:#fff;letter-spacing:.3px}
+.comp-header-left p{font-size:11px;color:rgba(255,255,255,.5);margin-top:3px}
+.comp-bairro-select{background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.25);color:#fff;padding:6px 28px 6px 10px;border-radius:7px;font-family:var(--fh);font-size:11px;font-weight:600;cursor:pointer;min-width:200px;height:34px;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%23fff' stroke-width='2'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 8px center;appearance:none}
+.comp-bairro-select:focus{outline:none;background-color:rgba(255,255,255,.18)}
+.comp-bairro-select option{background:var(--navy);color:#fff}
+.comp-body{background:var(--surface);border:1px solid var(--border);border-top:none;border-radius:0 0 var(--rl) var(--rl);padding:20px}
+.comp-legend{display:flex;gap:16px;margin-bottom:16px;flex-wrap:wrap}
+.comp-leg-item{display:flex;align-items:center;gap:6px;font-family:var(--fh);font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.8px;color:var(--text3)}
+.comp-leg-dot{width:12px;height:12px;border-radius:3px;flex-shrink:0}
+.comp-section-label{font-family:var(--fh);font-size:9px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--text3);margin:16px 0 8px;padding-bottom:4px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:6px}
+.comp-section-label::before{content:'';display:block;width:3px;height:12px;background:var(--gold);border-radius:2px}
+.comp-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:10px;margin-bottom:8px}
+.comp-card{background:var(--surface2);border:1px solid var(--border);border-radius:var(--r);padding:12px 14px;position:relative;overflow:hidden}
+.comp-card-label{font-family:var(--fh);font-size:9px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--text3);margin-bottom:10px}
+.comp-row{display:flex;align-items:center;gap:8px;margin-bottom:6px}
+.comp-row:last-child{margin-bottom:0}
+.comp-dot{width:8px;height:8px;border-radius:2px;flex-shrink:0}
+.comp-name{font-size:11px;color:var(--text3);min-width:90px;flex-shrink:0}
+.comp-bar-wrap{flex:1;background:var(--surface3);border-radius:4px;height:8px;overflow:hidden}
+.comp-bar{height:8px;border-radius:4px;transition:width .5s ease}
+.comp-val{font-family:var(--fh);font-size:11px;font-weight:700;min-width:48px;text-align:right;flex-shrink:0}
+.comp-delta{position:absolute;top:10px;right:10px;font-family:var(--fh);font-size:10px;font-weight:700;padding:2px 6px;border-radius:10px}
+.comp-delta.better{background:#e1f5ee;color:#0b5c3a}
+.comp-delta.worse{background:#fde8e8;color:#8a1c1c}
+.comp-delta.neutral{background:var(--surface3);color:var(--text3)}
+.comp-radar-wrap{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:16px}
+.comp-no-data{text-align:center;padding:32px;color:var(--text3);font-size:13px;font-family:var(--fh)}
+@media(max-width:640px){.comp-radar-wrap{grid-template-columns:1fr}.comp-grid{grid-template-columns:1fr}}
+
 footer{background:var(--navy);color:rgba(255,255,255,.35);font-family:var(--fh);font-size:10px;letter-spacing:.8px;text-align:center;padding:14px 28px;margin-top:8px}
 footer strong{color:var(--gold2);font-weight:700}
-@media(max-width:640px){.wrapper{padding:16px}header{padding:0 16px;gap:10px}.hero{padding:16px}.hero h1{font-size:19px}.stat-grid{grid-template-columns:repeat(2,1fr)}.hero-badges{display:none} .ms-options{width:100%} .chart-wrap.tall{height:200px}}
+@media(max-width:640px){.wrapper{padding:16px}header{padding:0 16px;gap:10px}.hero{padding:16px}.hero h1{font-size:19px}.stat-grid{grid-template-columns:repeat(2,1fr)}.hero-badges{display:none}.ms-options{width:100%}.chart-wrap.tall{height:200px}}
 </style>
 </head>
 <body>
@@ -231,6 +239,7 @@ footer strong{color:var(--gold2);font-weight:700}
 
 <div class="wrapper"><div id="panels-container">
 
+<!-- FILTROS -->
 <div class="panel-block" id="panel-filtros">
   <div class="panel-header"><div class="drag-wrap"><div class="drag-dots"><span></span><span></span><span></span><span></span><span></span><span></span></div><div class="sec-title">Filtros dinâmicos (Atualiza o painel inteiro)</div></div><button class="btn-min" onclick="togglePanel('filtros')">−</button></div>
   <div class="panel-body">
@@ -239,14 +248,10 @@ footer strong{color:var(--gold2);font-weight:700}
         <span class="fg-label">Localidades / Bairros</span>
         <div class="ms-btn" id="f-loc-btn" onclick="document.getElementById('f-loc-opts').classList.toggle('open')">Todas as localidades</div>
         <div class="ms-options" id="f-loc-opts">
-          <div class="ms-actions">
-             <button class="ms-act-btn" onclick="setAllLocs(true)">Marcar Todos</button>
-             <button class="ms-act-btn" onclick="setAllLocs(false)">Limpar</button>
-          </div>
+          <div class="ms-actions"><button class="ms-act-btn" onclick="setAllLocs(true)">Marcar Todos</button><button class="ms-act-btn" onclick="setAllLocs(false)">Limpar</button></div>
           <div id="loc-cb-container"></div>
         </div>
       </div>
-      
       <div class="fg"><span class="fg-label">Bolsa família</span><select id="f-pbf"><option value="">Todos</option><option value="SIM">Beneficiário PBF</option><option value="NAO">Não beneficiário</option></select></div>
       <div class="fg"><span class="fg-label">Faixa de renda</span><select id="f-renda"><option value="">Todas</option><option value="extrema">Extrema pobreza ≤R$109 p/p</option><option value="pobreza">Pobreza R$110–218 p/p</option><option value="baixa">Baixa renda R$219–½SM</option><option value="media">Acima de ½ SM</option><option value="zero">Renda zero</option></select></div>
       <div class="fg"><span class="fg-label">Status cadastro</span><select id="f-status"><option value="">Todos</option><option value="ATUALIZADO">Atualizado</option><option value="DESATUALIZADO">Desatualizado</option></select></div>
@@ -255,240 +260,145 @@ footer strong{color:var(--gold2);font-weight:700}
       <div class="fg"><span class="fg-label">Ciclo escolar (Pessoa)</span><select id="f-ciclo"><option value="">Todos</option><option value="fund1">Fund. I (5–10 anos)</option><option value="fund2">Fund. II (11–14 anos)</option><option value="medio">Ensino Médio (15–17)</option></select></div>
       <div class="fg"><span class="fg-label">Idade (Pessoa)</span><div class="age-row"><input type="number" id="f-idade-min" min="0" max="120" placeholder="De"><span class="age-sep">–</span><input type="number" id="f-idade-max" min="0" max="120" placeholder="Até"></div></div>
       <div class="fg"><span class="fg-label">Cód. Familiar / GR</span><input type="text" id="f-search" placeholder="GR_FAM…" style="min-width:120px"></div>
-      
       <button class="btn-reset" id="btn-reset">✕ Limpar Filtros</button>
       <div id="filtered-count"></div>
     </div></div>
   </div>
 </div>
 
+<!-- ESTRUTURA -->
 <div class="panel-block" id="panel-estrutura">
   <div class="panel-header"><div class="drag-wrap"><div class="drag-dots"><span></span><span></span><span></span><span></span><span></span><span></span></div><div class="sec-title">Estrutura familiar</div></div><button class="btn-min" onclick="togglePanel('estrutura')">−</button></div>
   <div class="panel-body"><div class="stat-grid" id="strip-estrutura"></div></div>
 </div>
 
+<!-- ADENSAMENTO -->
 <div class="panel-block" id="panel-adensamento">
   <div class="panel-header"><div class="drag-wrap"><div class="drag-dots"><span></span><span></span><span></span><span></span><span></span><span></span></div><div class="sec-title">Demografia e Adensamento por Bairro</div></div><button class="btn-min" onclick="togglePanel('adensamento')">−</button></div>
   <div class="panel-body">
-    <div class="chart-card" style="padding-bottom: 24px">
+    <div class="chart-card" style="padding-bottom:24px">
       <div class="chart-title">10 Bairros mais adensados (Visão Global Fixa)
-        <button class="tip-btn" tabindex="0">?<div class="tip-pop"><strong>Adensamento Global</strong><p>Os 10 bairros com o maior número total de pessoas cadastradas na base inteira. Este gráfico é fixo e não é afetado pelos filtros dinâmicos.</p></div></button>
-        <button class="card-toggle" style="margin-left:auto" onclick="toggleChart(this, 'chart-adensamento')" title="Alternar N / %">⇅</button>
+        <button class="tip-btn" tabindex="0">?<div class="tip-pop"><strong>Adensamento Global</strong><p>Os 10 bairros com maior número de pessoas. Gráfico fixo — não afetado pelos filtros.</p></div></button>
+        <button class="card-toggle" style="margin-left:auto" onclick="toggleChart(this,'chart-adensamento')">⇅</button>
       </div>
       <div class="chart-wrap tall"><canvas id="chart-adensamento"></canvas></div>
     </div>
   </div>
 </div>
 
-<div class="panel-block" id="panel-vilasboas">
-  <div class="panel-header"><div class="drag-wrap"><div class="drag-dots"><span></span><span></span><span></span><span></span><span></span><span></span></div><div class="sec-title">Foco de Atuação: Jardim Vilas Boas vs. Média do Filtro Atual</div></div><button class="btn-min" onclick="togglePanel('vilasboas')">−</button></div>
+<!-- COMPARATIVO BAIRRO × FILTRO -->
+<div class="panel-block" id="panel-comparativo">
+  <div class="panel-header"><div class="drag-wrap"><div class="drag-dots"><span></span><span></span><span></span><span></span><span></span><span></span></div><div class="sec-title">Comparativo de Bairro × Média do Filtro Atual</div></div><button class="btn-min" onclick="togglePanel('comparativo')">−</button></div>
   <div class="panel-body">
-    <div class="filters-wrap" style="background:var(--surface2)">
-       <p style="font-size:12px; color:var(--text2); margin-bottom:12px;">Esta seção isola os dados do bairro <strong>Jardim Vilas Boas</strong> dentro da amostra que você filtrou acima, permitindo comparar rapidamente as fragilidades locais contra a média de todos os outros bairros selecionados.</p>
-       <div class="stat-grid" id="strip-vilas"></div>
-       <div class="chart-grid" style="margin-top:16px;">
-          <div class="chart-card">
-            <div class="chart-title">Radar de Vulnerabilidades (%)
-               <button class="tip-btn" tabindex="0">?<div class="tip-pop"><strong>Comparativo</strong><p>Compara as taxas de problemas estruturais. Quanto mais larga a teia, pior o cenário.</p></div></button>
-            </div>
-            <div class="chart-wrap tall"><canvas id="chart-radar-vilas"></canvas></div>
-          </div>
-       </div>
+    <div class="comp-header">
+      <div class="comp-header-left">
+        <h2>Análise comparativa por bairro</h2>
+        <p>Selecione qualquer bairro para comparar todos os indicadores com a média do filtro atual</p>
+      </div>
+      <select class="comp-bairro-select" id="comp-bairro-sel" onchange="renderComparativo()">
+        <option value="">— Selecione um bairro —</option>
+      </select>
+    </div>
+    <div class="comp-body" id="comp-body">
+      <div class="comp-no-data">Selecione um bairro no menu acima para ver a comparação completa de indicadores.</div>
     </div>
   </div>
 </div>
 
+<!-- CICLO DE VIDA -->
 <div class="panel-block" id="panel-ciclovida">
   <div class="panel-header"><div class="drag-wrap"><div class="drag-dots"><span></span><span></span><span></span><span></span><span></span><span></span></div><div class="sec-title">Ciclo de vida e gênero</div></div><button class="btn-min" onclick="togglePanel('ciclovida')">−</button></div>
   <div class="panel-body">
     <div class="stat-grid" id="strip-ciclovida"></div>
     <div class="chart-grid">
-      <div class="chart-card">
-        <div class="chart-title">Pirâmide etária
-          <button class="tip-btn" tabindex="0">?<div class="tip-pop"><strong>Pirâmide etária</strong><p>Distribuição da população agrupada por faixa etária e sexo.</p><div class="tip-campo">IDADE_PESSOA · COD_SEXO_PESSOA</div></div></button>
-          <button class="card-toggle" style="margin-left:auto" onclick="toggleChart(this, 'chart-etaria')" title="Alternar N / %">⇅</button>
-        </div>
-        <div class="chart-miss" id="miss-etaria"></div><div class="chart-wrap"><canvas id="chart-etaria"></canvas></div>
-      </div>
-      <div class="chart-card">
-        <div class="chart-title">Distribuição por sexo
-          <button class="tip-btn" tabindex="0">?<div class="tip-pop"><strong>Distribuição por sexo</strong><p>Proporção declarada de gênero entre todos os membros cadastrados.</p><div class="tip-campo">COD_SEXO_PESSOA</div></div></button>
-          <button class="card-toggle" style="margin-left:auto" onclick="toggleChart(this, 'chart-sexo')" title="Alternar N / %">⇅</button>
-        </div>
-        <div class="chart-miss" id="miss-sexo"></div><div class="chart-wrap"><canvas id="chart-sexo"></canvas></div>
-      </div>
-      <div class="chart-card">
-        <div class="chart-title">Raça / cor
-          <button class="tip-btn" tabindex="0">?<div class="tip-pop"><strong>Raça / cor</strong><p>Autodeclaração de raça ou cor para todos os membros da base.</p><div class="tip-campo">COD_RACA_COR_PESSOA</div></div></button>
-          <button class="card-toggle" style="margin-left:auto" onclick="toggleChart(this, 'chart-raca')" title="Alternar N / %">⇅</button>
-        </div>
-        <div class="chart-miss" id="miss-raca"></div><div class="chart-wrap"><canvas id="chart-raca"></canvas></div>
-      </div>
+      <div class="chart-card"><div class="chart-title">Pirâmide etária <button class="tip-btn" tabindex="0">?<div class="tip-pop"><strong>Pirâmide etária</strong><p>Distribuição da população agrupada por faixa etária e sexo.</p><div class="tip-campo">IDADE_PESSOA · COD_SEXO_PESSOA</div></div></button><button class="card-toggle" style="margin-left:auto" onclick="toggleChart(this,'chart-etaria')">⇅</button></div><div class="chart-miss" id="miss-etaria"></div><div class="chart-wrap"><canvas id="chart-etaria"></canvas></div></div>
+      <div class="chart-card"><div class="chart-title">Distribuição por sexo <button class="tip-btn" tabindex="0">?<div class="tip-pop"><strong>Distribuição por sexo</strong><p>Proporção declarada de gênero.</p><div class="tip-campo">COD_SEXO_PESSOA</div></div></button><button class="card-toggle" style="margin-left:auto" onclick="toggleChart(this,'chart-sexo')">⇅</button></div><div class="chart-miss" id="miss-sexo"></div><div class="chart-wrap"><canvas id="chart-sexo"></canvas></div></div>
+      <div class="chart-card"><div class="chart-title">Raça / cor <button class="tip-btn" tabindex="0">?<div class="tip-pop"><strong>Raça / cor</strong><p>Autodeclaração de raça ou cor para todos os membros.</p><div class="tip-campo">COD_RACA_COR_PESSOA</div></div></button><button class="card-toggle" style="margin-left:auto" onclick="toggleChart(this,'chart-raca')">⇅</button></div><div class="chart-miss" id="miss-raca"></div><div class="chart-wrap"><canvas id="chart-raca"></canvas></div></div>
     </div>
   </div>
 </div>
 
+<!-- RENDA -->
 <div class="panel-block" id="panel-renda">
   <div class="panel-header"><div class="drag-wrap"><div class="drag-dots"><span></span><span></span><span></span><span></span><span></span><span></span></div><div class="sec-title">Renda e pobreza</div></div><button class="btn-min" onclick="togglePanel('renda')">−</button></div>
   <div class="panel-body">
     <div class="stat-grid" id="strip-renda"></div>
     <div class="chart-grid">
-      <div class="chart-card">
-        <div class="chart-title">Faixa de renda familiar
-          <button class="tip-btn" tabindex="0">?<div class="tip-pop"><strong>Renda familiar</strong><p>Distribuição das famílias baseada na soma total da renda mensal informada.</p><div class="tip-campo">VLR_RENDA_MEDIA_FAM</div></div></button>
-          <button class="card-toggle" style="margin-left:auto" onclick="toggleChart(this, 'chart-faixarenda')" title="Alternar N / %">⇅</button>
-        </div>
-        <div class="chart-miss" id="miss-faixarenda"></div><div class="chart-wrap"><canvas id="chart-faixarenda"></canvas></div>
-      </div>
-      <div class="chart-card">
-        <div class="chart-title">Renda do trabalho — membros
-          <button class="tip-btn" tabindex="0">?<div class="tip-pop"><strong>Renda do trabalho</strong><p>Faixas de remuneração declarada proveniente exclusivamente do trabalho principal.</p><div class="tip-campo">FX_RND_VAL_REMUNER_EMPREGO</div></div></button>
-          <button class="card-toggle" style="margin-left:auto" onclick="toggleChart(this, 'chart-rendatrab')" title="Alternar N / %">⇅</button>
-        </div>
-        <div class="chart-miss" id="miss-rendatrab"></div><div class="chart-wrap"><canvas id="chart-rendatrab"></canvas></div>
-      </div>
-      <div class="chart-card">
-        <div class="chart-title">Composição da renda familiar
-          <button class="tip-btn" tabindex="0">?<div class="tip-pop"><strong>Composição da renda</strong><p>Classifica a família pela fonte principal: trabalho, benefício social (PBF/BPC) ou mista.</p><div class="tip-campo">MARC_PBF · RE_APOSENT · RE_EMPREGO</div></div></button>
-          <button class="card-toggle" style="margin-left:auto" onclick="toggleChart(this, 'chart-composicao')" title="Alternar N / %">⇅</button>
-        </div>
-        <div class="chart-miss" id="miss-composicao"></div><div class="chart-wrap"><canvas id="chart-composicao"></canvas></div>
-      </div>
+      <div class="chart-card"><div class="chart-title">Faixa de renda familiar <button class="card-toggle" style="margin-left:auto" onclick="toggleChart(this,'chart-faixarenda')">⇅</button></div><div class="chart-miss" id="miss-faixarenda"></div><div class="chart-wrap"><canvas id="chart-faixarenda"></canvas></div></div>
+      <div class="chart-card"><div class="chart-title">Renda do trabalho — membros <button class="card-toggle" style="margin-left:auto" onclick="toggleChart(this,'chart-rendatrab')">⇅</button></div><div class="chart-miss" id="miss-rendatrab"></div><div class="chart-wrap"><canvas id="chart-rendatrab"></canvas></div></div>
+      <div class="chart-card"><div class="chart-title">Composição da renda familiar <button class="card-toggle" style="margin-left:auto" onclick="toggleChart(this,'chart-composicao')">⇅</button></div><div class="chart-miss" id="miss-composicao"></div><div class="chart-wrap"><canvas id="chart-composicao"></canvas></div></div>
     </div>
   </div>
 </div>
 
+<!-- ESCOLARIDADE -->
 <div class="panel-block" id="panel-escola">
   <div class="panel-header"><div class="drag-wrap"><div class="drag-dots"><span></span><span></span><span></span><span></span><span></span><span></span></div><div class="sec-title">Escolaridade e acesso à escola</div></div><button class="btn-min" onclick="togglePanel('escola')">−</button></div>
   <div class="panel-body">
     <div class="stat-grid" id="strip-escola"></div>
     <div class="chart-grid">
-      <div class="chart-card">
-        <div class="chart-title">Instrução bruta — responsáveis
-          <button class="tip-btn" tabindex="0">?<div class="tip-pop"><strong>Instrução (RF)</strong><p>Visão original dos dados do sistema. Exibe as respostas exatas digitadas no cadastro sem agrupamentos, útil para auditoria.</p><div class="tip-campo">GRAU_INSTRUCAO (RF)</div></div></button>
-          <button class="card-toggle" style="margin-left:auto" onclick="toggleChart(this, 'chart-instrucao-rf')" title="Alternar N / %">⇅</button>
-        </div>
-        <div class="chart-miss" id="miss-instrucao-rf"></div><div class="chart-wrap"><canvas id="chart-instrucao-rf"></canvas></div>
-      </div>
-      <div class="chart-card">
-        <div class="chart-title">Instrução consolidada — responsáveis
-          <button class="tip-btn" tabindex="0">?<div class="tip-pop"><strong>Instrução Detalhada</strong><p>Visão analítica. Padroniza nomenclaturas diferentes (ex: 1º grau vs Fundamental) na mesma barra e cruza com histórico de escola para identificar real evasão e analfabetismo.</p><div class="tip-campo">GRAU_INSTRUCAO + COD_CURSO_FREQUENTOU</div></div></button>
-          <button class="card-toggle" style="margin-left:auto" onclick="toggleChart(this, 'chart-instr-detalhe')" title="Alternar N / %">⇅</button>
-        </div>
-        <div class="chart-miss" id="miss-instr-detalhe"></div><div class="chart-wrap"><canvas id="chart-instr-detalhe"></canvas></div>
-      </div>
-      <div class="chart-card">
-        <div class="chart-title">Instrução bruta — adultos 18+
-          <button class="tip-btn" tabindex="0">?<div class="tip-pop"><strong>Instrução (18+)</strong><p>Nível de escolaridade relatado no cadastro por todos os membros maiores de 18 anos da família.</p><div class="tip-campo">GRAU_INSTRUCAO · IDADE_PESSOA</div></div></button>
-          <button class="card-toggle" style="margin-left:auto" onclick="toggleChart(this, 'chart-instrucao-adulto')" title="Alternar N / %">⇅</button>
-        </div>
-        <div class="chart-miss" id="miss-instrucao-adulto"></div><div class="chart-wrap"><canvas id="chart-instrucao-adulto"></canvas></div>
-      </div>
+      <div class="chart-card"><div class="chart-title">Instrução bruta — responsáveis <button class="card-toggle" style="margin-left:auto" onclick="toggleChart(this,'chart-instrucao-rf')">⇅</button></div><div class="chart-miss" id="miss-instrucao-rf"></div><div class="chart-wrap"><canvas id="chart-instrucao-rf"></canvas></div></div>
+      <div class="chart-card"><div class="chart-title">Instrução consolidada — responsáveis <button class="card-toggle" style="margin-left:auto" onclick="toggleChart(this,'chart-instr-detalhe')">⇅</button></div><div class="chart-miss" id="miss-instr-detalhe"></div><div class="chart-wrap"><canvas id="chart-instr-detalhe"></canvas></div></div>
+      <div class="chart-card"><div class="chart-title">Instrução bruta — adultos 18+ <button class="card-toggle" style="margin-left:auto" onclick="toggleChart(this,'chart-instrucao-adulto')">⇅</button></div><div class="chart-miss" id="miss-instrucao-adulto"></div><div class="chart-wrap"><canvas id="chart-instrucao-adulto"></canvas></div></div>
     </div>
     <div class="chart-grid">
-      <div class="chart-card">
-        <div class="chart-title">Fora da escola por ciclo (5–17)
-          <button class="tip-btn" tabindex="0">?<div class="tip-pop"><strong>Acesso à Escola</strong><p>Comparativo de menores (5 a 17 anos) que frequentam ou não a escola, agrupados pelo ciclo ideal.</p><div class="tip-campo">IND_FREQUENTA_ESCOLA · IDADE_PESSOA</div></div></button>
-          <button class="card-toggle" style="margin-left:auto" onclick="toggleChart(this, 'chart-ciclo')" title="Alternar N / %">⇅</button>
-        </div>
-        <div class="chart-miss" id="miss-ciclo"></div><div class="chart-wrap tall"><canvas id="chart-ciclo"></canvas></div>
-      </div>
-      <div class="chart-card">
-        <div class="chart-title">Frequência escolar por ciclo e rede
-          <button class="tip-btn" tabindex="0">?<div class="tip-pop"><strong>Rede de Ensino</strong><p>Distribuição dos estudantes entre rede pública, rede privada ou evasão (fora da escola).</p><div class="tip-campo">IND_FREQUENTA_ESCOLA_MEMB</div></div></button>
-          <button class="card-toggle" style="margin-left:auto" onclick="toggleChart(this, 'chart-rede-ciclo')" title="Alternar N / %">⇅</button>
-        </div>
-        <div class="chart-miss" id="miss-rede-ciclo"></div><div class="chart-wrap tall"><canvas id="chart-rede-ciclo"></canvas></div>
-      </div>
+      <div class="chart-card"><div class="chart-title">Fora da escola por ciclo (5–17) <button class="card-toggle" style="margin-left:auto" onclick="toggleChart(this,'chart-ciclo')">⇅</button></div><div class="chart-miss" id="miss-ciclo"></div><div class="chart-wrap tall"><canvas id="chart-ciclo"></canvas></div></div>
+      <div class="chart-card"><div class="chart-title">Frequência escolar por ciclo e rede <button class="card-toggle" style="margin-left:auto" onclick="toggleChart(this,'chart-rede-ciclo')">⇅</button></div><div class="chart-miss" id="miss-rede-ciclo"></div><div class="chart-wrap tall"><canvas id="chart-rede-ciclo"></canvas></div></div>
     </div>
   </div>
 </div>
 
+<!-- TRABALHO -->
 <div class="panel-block" id="panel-trabalho">
   <div class="panel-header"><div class="drag-wrap"><div class="drag-dots"><span></span><span></span><span></span><span></span><span></span><span></span></div><div class="sec-title">Trabalho e ocupação</div></div><button class="btn-min" onclick="togglePanel('trabalho')">−</button></div>
   <div class="panel-body">
     <div class="stat-grid" id="strip-trabalho"></div>
     <div class="chart-grid">
-      <div class="chart-card">
-        <div class="chart-title">Tipo de trabalho — adultos 18–64
-          <button class="tip-btn" tabindex="0">?<div class="tip-pop"><strong>Ocupação</strong><p>Vínculo principal de ocupação das pessoas que declararam ter trabalhado no período.</p><div class="tip-campo">COD_PRINCIPAL_TRAB_MEMB</div></div></button>
-          <button class="card-toggle" style="margin-left:auto" onclick="toggleChart(this, 'chart-trabalho')" title="Alternar N / %">⇅</button>
-        </div>
-        <div class="chart-miss" id="miss-trabalho"></div><div class="chart-wrap"><canvas id="chart-trabalho"></canvas></div>
-      </div>
-      <div class="chart-card">
-        <div class="chart-title">Formal vs informal
-          <button class="tip-btn" tabindex="0">?<div class="tip-pop"><strong>Formalidade</strong><p>Agrupamento de vínculos formais (CLT/Público) contra os autônomos e informais.</p><div class="tip-campo">COD_PRINCIPAL_TRAB_MEMB</div></div></button>
-          <button class="card-toggle" style="margin-left:auto" onclick="toggleChart(this, 'chart-formal')" title="Alternar N / %">⇅</button>
-        </div>
-        <div class="chart-miss" id="miss-formal"></div><div class="chart-wrap"><canvas id="chart-formal"></canvas></div>
-      </div>
-      <div class="chart-card">
-        <div class="chart-title">Situação de trabalho — 18 a 64 anos
-          <button class="tip-btn" tabindex="0">?<div class="tip-pop"><strong>Situação de Trabalho</strong><p>Proporção de adultos ativos que exerceram ou não atividade remunerada nos últimos 12 meses.</p><div class="tip-campo">COD_TRABALHOU_MEMB</div></div></button>
-          <button class="card-toggle" style="margin-left:auto" onclick="toggleChart(this, 'chart-sittrab')" title="Alternar N / %">⇅</button>
-        </div>
-        <div class="chart-miss" id="miss-sittrab"></div><div class="chart-wrap"><canvas id="chart-sittrab"></canvas></div>
-      </div>
+      <div class="chart-card"><div class="chart-title">Tipo de trabalho — adultos 18–64 <button class="card-toggle" style="margin-left:auto" onclick="toggleChart(this,'chart-trabalho')">⇅</button></div><div class="chart-miss" id="miss-trabalho"></div><div class="chart-wrap"><canvas id="chart-trabalho"></canvas></div></div>
+      <div class="chart-card"><div class="chart-title">Formal vs informal <button class="card-toggle" style="margin-left:auto" onclick="toggleChart(this,'chart-formal')">⇅</button></div><div class="chart-miss" id="miss-formal"></div><div class="chart-wrap"><canvas id="chart-formal"></canvas></div></div>
+      <div class="chart-card"><div class="chart-title">Situação de trabalho — 18 a 64 anos <button class="card-toggle" style="margin-left:auto" onclick="toggleChart(this,'chart-sittrab')">⇅</button></div><div class="chart-miss" id="miss-sittrab"></div><div class="chart-wrap"><canvas id="chart-sittrab"></canvas></div></div>
     </div>
   </div>
 </div>
 
+<!-- SANEAMENTO -->
 <div class="panel-block" id="panel-saneamento">
   <div class="panel-header"><div class="drag-wrap"><div class="drag-dots"><span></span><span></span><span></span><span></span><span></span><span></span></div><div class="sec-title">Saneamento e moradia</div></div><button class="btn-min" onclick="togglePanel('saneamento')">−</button></div>
   <div class="panel-body">
     <div class="stat-grid" id="strip-saneamento"></div>
     <div class="chart-grid">
-      <div class="chart-card">
-        <div class="chart-title">Abastecimento de água
-          <button class="tip-btn" tabindex="0">?<div class="tip-pop"><strong>Água</strong><p>Origem do abastecimento principal de água para a moradia da família.</p><div class="tip-campo">COD_ABASTE_AGUA_DOMIC_FAM</div></div></button>
-          <button class="card-toggle" style="margin-left:auto" onclick="toggleChart(this, 'chart-agua')" title="Alternar N / %">⇅</button>
-        </div>
-        <div class="chart-miss" id="miss-agua"></div><div class="chart-wrap"><canvas id="chart-agua"></canvas></div>
-      </div>
-      <div class="chart-card">
-        <div class="chart-title">Esgotamento sanitário
-          <button class="tip-btn" tabindex="0">?<div class="tip-pop"><strong>Esgotamento</strong><p>Tipo de escoadouro utilizado para os dejetos sanitários do domicílio.</p><div class="tip-campo">COD_ESCOA_SANITARIO_DOMIC_FAM</div></div></button>
-          <button class="card-toggle" style="margin-left:auto" onclick="toggleChart(this, 'chart-esgoto')" title="Alternar N / %">⇅</button>
-        </div>
-        <div class="chart-miss" id="miss-esgoto"></div><div class="chart-wrap"><canvas id="chart-esgoto"></canvas></div>
-      </div>
-      <div class="chart-card">
-        <div class="chart-title">Destino do lixo
-          <button class="tip-btn" tabindex="0">?<div class="tip-pop"><strong>Lixo</strong><p>Forma como a família descarta predominantemente seus resíduos sólidos.</p><div class="tip-campo">COD_DESTINO_LIXO_DOMIC_FAM</div></div></button>
-          <button class="card-toggle" style="margin-left:auto" onclick="toggleChart(this, 'chart-lixo')" title="Alternar N / %">⇅</button>
-        </div>
-        <div class="chart-miss" id="miss-lixo"></div><div class="chart-wrap"><canvas id="chart-lixo"></canvas></div>
-      </div>
+      <div class="chart-card"><div class="chart-title">Abastecimento de água <button class="card-toggle" style="margin-left:auto" onclick="toggleChart(this,'chart-agua')">⇅</button></div><div class="chart-miss" id="miss-agua"></div><div class="chart-wrap"><canvas id="chart-agua"></canvas></div></div>
+      <div class="chart-card"><div class="chart-title">Esgotamento sanitário <button class="card-toggle" style="margin-left:auto" onclick="toggleChart(this,'chart-esgoto')">⇅</button></div><div class="chart-miss" id="miss-esgoto"></div><div class="chart-wrap"><canvas id="chart-esgoto"></canvas></div></div>
+      <div class="chart-card"><div class="chart-title">Destino do lixo <button class="card-toggle" style="margin-left:auto" onclick="toggleChart(this,'chart-lixo')">⇅</button></div><div class="chart-miss" id="miss-lixo"></div><div class="chart-wrap"><canvas id="chart-lixo"></canvas></div></div>
     </div>
   </div>
 </div>
 
+<!-- VULNERABILIDADE -->
 <div class="panel-block" id="panel-vuln">
   <div class="panel-header"><div class="drag-wrap"><div class="drag-dots"><span></span><span></span><span></span><span></span><span></span><span></span></div><div class="sec-title">Vulnerabilidade por localidade</div></div><button class="btn-min" onclick="togglePanel('vuln')">−</button></div>
   <div class="panel-body">
     <div class="ranking-wrap">
       <div class="ranking-head"><span>Ranking de vulnerabilidade (Clique nas colunas para ordenar)</span><small id="ranking-info"></small></div>
       <div class="table-scroll">
-         <table style="min-width:880px">
-           <thead id="ranking-thead">
-              <tr>
-                <th>#</th>
-                <th class="sortable asc" onclick="sortRanking('lbl')">Localidade</th>
-                <th class="sortable" onclick="sortRanking('tot')">Famílias</th>
-                <th class="sortable" onclick="sortRanking('pE')">% Extr. Pob.</th>
-                <th class="sortable" onclick="sortRanking('avgR')">Renda Média</th>
-                <th class="sortable" onclick="sortRanking('pD')">% Desatual.</th>
-                <th class="sortable" onclick="sortRanking('pB')">% Sem Banh.</th>
-                <th class="sortable" onclick="sortRanking('pP')">% Esgoto Prec.</th>
-                <th class="sortable" onclick="sortRanking('score')">Score Vulnerab.</th>
-              </tr>
-           </thead>
-           <tbody id="ranking-body"></tbody>
-         </table>
+        <table style="min-width:880px">
+          <thead id="ranking-thead">
+            <tr>
+              <th>#</th>
+              <th class="sortable asc" onclick="sortRanking('lbl')">Localidade</th>
+              <th class="sortable" onclick="sortRanking('tot')">Famílias</th>
+              <th class="sortable" onclick="sortRanking('pE')">% Extr. Pob.</th>
+              <th class="sortable" onclick="sortRanking('avgR')">Renda Média</th>
+              <th class="sortable" onclick="sortRanking('pD')">% Desatual.</th>
+              <th class="sortable" onclick="sortRanking('pB')">% Sem Banh.</th>
+              <th class="sortable" onclick="sortRanking('pP')">% Esgoto Prec.</th>
+              <th class="sortable" onclick="sortRanking('score')">Score Vulnerab.</th>
+            </tr>
+          </thead>
+          <tbody id="ranking-body"></tbody>
+        </table>
       </div>
     </div>
-    
     <div class="formula-card">
       <div class="formula-title">Índice de vulnerabilidade — fórmula e metodologia</div>
       <div class="formula-expr">Score = (% Extrema Pobreza  × 0,30)
@@ -519,6 +429,7 @@ Renda Score = max(0,  100 − (Renda Média ÷ 1.518 × 50))</div>
   </div>
 </div>
 
+<!-- TABELA -->
 <div class="panel-block" id="panel-tabela">
   <div class="panel-header"><div class="drag-wrap"><div class="drag-dots"><span></span><span></span><span></span><span></span><span></span><span></span></div><div class="sec-title">Registros em formato tabela</div></div><button class="btn-min" onclick="togglePanel('tabela')">−</button></div>
   <div class="panel-body">
@@ -537,21 +448,20 @@ Renda Score = max(0,  100 − (Renda Média ÷ 1.518 × 50))</div>
 <script>
 const SUPABASE_URL='https://ksrjoelvcwexepbnumiy.supabase.co/storage/v1/object/public/dados/base.csv';
 const SM=1518;
-const ALUGUEL_MERCADO = 1100; 
+const ALUGUEL_MERCADO=1100;
 const PAL=['#1a8a72','#2471b8','#c8973a','#c94f2e','#7056c8','#22b093','#e0ab48','#3d8fd4','#e06040','#0f1e2e','#f0c060'];
 const NVY='#0f1e2e';
 const CHARTS={};
 
-let allData=[], filteredData=[], columns=[], localidadeMap={};
+let allData=[],filteredData=[],columns=[],localidadeMap={};
 let currentPage=0;
 const PAGE=50;
+let rankingRows=[];
+let currentSort={col:'score',asc:false};
+let selectedLocs=new Set();
 
-// Variables for Ranking Sorting
-let rankingRows = [];
-let currentSort = { col: 'score', asc: false };
-
-// Variables for Multi-select
-let selectedLocs = new Set();
+// Stats store — calculado em runComputeSteps, lido em renderComparativo
+let globalStats={};
 
 // ── PROGRESS ──────────────────────────────────────────────
 function prog(pct,msg){
@@ -569,11 +479,7 @@ function normStr(s){return String(s||'').trim().toUpperCase().normalize('NFD').r
 function lev(a,b){const m=a.length,n=b.length,dp=Array.from({length:m+1},(_,i)=>[i,...Array(n).fill(0)]);for(let j=0;j<=n;j++)dp[0][j]=j;for(let i=1;i<=m;i++)for(let j=1;j<=n;j++)dp[i][j]=a[i-1]===b[j-1]?dp[i-1][j-1]:1+Math.min(dp[i-1][j],dp[i][j-1],dp[i-1][j-1]);return dp[m][n]}
 function buildLocMap(data){
   const freq={};
-  const len = data.length;
-  for (let i = 0; i < len; i++) {
-    const v = String(data[i].NOME_DA_LOCALIDADE||'').trim();
-    if(v) freq[v] = (freq[v]||0)+1;
-  }
+  for(let i=0;i<data.length;i++){const v=String(data[i].NOME_DA_LOCALIDADE||'').trim();if(v)freq[v]=(freq[v]||0)+1;}
   const n2c={};Object.entries(freq).forEach(([o,c])=>{const n=normStr(o);if(!n2c[n]||c>n2c[n].cnt)n2c[n]={canon:o,cnt:c};});
   const origs=Object.keys(freq),canons=Object.values(n2c).map(x=>x.canon),map={};
   origs.forEach(o=>{const no=normStr(o);let best=o,bd=Infinity;canons.forEach(c=>{const nc=normStr(c),ml=Math.max(no.length,nc.length);if(!ml)return;const d=lev(no,nc);if(d/ml<0.28&&d<bd){bd=d;best=c;}});map[o]=best;});
@@ -581,97 +487,53 @@ function buildLocMap(data){
 }
 function getLoc(r){return localidadeMap[String(r.NOME_DA_LOCALIDADE||'').trim()]||String(r.NOME_DA_LOCALIDADE||'').trim()||'Não informado'}
 
-// ── TOGGLE ENGINE & CHART HELPERS ─────────────────────────
-window.toggleCard = function(btn) {
-  const card = btn.closest('.stat-card') || btn.closest('.chart-card');
-  const valTarget = card.querySelector('.card-val-target');
-  const subTarget = card.querySelector('.card-sub-target');
-  if(!valTarget) return; // If clicked on a chart toggle that has no stat-val
-  
-  const isPct = card.hasAttribute('data-showing-pct');
-  if (isPct) {
-      valTarget.textContent = card.getAttribute('data-val');
-      subTarget.textContent = card.getAttribute('data-sub');
-      card.removeAttribute('data-showing-pct');
-  } else {
-      valTarget.textContent = card.getAttribute('data-pct');
-      subTarget.textContent = card.getAttribute('data-subpct');
-      card.setAttribute('data-showing-pct', 'true');
+// ── TOGGLE ENGINE ─────────────────────────────────────────
+window.toggleCard=function(btn){
+  const card=btn.closest('.stat-card');
+  const vt=card.querySelector('.card-val-target'),st=card.querySelector('.card-sub-target');
+  if(!vt)return;
+  const isPct=card.hasAttribute('data-showing-pct');
+  if(isPct){vt.textContent=card.getAttribute('data-val');st.textContent=card.getAttribute('data-sub');card.removeAttribute('data-showing-pct');}
+  else{vt.textContent=card.getAttribute('data-pct');st.textContent=card.getAttribute('data-subpct');card.setAttribute('data-showing-pct','true');}
+};
+window.toggleChart=function(btn,chartId){
+  const chart=CHARTS[chartId];if(!chart)return;
+  const card=btn.closest('.chart-card');
+  const isPct=card.hasAttribute('data-showing-pct');
+  if(isPct){
+    chart.data.datasets.forEach(ds=>{if(ds._absData)ds.data=[...ds._absData];});
+    if(chart.options.scales&&chart.options.scales.y&&chart.options.indexAxis!=='y')chart.options.scales.y.ticks.callback=Chart.Ticks.formatters.numeric;
+    if(chart.options.scales&&chart.options.scales.x&&chart.options.indexAxis==='y')chart.options.scales.x.ticks.callback=Chart.Ticks.formatters.numeric;
+    card.removeAttribute('data-showing-pct');
+  }else{
+    const isCat=(chartId==='chart-ciclo'||chartId==='chart-rede-ciclo');
+    chart.data.datasets.forEach(ds=>{if(!ds._absData)ds._absData=[...ds.data];});
+    let totalAll=0;
+    if(chartId==='chart-adensamento')totalAll=allData.length;
+    else if(!isCat)chart.data.datasets.forEach(d=>d._absData.forEach(v=>totalAll+=v));
+    chart.data.datasets.forEach((ds)=>{
+      ds.data=ds._absData.map((val,i)=>{
+        let denom=totalAll;
+        if(isCat){denom=0;chart.data.datasets.forEach(d=>denom+=(d._absData[i]||0));}
+        return denom?parseFloat(((val/denom)*100).toFixed(1)):0;
+      });
+    });
+    if(chart.options.scales&&chart.options.scales.y&&chart.options.indexAxis!=='y')chart.options.scales.y.ticks.callback=function(val){return val+'%';};
+    if(chart.options.scales&&chart.options.scales.x&&chart.options.indexAxis==='y')chart.options.scales.x.ticks.callback=function(val){return val+'%';};
+    card.setAttribute('data-showing-pct','true');
   }
+  chart.update();
 };
 
-window.toggleChart = function(btn, chartId) {
-   const chart = CHARTS[chartId];
-   if(!chart) return;
-   const card = btn.closest('.chart-card');
-   const isPct = card.hasAttribute('data-showing-pct');
-   
-   if (isPct) {
-       chart.data.datasets.forEach(ds => { if(ds._absData) ds.data = [...ds._absData]; });
-       if (chart.options.scales && chart.options.scales.y && chart.options.indexAxis !== 'y') {
-           chart.options.scales.y.ticks.callback = Chart.Ticks.formatters.numeric;
-       }
-       if (chart.options.scales && chart.options.scales.x && chart.options.indexAxis === 'y') {
-           chart.options.scales.x.ticks.callback = Chart.Ticks.formatters.numeric;
-       }
-       card.removeAttribute('data-showing-pct');
-   } else {
-       let isCategoryPct = (chartId === 'chart-ciclo' || chartId === 'chart-rede-ciclo');
-       chart.data.datasets.forEach(ds => { if(!ds._absData) ds._absData = [...ds.data]; });
-       
-       let totalAll = 0;
-       if (chartId === 'chart-adensamento') {
-           totalAll = allData.length;
-       } else if (!isCategoryPct) {
-           chart.data.datasets.forEach(d => d._absData.forEach(v => totalAll += v));
-       }
-       
-       chart.data.datasets.forEach((ds) => {
-           ds.data = ds._absData.map((val, i) => {
-               let denom = totalAll;
-               if (isCategoryPct) {
-                   denom = 0;
-                   chart.data.datasets.forEach(d => denom += (d._absData[i] || 0));
-               }
-               return denom ? parseFloat(((val / denom) * 100).toFixed(1)) : 0;
-           });
-       });
-       
-       if (chart.options.scales && chart.options.scales.y && chart.options.indexAxis !== 'y') {
-           chart.options.scales.y.ticks.callback = function(val) { return val + '%'; };
-       }
-       if (chart.options.scales && chart.options.scales.x && chart.options.indexAxis === 'y') {
-           chart.options.scales.x.ticks.callback = function(val) { return val + '%'; };
-       }
-       card.setAttribute('data-showing-pct', 'true');
-   }
-   chart.update();
-}
-
-const tooltip = {
-  backgroundColor: NVY, cornerRadius: 8, padding: 10, titleColor: '#e0ab48', bodyColor: '#fff',
-  callbacks: {
-    label: function(context) {
-       let val = context.raw;
-       let label = context.dataset.label || context.label || '';
-       if(label) label += ': ';
-       const card = context.chart.canvas.closest('.chart-card');
-       const isPct = card && card.hasAttribute('data-showing-pct');
-       return label + val + (isPct ? '%' : '');
-    }
-  }
-};
+const tooltip={backgroundColor:NVY,cornerRadius:8,padding:10,titleColor:'#e0ab48',bodyColor:'#fff',callbacks:{label:function(ctx){let val=ctx.raw,label=ctx.dataset.label||ctx.label||'';if(label)label+=': ';const card=ctx.chart.canvas.closest('.chart-card');const isPct=card&&card.hasAttribute('data-showing-pct');return label+val+(isPct?'%':'');}}};
 
 function dc(id){if(CHARTS[id]){CHARTS[id].destroy();delete CHARTS[id];}}
-function barChart(id,labels,values,colors, opts={}){
+function barChart(id,labels,values,colors,opts={}){
   dc(id);const ctx=document.getElementById(id);if(!ctx)return;
-  const isHoriz = opts.indexAxis === 'y';
+  const isHoriz=opts.indexAxis==='y';
   CHARTS[id]=new Chart(ctx,{type:'bar',data:{labels,datasets:[{data:values,backgroundColor:colors||PAL,borderRadius:4}]},
-    options:{indexAxis: opts.indexAxis||'x', responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false},tooltip},
-      scales:{
-          x:{ticks:{color:'#7a7a7a',font:{size:10,family:'Syne',weight:'600'}},grid:{display:!isHoriz, color:'#edeae3'}},
-          y:{ticks:{color:'#7a7a7a',font:{size:10,family:'Syne',weight:isHoriz?'600':'400'}},grid:{display:isHoriz,color:'#edeae3'}}
-      }}});
+    options:{indexAxis:opts.indexAxis||'x',responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false},tooltip},
+      scales:{x:{ticks:{color:'#7a7a7a',font:{size:10,family:'Syne',weight:'600'}},grid:{display:!isHoriz,color:'#edeae3'}},y:{ticks:{color:'#7a7a7a',font:{size:10,family:'Syne',weight:isHoriz?'600':'400'}},grid:{display:isHoriz,color:'#edeae3'}}}}});
 }
 function donut(id,labels,values){
   dc(id);const ctx=document.getElementById(id);if(!ctx)return;
@@ -684,30 +546,23 @@ function groupedBar(id,labels,datasets){
     options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{position:'top',labels:{color:'#4a4a4a',font:{size:10,family:'Syne',weight:'600'},boxWidth:10,padding:8}},tooltip},
       scales:{x:{ticks:{color:'#7a7a7a',font:{size:10,family:'Syne',weight:'600'}},grid:{display:false}},y:{ticks:{color:'#7a7a7a',font:{size:10}},grid:{color:'#edeae3'}}}}});
 }
-function radarChart(id, labels, datasets) {
-  dc(id); const ctx = document.getElementById(id); if(!ctx) return;
-  CHARTS[id] = new Chart(ctx, { type: 'radar', data: { labels, datasets },
-    options: { responsive: true, maintainAspectRatio: false, elements: { line: { borderWidth: 3 } },
-      scales: { r: { angleLines: { color: '#edeae3' }, grid: { color: '#edeae3' }, pointLabels: { font: { family: 'Syne', size: 10, weight: '700' }, color: '#0f1e2e' }, ticks: { display: false, max: 100, min: 0 } } },
-      plugins: { legend: { position: 'bottom', labels: { font: { family: 'Syne', size: 11, weight: '600' }, color: '#4a4a4a', boxWidth: 12 } }, tooltip }
-    }
-  });
+function radarChart(id,labels,datasets){
+  dc(id);const ctx=document.getElementById(id);if(!ctx)return;
+  CHARTS[id]=new Chart(ctx,{type:'radar',data:{labels,datasets},
+    options:{responsive:true,maintainAspectRatio:false,elements:{line:{borderWidth:2.5}},
+      scales:{r:{angleLines:{color:'#edeae3'},grid:{color:'#edeae3'},pointLabels:{font:{family:'Syne',size:9,weight:'700'},color:'#0f1e2e'},ticks:{display:false,max:100,min:0}}},
+      plugins:{legend:{position:'bottom',labels:{font:{family:'Syne',size:10,weight:'600'},color:'#4a4a4a',boxWidth:12}},tooltip}}});
 }
 
 // ── CARD BUILDER ──────────────────────────────────────────
 function card({id,label,value,pctValue,sub,subPct,miss,color,icon,tip,campo}){
-  const hasToggle = pctValue !== undefined;
-  return `<div class="stat-card ${color||''}" ${hasToggle ? `data-val="${value}" data-pct="${pctValue}" data-sub="${sub}" data-subpct="${subPct}"` : ''}>
-    <div class="stat-icon">${icon||''}</div>
-    <div class="stat-label">
-      ${label}
-      ${hasToggle ? `<button class="card-toggle" onclick="toggleCard(this)" title="Alternar N / %">⇅</button>` : ''}
-      ${tip?` <button class="tip-btn" tabindex="0">?<div class="tip-pop"><strong>${label}</strong><p>${tip}</p>${campo?`<div class="tip-campo">${campo}</div>`:''}</div></button>`:''}
-    </div>
-    <div class="stat-val card-val-target">${value||'—'}</div>
-    <div class="stat-sub card-sub-target">${sub||''}</div>
-    ${miss?`<div class="stat-miss">${miss}</div>`:''}
-  </div>`;
+  const hasToggle=pctValue!==undefined;
+  return`<div class="stat-card ${color||''}" ${hasToggle?`data-val="${value}" data-pct="${pctValue}" data-sub="${sub||''}" data-subpct="${subPct||''}"`:''}>`+
+    `<div class="stat-icon">${icon||''}</div>`+
+    `<div class="stat-label">${label}${hasToggle?` <button class="card-toggle" onclick="toggleCard(this)">⇅</button>`:''}${tip?` <button class="tip-btn" tabindex="0">?<div class="tip-pop"><strong>${label}</strong><p>${tip}</p>${campo?`<div class="tip-campo">${campo}</div>`:''}</div></button>`:''}</div>`+
+    `<div class="stat-val card-val-target">${value||'—'}</div>`+
+    `<div class="stat-sub card-sub-target">${sub||''}</div>`+
+    `${miss?`<div class="stat-miss">${miss}</div>`:''}</div>`;
 }
 function strip(id,cards){const el=document.getElementById(id);if(el)el.innerHTML=cards.map(card).join('');}
 
@@ -718,632 +573,509 @@ function lblCode(v,mx){if(!v)return'';const m=String(v).match(/^\d+\s*-\s*(.+)/)
 const n=v=>Number(v).toLocaleString('pt-BR');
 const pct=(a,b)=>b?Math.round(a/b*100):0;
 
-// ── COMPUTE & RENDER STEPS (NOW ACCEPTS DATA AS ARGUMENT) ─
-function runComputeSteps(data, isInitialLoad = true) {
-  const totalP = data.length;
-  
-  if (isInitialLoad) prog(64,'Indexando famílias…');
-  const fR = []; 
-  const rfs = []; 
-  const famGroups = {}; 
-  const famSet = new Set();
-  
-  for (let i = 0; i < totalP; i++) {
-      const r = data[i];
-      const k = famKey(r);
-      if (!k) continue;
-
-      if (!famGroups[k]) famGroups[k] = [];
-      famGroups[k].push(r);
-
-      if (!famSet.has(k)) {
-          famSet.add(k);
-          fR.push(r);
-      }
-      
-      if (String(r.COD_PARENTESCO_RF_PESSOA||'').trim().startsWith('1')) {
-          rfs.push(r);
-      }
+// ════════════════════════════════════════════════════════
+// COMPUTE STATS FOR A GIVEN DATASET — returns stats object
+// Usado para o conjunto filtrado E para cada bairro no comparativo
+// ════════════════════════════════════════════════════════
+function computeStats(data){
+  const totalP=data.length;
+  const fR=[],rfs=[],famGroups={},famSet=new Set();
+  for(let i=0;i<totalP;i++){
+    const r=data[i],k=famKey(r);if(!k)continue;
+    if(!famGroups[k])famGroups[k]=[];
+    famGroups[k].push(r);
+    if(!famSet.has(k)){famSet.add(k);fR.push(r);}
+    if(String(r.COD_PARENTESCO_RF_PESSOA||'').trim().startsWith('1'))rfs.push(r);
   }
-  
-  const total = fR.length;
-  const tf = famSet.size;
+  const total=fR.length,tf=famSet.size;
 
-  const steps=[
-    // PASSO 1: Estrutura + Adensamento
-    ()=>{
-      if (isInitialLoad) prog(65,'Calculando estrutura familiar…');
-      let tamSum = 0, tamCount = 0;
-      let sozinhas = 0, multi = 0, aglom = 0;
-      let desat = 0, atual = 0;
-      
-      for (let i = 0; i < total; i++) {
-        const r = fR[i];
-        const p = parseInt(r.QTD_PESSOAS_DOMIC_FAM);
-        const dor = parseInt(r.QTD_COMODOS_DORMITORIO_FAM);
-        const qFam = parseInt(r.QTD_FAMILIAS_DOMIC_FAM);
-        const st = String(r.STATUS_CADUNICO||'').trim().toUpperCase();
+  // ESTRUTURA
+  let tamSum=0,tamCount=0,sozinhas=0,multi=0,aglom=0,desat=0,atual=0;
+  for(let i=0;i<total;i++){
+    const r=fR[i];
+    const p=parseInt(r.QTD_PESSOAS_DOMIC_FAM),dor=parseInt(r.QTD_COMODOS_DORMITORIO_FAM),qF=parseInt(r.QTD_FAMILIAS_DOMIC_FAM);
+    const st=String(r.STATUS_CADUNICO||'').trim().toUpperCase();
+    if(!isNaN(p)&&p>0){tamSum+=p;tamCount++;}
+    if(p===1)sozinhas++;if(qF>1)multi++;
+    if(!isNaN(p)&&!isNaN(dor)&&dor>0&&p/dor>2)aglom++;
+    if(st==='DESATUALIZADO')desat++;else if(st==='ATUALIZADO')atual++;
+  }
+  const avg=tamCount?tamSum/tamCount:0;
+  let acimaMed=0;if(avg>0)for(let i=0;i<total;i++)if(parseInt(fR[i].QTD_PESSOAS_DOMIC_FAM)>avg)acimaMed++;
+  const pctAtual=pct(atual,total);
 
-        if (st === 'DESATUALIZADO') desat++;
-        else if (st === 'ATUALIZADO') atual++;
-
-        if (!isNaN(p) && p > 0) { tamSum += p; tamCount++; }
-        if (p === 1) sozinhas++;
-        if (qFam > 1) multi++;
-        if (!isNaN(p) && !isNaN(dor) && dor > 0 && p / dor > 2) aglom++;
-      }
-
-      // Calc Pessoas por Bairro (APENAS NA CARGA INICIAL E USANDO ALLDATA)
-      if (isInitialLoad) {
-          const locFreq = {};
-          for(let i=0; i<allData.length; i++) {
-              const l = getLoc(allData[i]);
-              locFreq[l] = (locFreq[l]||0) + 1;
-          }
-          const freqArr = Object.entries(locFreq).sort((a,b)=>b[1]-a[1]).slice(0, 10); // Top 10
-          barChart('chart-adensamento', freqArr.map(([k])=>k), freqArr.map(([,v])=>v), null, { indexAxis: 'y' });
-      }
-      
-      const avg = tamCount ? tamSum / tamCount : 0;
-      const missT = total - tamCount;
-      let acimaMed = 0;
-      
-      if (avg > 0) {
-        for (let i = 0; i < total; i++) {
-          if (parseInt(fR[i].QTD_PESSOAS_DOMIC_FAM) > avg) acimaMed++;
-        }
-      }
-
-      document.getElementById('badge-total').textContent=n(total)+' famílias';
-      document.getElementById('badge-pessoas').textContent=n(totalP)+' pessoas';
-      document.getElementById('badge-atualizado').textContent=pct(atual,total)+'% atualizados';
-      
-      strip('strip-estrutura',[
-        { id:'s-tf', label:'Total de famílias', value:n(total), pctValue:'100%', sub:'grupos familiares na amostra', subPct:'do total filtrado', color:'cs', icon:'👥', tip:'Contagem de grupos familiares distintos.', campo:'COD_FAMILIAR' },
-        { id:'s-tp', label:'Total de pessoas', value:n(totalP), pctValue:'100%', sub:'membros cadastrados na amostra', subPct:'do total filtrado', icon:'🧑‍🤝‍🧑', tip:'Total absoluto de pessoas.', campo:'(Contagem de registros)' },
-        { id:'s-avg', label:'Média membros/fam.', value:avg>0?avg.toFixed(1):'—', sub:missT?`${missT} sem dado`:'pessoas por família em média', color:'cg', icon:'🏠', miss:missT?`${missT} família(s) sem dado`:null, tip:'Média simples da quantidade de pessoas no domicílio por família.', campo:'QTD_PESSOAS_DOMIC_FAM' },
-        { id:'s-acima', label:'Acima da média', value:n(acimaMed), pctValue: pct(acimaMed, total)+'%', sub:`das famílias (> ${avg.toFixed(1)} pessoas)`, subPct:`${n(acimaMed)} famílias grandes`, color:'cg', icon:'📊', tip:'Quantidade de famílias cujo número de membros é maior que a média.', campo:'QTD_PESSOAS_DOMIC_FAM > MÉDIA' },
-        { id:'s-soz', label:'Famílias unipessoais', value:n(sozinhas), pctValue: pct(sozinhas, total)+'%', sub:'do total de famílias', subPct:`${n(sozinhas)} famílias compostas por 1 membro`, icon:'🧍', tip:'Famílias compostas por apenas um indivíduo morando sozinho.', campo:'QTD_PESSOAS_DOMIC_FAM == 1' },
-        { id:'s-multi', label:'Múltiplas fam./dom.', value:n(multi), pctValue: pct(multi, total)+'%', sub:'compartilham domicílio', subPct:`${n(multi)} coabitam com outros núcleos`, color:'cc', icon:'🏘️', tip:'Sinaliza domicílios onde convivem duas ou mais famílias diferentes.', campo:'QTD_FAMILIAS_DOMIC_FAM > 1' },
-        { id:'s-desat', label:'Cad. desatualizados', value:n(desat), pctValue: pct(desat, total)+'%', sub:'das famílias (busca ativa)', subPct:`${n(desat)} grupos com pendência`, color:'cc', icon:'📋', tip:'Cadastros não atualizados há mais de 24 meses.', campo:'STATUS_CADUNICO' },
-        { id:'s-aglom', label:'Aglomeração domiciliar', value:n(aglom), pctValue: pct(aglom, total)+'%', sub:'> 2 pessoas por dormitório', subPct:`${n(aglom)} famílias em adensamento`, color:'cg', icon:'⚠️', tip:'Indica superlotação: média de mais de 2 pessoas dormindo no mesmo cômodo.', campo:'QTD_PESSOAS / QTD_COMODOS' }
-      ]);
-    },
-
-    // PASSO 2: Ciclo de vida
-    ()=>{
-      if (isInitialLoad) prog(70,'Calculando ciclo de vida e gênero…');
-      const faixas=[{l:'0–5',mn:0,mx:5},{l:'6–14',mn:6,mx:14},{l:'15–17',mn:15,mx:17},{l:'18–29',mn:18,mx:29},{l:'30–39',mn:30,mx:39},{l:'40–49',mn:40,mx:49},{l:'50–59',mn:50,mx:59},{l:'60+',mn:60,mx:999}];
-      const masc=[0,0,0,0,0,0,0,0], fem=[0,0,0,0,0,0,0,0];
-      
-      let missI = 0, missR = 0, prim = 0, adol = 0, jov = 0, ido = 0, mrfCount = 0;
-      const sxC = {'Masculino':0, 'Feminino':0, 'Não informado':0};
-      const rM = {'1':'Branca','2':'Preta','3':'Amarela','4':'Parda','5':'Indígena'};
-      const rC = {};
-
-      for (let i = 0; i < totalP; i++) {
-        const r = data[i];
-        const a = parseInt(r.IDADE_PESSOA);
-        const sx = String(r.COD_SEXO_PESSOA||'').trim();
-        const vR = String(r.COD_RACA_COR_PESSOA||'').trim();
-        
-        if (isNaN(a)) missI++;
-        else {
-          if (a <= 6) prim++;
-          if (a >= 15 && a <= 17) adol++;
-          if (a >= 18 && a <= 29) jov++;
-          if (a >= 60) ido++;
-
-          const fi = a <= 5 ? 0 : a <= 14 ? 1 : a <= 17 ? 2 : a <= 29 ? 3 : a <= 39 ? 4 : a <= 49 ? 5 : a <= 59 ? 6 : 7;
-          if (sx.startsWith('1')) masc[fi]++;
-          else if (sx.startsWith('2')) fem[fi]++;
-          else masc[fi]++;
-        }
-
-        if (sx.startsWith('1')) sxC['Masculino']++;
-        else if (sx.startsWith('2')) sxC['Feminino']++;
-        else sxC['Não informado']++;
-
-        const numR = vR.match(/^(\d+)/)?.[1];
-        const lblR = numR && rM[numR] ? rM[numR] : 'Não informado';
-        if (lblR === 'Não informado') missR++;
-        rC[lblR] = (rC[lblR] || 0) + 1;
-      }
-      
-      for (let i = 0; i < total; i++) {
-        if (String(fR[i].FAM_FAM_MULHER_RF||'').trim().toUpperCase() === 'SIM') mrfCount++;
-      }
-
-      strip('strip-ciclovida',[
-        { id:'s-prim', label:'1ª infância (0–6)', value:n(prim), pctValue:pct(prim, totalP)+'%', sub:'da população filtrada', subPct:`${n(prim)} crianças de 0 a 6 anos`, color:'ct', icon:'👶', miss:missI?`${missI} sem idade`:null, tip:'Crianças na fase de Primeira Infância.', campo:'IDADE_PESSOA <= 6' },
-        { id:'s-adol', label:'Adolescentes (15–17)', value:n(adol), pctValue:pct(adol, totalP)+'%', sub:'da população filtrada', subPct:`${n(adol)} adolescentes`, color:'cg', icon:'🎒', tip:'Jovens em idade de transição escolar.', campo:'IDADE_PESSOA ENTRE 15 e 17' },
-        { id:'s-jov', label:'Jovens (18–29)', value:n(jov), pctValue:pct(jov, totalP)+'%', sub:'da população filtrada', subPct:`${n(jov)} adultos jovens`, color:'cs', icon:'🎓', tip:'Faixa prioritária para qualificação técnica.', campo:'IDADE_PESSOA ENTRE 18 e 29' },
-        { id:'s-id', label:'Idosos (60+)', value:n(ido), pctValue:pct(ido, totalP)+'%', sub:'da população filtrada', subPct:`${n(ido)} idosos`, color:'cl', icon:'🧓', tip:'Pessoas na terceira idade.', campo:'IDADE_PESSOA >= 60' },
-        { id:'s-mrf', label:'Mulher responsável', value:n(mrfCount), pctValue:pct(mrfCount, tf)+'%', sub:'das famílias (chefia)', subPct:`${n(mrfCount)} famílias lideradas por mulheres`, color:'ct', icon:'👩', tip:'Famílias onde a mulher é Responsável Familiar.', campo:'FAM_FAM_MULHER_RF == SIM' }
-      ]);
-      document.getElementById('miss-etaria').textContent = missI ? `${missI} sem idade` : '';
-      barChart('chart-etaria',faixas.map(f=>f.l), [0], null); 
-      CHARTS['chart-etaria'].data.datasets = [{label:'Masculino',data:masc,backgroundColor:'#2471b8',borderRadius:4},{label:'Feminino',data:fem,backgroundColor:'#c8973a',borderRadius:4}];
-      CHARTS['chart-etaria'].update();
-      
-      document.getElementById('miss-sexo').textContent = sxC['Não informado'] ? `${sxC['Não informado']} sem sexo` : '';
-      donut('chart-sexo',Object.keys(sxC).filter(k=>sxC[k]>0),Object.values(sxC).filter(v=>v>0));
-      document.getElementById('miss-raca').textContent = missR ? `${missR} sem raça/cor` : '';
-      donut('chart-raca',Object.keys(rC),Object.values(rC));
-    },
-
-    // PASSO 3: Renda
-    ()=>{
-      if (isInitialLoad) prog(75,'Calculando renda e pobreza…');
-      let avgRSum = 0, avgRCount = 0, missR = 0;
-      let extr = 0, pob = 0, zero = 0;
-      let pbfF = 0, aposF = 0;
-      let so_t = 0, so_b = 0, tb = 0, sr = 0;
-      let inviavel = 0, sobrecarga = 0;
-      
-      const fxRCount = [0,0,0,0,0,0,0];
-
-      for (let i = 0; i < total; i++) {
-        const r = fR[i];
-        const k = famKey(r);
-        const rv = parseFloat(r.VLR_RENDA_MEDIA_FAM);
-        const pv = parseInt(r.QTD_PESSOAS_DOMIC_FAM) || 1;
-        const mb = famGroups[k] || [];
-        
-        if (isNaN(rv)) {
-          missR++;
-        } else {
-          // Risco Habitacional
-          if (rv > 0) {
-              if (rv < ALUGUEL_MERCADO) inviavel++; 
-              else if ((ALUGUEL_MERCADO / rv) > 0.30) sobrecarga++;
-          }
-            
-          const pc = rv / pv;
-          if (pc <= 109) extr++;
-          else if (pc <= 218) pob++;
-          
-          if (rv === 0) zero++;
-          else { avgRSum += rv; avgRCount++; }
-
-          if (rv === 0) fxRCount[0]++;
-          else if (rv <= 109) fxRCount[1]++;
-          else if (rv <= 218) fxRCount[2]++;
-          else if (rv <= SM/2) fxRCount[3]++;
-          else if (rv <= SM) fxRCount[4]++;
-          else if (rv <= SM*2) fxRCount[5]++;
-          else fxRCount[6]++;
-        }
-
-        let hT = false, hP = false, hA = false;
-        for (let j = 0; j < mb.length; j++) {
-           const m = mb[j];
-           const vRem = String(m.FX_RND_VAL_REMUNER_EMPREGO_MEMB||'').trim();
-           if (vRem && vRem !== '0 - 0') hT = true;
-           if (String(m.MARC_PBF||'').trim().toUpperCase() === 'SIM') hP = true;
-           const vApos = String(m.FX_RND_VAL_RENDA_APOSENT_MEMB||'').trim();
-           if (vApos && vApos !== '0 - 0') hA = true;
-        }
-
-        if (hP) pbfF++;
-        if (hA) aposF++;
-        
-        const hB = hP || hA;
-        if (rv === 0) sr++;
-        else if (hT && hB) tb++;
-        else if (hT) so_t++;
-        else if (hB) so_b++;
-        else sr++;
-      }
-
-      const avgR = avgRCount ? avgRSum / avgRCount : 0;
-
-      strip('strip-renda',[
-        { id:'s-avgr', label:'Renda média da fam.', value:avgR>0?'R$'+Math.round(avgR).toLocaleString('pt-BR'):'—', sub:'renda bruta / mês', color:'cg', icon:'💰', miss:missR?`${missR} sem dado`:null, tip:'Renda bruta mensal declarada no grupo familiar (soma do ganho de todos os membros).', campo:'VLR_RENDA_MEDIA_FAM' },
-        { id:'s-alug', label:'Risco Habitacional', value:n(inviavel + sobrecarga), pctValue: pct(inviavel + sobrecarga, total)+'%', sub:`aluguel base R$ ${ALUGUEL_MERCADO}`, subPct:`${n(inviavel)} não têm renda para aluguel`, color:'cc', icon:'🏚️', tip:`Famílias que comprometeriam mais de 30% da renda com um aluguel médio regional estimado ou cuja renda é inferior a este valor.`, campo:'VLR_RENDA vs ALUGUEL' },
-        { id:'s-extr', label:'Extrema pobreza', value:n(extr), pctValue: pct(extr, total)+'%', sub:'renda per capita ≤ R$109', subPct:`${n(extr)} famílias`, color:'cc', icon:'🔴', tip:'Famílias com renda per capita na linha de extrema pobreza (MDS).', campo:'RENDA_PER_CAPITA <= 109' },
-        { id:'s-pob', label:'Pobreza', value:n(pob), pctValue: pct(pob, total)+'%', sub:'R$110–218 per capita', subPct:`${n(pob)} famílias`, color:'cc', icon:'🟠', tip:'Famílias na linha de pobreza oficial.', campo:'RENDA_PER_CAPITA > 109 e <= 218' },
-        { id:'s-zero', label:'Renda zero', value:n(zero), pctValue: pct(zero, total)+'%', sub:'sem qualquer renda', subPct:`${n(zero)} famílias com R$0`, icon:'⚠️', tip:'Grupo declarou não possuir fonte de renda.', campo:'VLR_RENDA_MEDIA_FAM == 0' },
-        { id:'s-pbf', label:'Recebem PBF', value:n(pbfF), pctValue: pct(pbfF, total)+'%', sub:'são beneficiárias', subPct:`${n(pbfF)} famílias no Bolsa Família`, color:'ct', icon:'✅', tip:'Marcação ativa do Programa Bolsa Família.', campo:'MARC_PBF == SIM' }
-      ]);
-
-      const fxRLabels = ['R$0','R$1–109','R$110–218','R$219–½SM','½SM–1SM','1SM–2SM','>2SM'];
-      document.getElementById('miss-faixarenda').textContent = missR ? `${missR} sem dado` : '';
-      barChart('chart-faixarenda', fxRLabels, fxRCount, ['#c94f2e','#e06040','#c8973a','#e0ab48','#2471b8','#1a8a72','#0f1e2e']);
-      
-      const tM={'1':'≤R$109','2':'R$110–218','3':'R$219–½SM','4':'½SM–1SM','5':'1SM–2SM','6':'2SM–3SM','7':'>3SM'};
-      const tC={}; let missTR = 0;
-      for (let i = 0; i < totalP; i++) {
-        const v = String(data[i].FX_RND_VAL_REMUNER_EMPREGO_MEMB||'').trim();
-        if (!v || v === '0 - 0') { missTR++; continue; }
-        const num = v.match(/^(\d+)/)?.[1];
-        const lbl = num && tM[num] ? tM[num] : lblCode(v, 18);
-        tC[lbl] = (tC[lbl] || 0) + 1;
-      }
-      
-      document.getElementById('miss-rendatrab').textContent = missTR ? `${missTR} sem renda de trabalho` : '';
-      const te = Object.entries(tC).sort((a,b)=>b[1]-a[1]);
-      barChart('chart-rendatrab',te.map(([k])=>k),te.map(([,v])=>v));
-      
-      document.getElementById('miss-composicao').textContent='';
-      donut('chart-composicao',['Só trabalho','Trabalho + benefício','Só benefício','Sem renda'],[so_t, tb, so_b, sr]);
-    },
-
-    // PASSO 4: Escolaridade
-    ()=>{
-      if (isInitialLoad) prog(80,'Calculando escolaridade…');
-      const iRF={}; let missIRF=0, sInstr=0, analf=0, missDet=0;
-      const iD={'Nunca frequentou':0,'Sem instrução':0,'Fund. incompleto':0,'Fund. completo':0,'Médio incompleto':0,'Médio completo':0,'Superior':0,'Outros':0};
-
-      for(let i = 0; i < rfs.length; i++) {
-         const r = rfs[i];
-         const v = String(r.GRAU_INSTRUCAO||'').trim();
-         if (!v) missIRF++; else iRF[v] = (iRF[v]||0)+1;
-
-         const vl = v.toLowerCase();
-         const c = String(r.COD_CURSO_FREQUENTOU_PESSOA_MEMB||'').trim();
-         if (!v && !c) missDet++;
-         else {
-            if(c.startsWith('4')||vl.includes('nunca')) iD['Nunca frequentou']++;
-            else if(vl.includes('sem instrucao')||vl.includes('sem instrução')) iD['Sem instrução']++;
-            else if((vl.includes('fundamental')||vl.includes('1o grau'))&&vl.includes('incompleto')) iD['Fund. incompleto']++;
-            else if(vl.includes('fundamental')||vl.includes('1o grau')) iD['Fund. completo']++;
-            else if((vl.includes('medio')||vl.includes('médio')||vl.includes('2o grau'))&&vl.includes('incompleto')) iD['Médio incompleto']++;
-            else if(vl.includes('medio')||vl.includes('médio')||vl.includes('2o grau')) iD['Médio completo']++;
-            else if(vl.includes('superior')||vl.includes('gradua')) iD['Superior']++;
-            else iD['Outros']++;
-
-            if(vl.includes('sem instrucao')||vl.includes('sem instrução')||c.startsWith('4')||vl.includes('nunca')) sInstr++;
-            if(c.startsWith('4')) analf++;
-         }
-      }
-
-      document.getElementById('miss-instrucao-rf').textContent=missIRF?`${missIRF} sem grau`:'';
-      const rfe=Object.entries(iRF).sort((a,b)=>b[1]-a[1]);
-      barChart('chart-instrucao-rf',rfe.map(([k])=>k.replace(/ensino /i,'').substring(0,22)),rfe.map(([,v])=>v));
-      
-      const iA={}; let missIA=0;
-      const ciclos=[{l:'Fund. I (5–10)',mn:5,mx:10},{l:'Fund. II (11–14)',mn:11,mx:14},{l:'Médio (15–17)',mn:15,mx:17}];
-      const foraC=[0,0,0], dentroC=[0,0,0];
-      const redes={ 'Fund. I (5–10)': {Pública:0, Privada:0, Fora:0}, 'Fund. II (11–14)': {Pública:0, Privada:0, Fora:0}, 'Médio (15–17)': {Pública:0, Privada:0, Fora:0} };
-      let foraEsc=0, e517Count=0, neet=0, j1824Count=0;
-
-      for (let i = 0; i < totalP; i++) {
-         const r = data[i];
-         const a = getAge(r);
-         if (isNaN(a)) continue;
-
-         if (a >= 18) {
-             const v = String(r.GRAU_INSTRUCAO||'').trim();
-             if (!v) missIA++; else iA[v] = (iA[v]||0)+1;
-         }
-
-         const e = String(r.IND_FREQUENTA_ESCOLA_MEMB||'').trim();
-         const isFora = e.startsWith('3') || e.startsWith('4');
-         const isDentro = e.startsWith('1') || e.startsWith('2');
-
-         if (a >= 5 && a <= 17) {
-             e517Count++;
-             if (isFora) foraEsc++;
-
-             const ci = a <= 10 ? 0 : a <= 14 ? 1 : 2;
-             const cl = ciclos[ci].l;
-             if (isFora) { foraC[ci]++; redes[cl].Fora++; }
-             if (isDentro) {
-                 dentroC[ci]++;
-                 if (e.startsWith('1')) redes[cl].Pública++;
-                 else if (e.startsWith('2')) redes[cl].Privada++;
-             }
-         }
-
-         if (a >= 18 && a <= 24) {
-             j1824Count++;
-             const t = String(r.COD_TRABALHOU_MEMB||'').trim();
-             if ((isFora || e==='') && (t.startsWith('2') || t==='')) neet++;
-         }
-      }
-
-      document.getElementById('miss-instrucao-adulto').textContent=missIA?`${missIA} adultos sem grau`:'';
-      const ae=Object.entries(iA).sort((a,b)=>b[1]-a[1]);
-      barChart('chart-instrucao-adulto',ae.map(([k])=>k.replace(/ensino /i,'').substring(0,22)),ae.map(([,v])=>v));
-      
-      document.getElementById('miss-instr-detalhe').textContent=missDet?`${missDet} sem dado`:'';
-      const de=Object.entries(iD).filter(([,v])=>v>0).sort((a,b)=>b[1]-a[1]);
-      barChart('chart-instr-detalhe',de.map(([k])=>k),de.map(([,v])=>v),['#c94f2e','#e06040','#c8973a','#e0ab48','#2471b8','#1a8a72','#7056c8','#0f1e2e']);
-      
-      document.getElementById('miss-ciclo').textContent='';
-      groupedBar('chart-ciclo',ciclos.map(c=>c.l),[{label:'Dentro da escola',data:dentroC,backgroundColor:'#1a8a72',borderRadius:4},{label:'Fora da escola',data:foraC,backgroundColor:'#c94f2e',borderRadius:4}]);
-      
-      document.getElementById('miss-rede-ciclo').textContent='';
-      groupedBar('chart-rede-ciclo',ciclos.map(c=>c.l),[{label:'Rede pública',data:ciclos.map(c=>redes[c.l].Pública),backgroundColor:'#2471b8',borderRadius:4},{label:'Rede privada',data:ciclos.map(c=>redes[c.l].Privada),backgroundColor:'#7056c8',borderRadius:4},{label:'Fora da escola',data:ciclos.map(c=>redes[c.l].Fora),backgroundColor:'#c94f2e',borderRadius:4}]);
-
-      strip('strip-escola',[
-        { id:'s-fesc', label:'Fora da escola (5–17)', value:n(foraEsc), pctValue: pct(foraEsc, e517Count)+'%', sub:'da faixa etária 5 a 17 anos', subPct:`${n(foraEsc)} menores desescolarizados`, color:'cc', icon:'📚', tip:'Crianças ou adolescentes em idade escolar obrigatória (5 a 17 anos) que não frequentam creche nem escola.', campo:'IND_FREQUENTA_ESCOLA_MEMB' },
-        { id:'s-neet', label:'Geração Nem-Nem', value:n(neet), pctValue: pct(neet, j1824Count)+'%', sub:'dos jovens de 18–24 anos', subPct:`${n(neet)} não estudam e não trabalham`, color:'cc', icon:'🔍', tip:'Jovens de 18 a 24 anos que não estudam nem possuem registro de trabalho ativo.', campo:'ESCOLA E TRABALHO' },
-        { id:'s-sinstr', label:'RF sem instrução', value:n(sInstr), pctValue: pct(sInstr, rfs.length)+'%', sub:'dos Responsáveis Familiares', subPct:`${n(sInstr)} sem ensino base`, color:'cg', icon:'📖', tip:'Grau de escolaridade formal do responsável familiar classificado como sem instrução.', campo:'GRAU_INSTRUCAO' },
-        { id:'s-analf', label:'RF nunca frequentou', value:n(analf), pctValue: pct(analf, rfs.length)+'%', sub:'(proxy de analfabetismo)', subPct:`${n(analf)} nunca foram à escola`, color:'cc', icon:'🚫', tip:'Pessoas que nunca frequentaram nenhuma instituição de ensino (alta probabilidade de analfabetismo).', campo:'COD_CURSO == 4' }
-      ]);
-    },
-
-    // PASSO 5: Trabalho
-    ()=>{
-      if (isInitialLoad) prog(85,'Calculando trabalho e ocupação…');
-      let totalAt = 0, trabCount = 0, nTrabCount = 0, formal = 0, informal = 0;
-      const tipoM={'1':'Autônomo','2':'Rural temp.','3':'Dom. s/cart.','4':'CLT','5':'Dom. s/cart.','6':'Dom. c/cart.','7':'Não remunerado','8':'Serv. Público','9':'Empregador','10':'Estagiário','11':'Aprendiz'};
-      const tipoC={}; let missT=0;
-      const fams06 = new Set(), rfD = new Set();
-
-      for (let i = 0; i < totalP; i++) {
-         const r = data[i];
-         const a = getAge(r);
-         const k = famKey(r);
-         if (isNaN(a)) continue;
-
-         if (a <= 6) fams06.add(k);
-
-         if (a >= 18 && a <= 64) {
-             totalAt++;
-             const trab = String(r.COD_TRABALHOU_MEMB||'').trim();
-             if (trab.startsWith('1')) {
-                 trabCount++;
-                 const v = String(r.COD_PRINCIPAL_TRAB_MEMB||'').trim();
-                 if (v.startsWith('4') || v.startsWith('6') || v.startsWith('8')) formal++;
-                 else informal++;
-
-                 if (!v) missT++;
-                 else {
-                     const num = v.match(/^(\d+)/)?.[1];
-                     const lbl = num && tipoM[num] ? tipoM[num] : lblCode(v, 16);
-                     tipoC[lbl] = (tipoC[lbl]||0)+1;
-                 }
-             } else if (trab.startsWith('2')) {
-                 nTrabCount++;
-                 if (String(r.COD_PARENTESCO_RF_PESSOA||'').trim().startsWith('1')) rfD.add(k);
-             }
-         }
-      }
-      
-      const semI = totalAt - trabCount - nTrabCount;
-      let cri06D = 0;
-      fams06.forEach(k => { if (rfD.has(k)) cri06D++; });
-
-      strip('strip-trabalho',[
-        { id:'s-prod', label:'Força de trab. (18–64)', value:n(totalAt), pctValue: pct(totalAt, totalP)+'%', sub:'população ativa (potencial)', subPct:`${n(totalAt)} adultos na faixa etária`, icon:'👷', tip:'Total de pessoas na faixa etária considerada produtiva (18 a 64 anos completos).', campo:'IDADE_PESSOA' },
-        { id:'s-ntr', label:'Não trabalhou', value:n(nTrabCount), pctValue:pct(nTrabCount, totalAt)+'%', sub:'da força de trabalho (18-64)', subPct:`${n(nTrabCount)} desocupados ou inativos`, color:'cc', icon:'💼', tip:'Adultos que declararam não ter exercido atividade remunerada nos 12 meses anteriores.', campo:'COD_TRABALHOU' },
-        { id:'s-inf', label:'Trabalho informal', value:n(informal), pctValue:pct(informal, trabCount)+'%', sub:'dos que trabalharam', subPct:`${n(informal)} atuam sem carteira/autônomos`, color:'cg', icon:'🔧', tip:'Trabalhadores sem vínculo de proteção social formal (CLT/Estatutário).', campo:'COD_PRINCIPAL_TRAB' },
-        { id:'s-cri06', label:'RF desempr. + Criança', value:n(cri06D), pctValue:pct(cri06D, tf)+'%', sub:'famílias sob dupla vulnerab.', subPct:`${n(cri06D)} domicílios afetados`, color:'cc', icon:'👶', tip:'Cruza fragilidades: Presença de filhos pequenos (0-6 anos) e RF sem emprego declarado.', campo:'CRIA <= 6 & RF S/TRAB' }
-      ]);
-      
-      document.getElementById('miss-trabalho').textContent=missT?`${missT} sem tipo de trabalho`:'';
-      const ti=Object.entries(tipoC).sort((a,b)=>b[1]-a[1]);
-      barChart('chart-trabalho',ti.map(([k])=>k),ti.map(([,v])=>v));
-      
-      document.getElementById('miss-formal').textContent='';
-      donut('chart-formal',['Formal (CLT/Pub)','Informal','Sem tipo informado'],[formal,informal,missT]);
-      
-      document.getElementById('miss-sittrab').textContent=semI?`${semI} sem informação`:'';
-      barChart('chart-sittrab',['Trabalharam','Não trabalharam','Sem informação'],[trabCount,nTrabCount,semI],['#1a8a72','#c94f2e','#ccc9c0']);
-    },
-
-    // PASSO 6: Saneamento
-    ()=>{
-      if (isInitialLoad) prog(90,'Calculando saneamento e moradia…');
-      const bn={sim:0,nao:0,miss:0};
-      const aM={'1':'Rede geral','2':'Poço/Nascente','3':'Cisterna','4':'Outra'};
-      const aC={'Rede geral':0}; let missA=0;
-      const eM={'1':'Rede coletora','2':'Fossa séptica','3':'Fossa rudimentar','4':'Vala a céu aberto','5':'Rio/Mar','6':'Outro'};
-      const eC={}; let missE=0;
-      const lM={'1':'Coleta direta','2':'Coleta indireta','3':'Queimado/Enterrado','4':'Terreno baldio','5':'Rio/Mar','6':'Outro'};
-      const lC={}; let missL=0;
-
-      for (let i = 0; i < total; i++) {
-         const r = fR[i];
-         const vb = String(r.COD_BANHEIRO_DOMIC_FAM||'').trim();
-         if (!vb) bn.miss++; else if (vb.startsWith('1')) bn.sim++; else bn.nao++;
-
-         const va = String(r.COD_ABASTE_AGUA_DOMIC_FAM||'').trim();
-         if (!va) { missA++; aC['Não informado']=(aC['Não informado']||0)+1; }
-         else {
-             const num = va.match(/^(\d+)/)?.[1];
-             const lbl = num && aM[num] ? aM[num] : lblCode(va, 20);
-             aC[lbl] = (aC[lbl]||0)+1;
-         }
-
-         const ve = String(r.COD_ESCOA_SANITARIO_DOMIC_FAM||'').trim();
-         if (!ve) { missE++; eC['Não informado']=(eC['Não informado']||0)+1; }
-         else {
-             const num = ve.match(/^(\d+)/)?.[1];
-             const lbl = num && eM[num] ? eM[num] : lblCode(ve, 20);
-             eC[lbl] = (eC[lbl]||0)+1;
-         }
-
-         const vl = String(r.COD_DESTINO_LIXO_DOMIC_FAM||'').trim();
-         if (!vl) { missL++; lC['Não informado']=(lC['Não informado']||0)+1; }
-         else {
-             const num = vl.match(/^(\d+)/)?.[1];
-             const lbl = num && lM[num] ? lM[num] : lblCode(vl, 20);
-             lC[lbl] = (lC[lbl]||0)+1;
-         }
-      }
-      
-      const semAR = total - (aC['Rede geral']||0);
-      const esgP = Object.entries(eC).filter(([k])=>!['Rede coletora','Fossa séptica'].includes(k)).reduce((a,[,v])=>a+v,0);
-      
-      strip('strip-saneamento',[
-        { id:'s-sbn', label:'Sem banheiro no dom.', value:n(bn.nao), pctValue:pct(bn.nao, total)+'%', sub:'das residências afetadas', subPct:`${n(bn.nao)} famílias sem vaso sanitário`, color:'cc', icon:'🚽', miss:bn.miss?`${bn.miss} sem dado`:null, tip:'Domicílios que declararam não possuir instalação sanitária básica na residência.', campo:'COD_BANHEIRO' },
-        { id:'s-sar', label:'Sem água encanada', value:n(semAR), pctValue:pct(semAR, total)+'%', sub:'sem acesso à rede geral', subPct:`${n(semAR)} domicílios usam poços/valas`, color:'cg', icon:'💧', miss:missA?`${missA} sem dado`:null, tip:'O abastecimento de água não é feito pela rede geral.', campo:'COD_ABASTE_AGUA' },
-        { id:'s-esgp', label:'Esgotamento precário', value:n(esgP), pctValue:pct(esgP, total)+'%', sub:'das famílias', subPct:`${n(esgP)} descartam em valas/rios/fossas`, color:'cc', icon:'⚠️', miss:missE?`${missE} sem dado`:null, tip:'O destino dos dejetos ocorre de forma precária: fossa rudimentar, vala aberta, rios.', campo:'COD_ESCOA_SANITARIO' }
-      ]);
-      
-      document.getElementById('miss-agua').textContent=missA?`${missA} sem dado`:'';
-      donut('chart-agua',Object.keys(aC),Object.values(aC));
-      document.getElementById('miss-esgoto').textContent=missE?`${missE} sem dado`:'';
-      barChart('chart-esgoto',Object.keys(eC),Object.values(eC));
-      document.getElementById('miss-lixo').textContent=missL?`${missL} sem dado`:'';
-      barChart('chart-lixo',Object.keys(lC),Object.values(lC));
-    },
-
-    // PASSO 7: Ranking e Vilas Boas
-    ()=>{
-      if (isInitialLoad) prog(94,'Calculando rankings e comparações…');
-      
-      // -- GLOBAL SCORE VARIABLES --
-      let gTot=0, gExtr=0, gDsat=0, gSBn=0, gEp=0, gAvgRSum=0, gAvgRCount=0;
-      
-      const byL={}; 
-      for(let i=0; i<totalP; i++) {
-          const l=getLoc(data[i]);
-          if(!byL[l]) byL[l]=[];
-          byL[l].push(data[i]);
-      }
-      
-      rankingRows = Object.entries(byL).map(([lbl,rs])=>{
-        const fSet = new Set();
-        const fRs = [];
-        for (let i=0; i<rs.length; i++) {
-            const k = famKey(rs[i]);
-            if(k && !fSet.has(k)) { fSet.add(k); fRs.push(rs[i]); }
-        }
-        
-        const tot = fRs.length; if(!tot) return null;
-        let dsat=0, sBn=0, eP=0, extr=0, avgRSum=0, avgRCount=0;
-        
-        for (let i=0; i<tot; i++) {
-            const r = fRs[i];
-            if(String(r.STATUS_CADUNICO||'').trim().toUpperCase()==='DESATUALIZADO') dsat++;
-            if(String(r.COD_BANHEIRO_DOMIC_FAM||'').trim().startsWith('2')) sBn++;
-            const ve = String(r.COD_ESCOA_SANITARIO_DOMIC_FAM||'').trim();
-            if(ve && !ve.startsWith('1') && !ve.startsWith('2')) eP++;
-            
-            const rv = parseFloat(r.VLR_RENDA_MEDIA_FAM);
-            const pv = parseInt(r.QTD_PESSOAS_DOMIC_FAM)||1;
-            if(!isNaN(rv)) {
-                if((rv/pv)<=109) extr++;
-                if(rv>0) { avgRSum+=rv; avgRCount++; }
-            }
-        }
-        
-        // Sum Global
-        gTot+=tot; gExtr+=extr; gDsat+=dsat; gSBn+=sBn; gEp+=eP; gAvgRSum+=avgRSum; gAvgRCount+=avgRCount;
-        
-        const avgR = avgRCount ? avgRSum/avgRCount : 0;
-        const pE=tot?extr/tot*100:0, pD=tot?dsat/tot*100:0, pB=tot?sBn/tot*100:0, pP=tot?eP/tot*100:0;
-        const rS=avgR>0?Math.max(0,100-(avgR/SM*50)):100;
-        const score=Math.round(pE*0.30+pD*0.20+pB*0.20+pP*0.15+rS*0.15);
-        return{lbl,tot,pE,avgR,pD,pB,pP,score};
-      }).filter(Boolean);
-
-      document.getElementById('ranking-info').textContent=`${rankingRows.length} localidades`;
-      renderRankingTable(); // Triggers table creation
-      
-      // -- VILAS BOAS COMPARISON --
-      const vbRow = rankingRows.find(r => r.lbl.toUpperCase().includes('VILAS BOAS'));
-      const pbPanel = document.getElementById('panel-vilasboas');
-      
-      if (!vbRow) {
-          pbPanel.querySelector('.filters-wrap').innerHTML = '<p style="text-align:center;color:var(--text3);padding:20px;">O Jardim Vilas Boas não está presente nos filtros atuais de bairro.</p>';
-      } else {
-          // Rebuild HTML just in case it was overwritten
-          if(!document.getElementById('strip-vilas')) {
-             pbPanel.querySelector('.filters-wrap').innerHTML = `<p style="font-size:12px; color:var(--text2); margin-bottom:12px;">Esta seção isola os dados do bairro <strong>Jardim Vilas Boas</strong> dentro da amostra que você filtrou acima, permitindo comparar rapidamente as fragilidades locais contra a média de todos os outros bairros selecionados.</p><div class="stat-grid" id="strip-vilas"></div><div class="chart-grid" style="margin-top:16px;"><div class="chart-card"><div class="chart-title">Radar de Vulnerabilidades (%)<button class="tip-btn" tabindex="0">?<div class="tip-pop"><strong>Comparativo</strong><p>Compara as taxas de problemas estruturais. Quanto mais larga a teia, pior o cenário.</p></div></button></div><div class="chart-wrap tall"><canvas id="chart-radar-vilas"></canvas></div></div></div>`;
-          }
-          
-          const glAvgR = gAvgRCount ? gAvgRSum/gAvgRCount : 0;
-          const glpE = gTot ? gExtr/gTot*100 : 0;
-          const glpD = gTot ? gDsat/gTot*100 : 0;
-          const glpB = gTot ? gSBn/gTot*100 : 0;
-          const glpP = gTot ? gEp/gTot*100 : 0;
-          const glrS = glAvgR>0 ? Math.max(0,100-(glAvgR/SM*50)) : 100;
-          const glScore = Math.round(glpE*0.30+glpD*0.20+glpB*0.20+glpP*0.15+glrS*0.15);
-
-          const rdiff = vbRow.avgR - glAvgR;
-          const rdiffStr = rdiff > 0 ? `+ R$ ${Math.round(rdiff)} acima da média` : `- R$ ${Math.abs(Math.round(rdiff))} abaixo da média`;
-          
-          strip('strip-vilas',[
-             {id:'v-score', label:'Score de Vulnerabilidade', value:vbRow.score, sub:`Global do Filtro: ${glScore}`, color: vbRow.score > glScore ? 'cc' : 'ct', icon:'🎯'},
-             {id:'v-renda', label:'Renda Média (Jd Vilas Boas)', value:'R$ '+Math.round(vbRow.avgR), sub:rdiffStr, color: rdiff < 0 ? 'cc' : 'ct', icon:'💰'},
-             {id:'v-extr', label:'Extrema Pobreza', value:vbRow.pE.toFixed(1)+'%', sub:`Global do Filtro: ${glpE.toFixed(1)}%`, color: vbRow.pE > glpE ? 'cc' : 'ct', icon:'🔴'}
-          ]);
-          
-          radarChart('chart-radar-vilas', 
-             ['% Extrema Pobreza', '% Desatualizados', '% Sem Banheiro', '% Esgoto Precário', 'Déficit de Renda (Score)'],
-             [
-                { label: 'Jardim Vilas Boas', data: [vbRow.pE, vbRow.pD, vbRow.pB, vbRow.pP, (vbRow.avgR>0?Math.max(0,100-(vbRow.avgR/SM*50)):100)], backgroundColor: 'rgba(200, 151, 58, 0.3)', borderColor: '#c8973a', pointBackgroundColor: '#c8973a' },
-                { label: 'Média Global (Filtro)', data: [glpE, glpD, glpB, glpP, glrS], backgroundColor: 'rgba(36, 113, 184, 0.2)', borderColor: '#2471b8', pointBackgroundColor: '#2471b8' }
-             ]
-          );
-      }
-    },
-
-    // PASSO 8: Tabela
-    ()=>{
-      if (isInitialLoad) prog(98,'Preparando visualizações…');
-      renderTable(data);
-    },
-
-    // PASSO 9: Finalizar
-    ()=>{
-      if (isInitialLoad) {
-          prog(100,'Dados carregados com sucesso!');
-          setStatus(`✓ ${n(allData.length)} registros base`,'ok');
-          setTimeout(hideOv, 600);
-      } else {
-          document.getElementById('soft-loader').style.display = 'none';
-      }
+  // CICLO DE VIDA (uma passagem)
+  const faixas=[{l:'0–5',mn:0,mx:5},{l:'6–14',mn:6,mx:14},{l:'15–17',mn:15,mx:17},{l:'18–29',mn:18,mx:29},{l:'30–39',mn:30,mx:39},{l:'40–49',mn:40,mx:49},{l:'50–59',mn:50,mx:59},{l:'60+',mn:60,mx:999}];
+  const masc=[0,0,0,0,0,0,0,0],fem=[0,0,0,0,0,0,0,0];
+  let missI=0,missR=0,prim=0,adol=0,jov=0,ido=0,mrfCount=0;
+  const sxC={'Masculino':0,'Feminino':0,'Não informado':0};
+  const rM={'1':'Branca','2':'Preta','3':'Amarela','4':'Parda','5':'Indígena'};
+  const rC={};
+  for(let i=0;i<totalP;i++){
+    const r=data[i],a=parseInt(r.IDADE_PESSOA),sx=String(r.COD_SEXO_PESSOA||'').trim(),vR=String(r.COD_RACA_COR_PESSOA||'').trim();
+    if(isNaN(a))missI++;
+    else{
+      if(a<=6)prim++;if(a>=15&&a<=17)adol++;if(a>=18&&a<=29)jov++;if(a>=60)ido++;
+      const fi=a<=5?0:a<=14?1:a<=17?2:a<=29?3:a<=39?4:a<=49?5:a<=59?6:7;
+      if(sx.startsWith('1'))masc[fi]++;else if(sx.startsWith('2'))fem[fi]++;else masc[fi]++;
     }
-  ];
-
-  let i=0;
-  function nextStep(){
-    if(i>=steps.length)return;
-    try{ steps[i](); }catch(e){ console.error('Erro no passo '+i+':',e); }
-    i++;
-    setTimeout(nextStep, isInitialLoad ? 20 : 5); // Faster execution on update
+    if(sx.startsWith('1'))sxC['Masculino']++;else if(sx.startsWith('2'))sxC['Feminino']++;else sxC['Não informado']++;
+    const numR=vR.match(/^(\d+)/)?.[1];const lblR=numR&&rM[numR]?rM[numR]:'Não informado';if(lblR==='Não informado')missR++;rC[lblR]=(rC[lblR]||0)+1;
   }
-  nextStep();
+  for(let i=0;i<total;i++)if(String(fR[i].FAM_FAM_MULHER_RF||'').trim().toUpperCase()==='SIM')mrfCount++;
+  const pctMrf=pct(mrfCount,tf);
+
+  // RENDA
+  let avgRSum=0,avgRCount=0,missRenda=0,extr=0,pob=0,zero=0,pbfF=0,aposF=0,so_t=0,so_b=0,tb=0,sr=0,inviavel=0,sobrecarga=0;
+  const fxRCount=[0,0,0,0,0,0,0];
+  const tM={'1':'≤R$109','2':'R$110–218','3':'R$219–½SM','4':'½SM–1SM','5':'1SM–2SM','6':'2SM–3SM','7':'>3SM'};
+  const tC={};let missTR=0;
+  for(let i=0;i<total;i++){
+    const r=fR[i],k=famKey(r),rv=parseFloat(r.VLR_RENDA_MEDIA_FAM),pv=parseInt(r.QTD_PESSOAS_DOMIC_FAM)||1,mb=famGroups[k]||[];
+    if(isNaN(rv)){missRenda++;continue;}
+    const pc2=rv/pv;
+    if(pc2<=109)extr++;else if(pc2<=218)pob++;
+    if(rv===0)zero++;else{avgRSum+=rv;avgRCount++;}
+    if(rv>0){if(rv<ALUGUEL_MERCADO)inviavel++;else if((ALUGUEL_MERCADO/rv)>0.30)sobrecarga++;}
+    if(rv===0)fxRCount[0]++;else if(rv<=109)fxRCount[1]++;else if(rv<=218)fxRCount[2]++;else if(rv<=SM/2)fxRCount[3]++;else if(rv<=SM)fxRCount[4]++;else if(rv<=SM*2)fxRCount[5]++;else fxRCount[6]++;
+    let hT=false,hP=false,hA=false;
+    for(let j=0;j<mb.length;j++){const m=mb[j];const vRem=String(m.FX_RND_VAL_REMUNER_EMPREGO_MEMB||'').trim();if(vRem&&vRem!=='0 - 0')hT=true;if(String(m.MARC_PBF||'').trim().toUpperCase()==='SIM')hP=true;const vApos=String(m.FX_RND_VAL_RENDA_APOSENT_MEMB||'').trim();if(vApos&&vApos!=='0 - 0')hA=true;}
+    if(hP)pbfF++;if(hA)aposF++;
+    const hB=hP||hA;
+    if(rv===0)sr++;else if(hT&&hB)tb++;else if(hT)so_t++;else if(hB)so_b++;else sr++;
+  }
+  for(let i=0;i<totalP;i++){const v=String(data[i].FX_RND_VAL_REMUNER_EMPREGO_MEMB||'').trim();if(!v||v==='0 - 0'){missTR++;continue;}const num=v.match(/^(\d+)/)?.[1];const lbl=num&&tM[num]?tM[num]:lblCode(v,18);tC[lbl]=(tC[lbl]||0)+1;}
+  const avgR=avgRCount?avgRSum/avgRCount:0;
+  const pctExtr=total?extr/total*100:0,pctPob=pct(pob,total),pctZero=pct(zero,total),pctPbf=pct(pbfF,total);
+
+  // ESCOLARIDADE
+  const iRF={},iA={};
+  const iD={'Nunca frequentou':0,'Sem instrução':0,'Fund. incompleto':0,'Fund. completo':0,'Médio incompleto':0,'Médio completo':0,'Superior':0,'Outros':0};
+  let missIRF=0,missIA=0,missDet=0,sInstr=0,analf=0;
+  const ciclos=[{l:'Fund. I (5–10)',mn:5,mx:10},{l:'Fund. II (11–14)',mn:11,mx:14},{l:'Médio (15–17)',mn:15,mx:17}];
+  const foraC=[0,0,0],dentroC=[0,0,0];
+  const redesPub=[0,0,0],redesPri=[0,0,0],redesFora=[0,0,0];
+  let foraEsc=0,e517Count=0,neet=0,j1824Count=0;
+  for(let i=0;i<rfs.length;i++){
+    const r=rfs[i],v=String(r.GRAU_INSTRUCAO||'').trim(),vl=v.toLowerCase(),c=String(r.COD_CURSO_FREQUENTOU_PESSOA_MEMB||'').trim();
+    if(!v)missIRF++;else iRF[v]=(iRF[v]||0)+1;
+    if(!v&&!c)missDet++;
+    else{
+      if(c.startsWith('4')||vl.includes('nunca'))iD['Nunca frequentou']++;
+      else if(vl.includes('sem instrucao')||vl.includes('sem instrução'))iD['Sem instrução']++;
+      else if((vl.includes('fundamental')||vl.includes('1o grau'))&&vl.includes('incompleto'))iD['Fund. incompleto']++;
+      else if(vl.includes('fundamental')||vl.includes('1o grau'))iD['Fund. completo']++;
+      else if((vl.includes('medio')||vl.includes('médio')||vl.includes('2o grau'))&&vl.includes('incompleto'))iD['Médio incompleto']++;
+      else if(vl.includes('medio')||vl.includes('médio')||vl.includes('2o grau'))iD['Médio completo']++;
+      else if(vl.includes('superior')||vl.includes('gradua'))iD['Superior']++;
+      else iD['Outros']++;
+      if(vl.includes('sem instrucao')||vl.includes('sem instrução')||c.startsWith('4')||vl.includes('nunca'))sInstr++;
+      if(c.startsWith('4'))analf++;
+    }
+  }
+  for(let i=0;i<totalP;i++){
+    const r=data[i],a=getAge(r);if(isNaN(a))continue;
+    if(a>=18){const v=String(r.GRAU_INSTRUCAO||'').trim();if(!v)missIA++;else iA[v]=(iA[v]||0)+1;}
+    const e=String(r.IND_FREQUENTA_ESCOLA_MEMB||'').trim();
+    const isFora=e.startsWith('3')||e.startsWith('4');
+    const isDentro=e.startsWith('1')||e.startsWith('2');
+    if(a>=5&&a<=17){e517Count++;if(isFora)foraEsc++;const ci=a<=10?0:a<=14?1:2;if(isFora){foraC[ci]++;redesFora[ci]++;}if(isDentro){dentroC[ci]++;if(e.startsWith('1'))redesPub[ci]++;else redesPri[ci]++;}}
+    if(a>=18&&a<=24){j1824Count++;const t=String(r.COD_TRABALHOU_MEMB||'').trim();if((isFora||e==='')&&(t.startsWith('2')||t===''))neet++;}
+  }
+  const pctForaEsc=e517Count?foraEsc/e517Count*100:0;
+  const pctNeet=pct(neet,j1824Count);
+  const pctSInstr=pct(sInstr,rfs.length);
+  const pctAnalf=pct(analf,rfs.length);
+
+  // TRABALHO
+  let totalAt=0,trabCount=0,nTrabCount=0,formal=0,informal=0,missT=0;
+  const tipoM={'1':'Autônomo','2':'Rural temp.','3':'Dom. s/cart.','4':'CLT','5':'Dom. s/cart.','6':'Dom. c/cart.','7':'Não remunerado','8':'Serv. Público','9':'Empregador','10':'Estagiário','11':'Aprendiz'};
+  const tipoC={};
+  const fams06=new Set(),rfD=new Set();
+  for(let i=0;i<totalP;i++){
+    const r=data[i],a=getAge(r),k=famKey(r);if(isNaN(a))continue;
+    if(a<=6)fams06.add(k);
+    if(a>=18&&a<=64){
+      totalAt++;
+      const trab=String(r.COD_TRABALHOU_MEMB||'').trim(),tipo=String(r.COD_PRINCIPAL_TRAB_MEMB||'').trim();
+      if(trab.startsWith('1')){trabCount++;if(tipo.startsWith('4')||tipo.startsWith('6')||tipo.startsWith('8'))formal++;else informal++;if(!tipo)missT++;else{const num=tipo.match(/^(\d+)/)?.[1],lbl=num&&tipoM[num]?tipoM[num]:lblCode(tipo,16);tipoC[lbl]=(tipoC[lbl]||0)+1;}}
+      else if(trab.startsWith('2')){nTrabCount++;if(String(r.COD_PARENTESCO_RF_PESSOA||'').trim().startsWith('1'))rfD.add(k);}
+    }
+  }
+  const semI=totalAt-trabCount-nTrabCount;
+  let cri06D=0;fams06.forEach(k=>{if(rfD.has(k))cri06D++;});
+  const pctNTrab=pct(nTrabCount,totalAt),pctInformal=pct(informal,trabCount),pctCri06=pct(cri06D,tf);
+
+  // SANEAMENTO
+  const bn={sim:0,nao:0,miss:0};
+  const aM={'1':'Rede geral','2':'Poço/Nascente','3':'Cisterna','4':'Outra'};
+  const eM={'1':'Rede coletora','2':'Fossa séptica','3':'Fossa rudimentar','4':'Vala a céu aberto','5':'Rio/Mar','6':'Outro'};
+  const lM={'1':'Coleta direta','2':'Coleta indireta','3':'Queimado/Enterrado','4':'Terreno baldio','5':'Rio/Mar','6':'Outro'};
+  const aC={'Rede geral':0},eC={},lC={};let missA=0,missE=0,missL=0;
+  for(let i=0;i<total;i++){
+    const r=fR[i];
+    const vb=String(r.COD_BANHEIRO_DOMIC_FAM||'').trim();if(!vb)bn.miss++;else if(vb.startsWith('1'))bn.sim++;else bn.nao++;
+    const va=String(r.COD_ABASTE_AGUA_DOMIC_FAM||'').trim();if(!va){missA++;aC['Não informado']=(aC['Não informado']||0)+1;}else{const num=va.match(/^(\d+)/)?.[1],lbl=num&&aM[num]?aM[num]:lblCode(va,20);aC[lbl]=(aC[lbl]||0)+1;}
+    const ve=String(r.COD_ESCOA_SANITARIO_DOMIC_FAM||'').trim();if(!ve){missE++;eC['Não informado']=(eC['Não informado']||0)+1;}else{const num=ve.match(/^(\d+)/)?.[1],lbl=num&&eM[num]?eM[num]:lblCode(ve,20);eC[lbl]=(eC[lbl]||0)+1;}
+    const vl=String(r.COD_DESTINO_LIXO_DOMIC_FAM||'').trim();if(!vl){missL++;lC['Não informado']=(lC['Não informado']||0)+1;}else{const num=vl.match(/^(\d+)/)?.[1],lbl=num&&lM[num]?lM[num]:lblCode(vl,20);lC[lbl]=(lC[lbl]||0)+1;}
+  }
+  const semAR=total-(aC['Rede geral']||0);
+  const esgP=Object.entries(eC).filter(([k])=>!['Rede coletora','Fossa séptica'].includes(k)).reduce((a,[,v])=>a+v,0);
+  const pctSemBanh=pct(bn.nao,total),pctSemAgua=pct(semAR,total),pctEsgPrec=pct(esgP,total);
+
+  // SCORE DE VULNERABILIDADE
+  const rS=avgR>0?Math.max(0,100-(avgR/SM*50)):100;
+  const score=Math.round(pctExtr*0.30+(desat/total*100)*0.20+pctSemBanh*0.20+pctEsgPrec*0.15+rS*0.15);
+
+  return{
+    totalP,total,tf,avg,acimaMed,sozinhas,multi,desat,atual,aglom,pctAtual,missI,
+    faixas,masc,fem,sxC,rC,missR,prim,adol,jov,ido,mrfCount,pctMrf,
+    avgR,extr,pob,zero,pbfF,aposF,so_t,so_b,tb,sr,inviavel,sobrecarga,missRenda,
+    pctExtr,pctPob,pctZero,pctPbf,fxRCount,tC,missTR,
+    iRF,iA,iD,missIRF,missIA,missDet,sInstr,analf,pctForaEsc,pctNeet,pctSInstr,pctAnalf,
+    ciclos,foraC,dentroC,redesPub,redesPri,redesFora,foraEsc,e517Count,neet,j1824Count,rfs,
+    totalAt,trabCount,nTrabCount,formal,informal,semI,missT,tipoC,cri06D,pctNTrab,pctInformal,pctCri06,
+    bn,aC,eC,lC,missA,missE,missL,semAR,esgP,pctSemBanh,pctSemAgua,pctEsgPrec,score
+  };
 }
 
-// ── RANKING SORTING & RENDER ──────────────────────────────
-window.sortRanking = function(col) {
-  if (currentSort.col === col) {
-      currentSort.asc = !currentSort.asc;
-  } else {
-      currentSort.col = col;
-      currentSort.asc = (col === 'lbl'); 
+// ════════════════════════════════════════════════════════
+// RENDER ALL — recebe stats pré-computados
+// ════════════════════════════════════════════════════════
+function renderAll(s,isInitial){
+  // HERO
+  document.getElementById('badge-total').textContent=n(s.total)+' famílias';
+  document.getElementById('badge-pessoas').textContent=n(s.totalP)+' pessoas';
+  document.getElementById('badge-atualizado').textContent=s.pctAtual+'% atualizados';
+
+  // ESTRUTURA
+  strip('strip-estrutura',[
+    {id:'s-tf',label:'Total de famílias',value:n(s.total),pctValue:'100%',sub:'grupos familiares na amostra',subPct:'do total filtrado',color:'cs',icon:'👥'},
+    {id:'s-tp',label:'Total de pessoas',value:n(s.totalP),pctValue:'100%',sub:'membros cadastrados',subPct:'do total filtrado',icon:'🧑‍🤝‍🧑'},
+    {id:'s-avg',label:'Média membros/fam.',value:s.avg>0?s.avg.toFixed(1):'—',sub:s.avg>0?'pessoas por família':'-',color:'cg',icon:'🏠',miss:null},
+    {id:'s-acima',label:'Acima da média',value:n(s.acimaMed),pctValue:pct(s.acimaMed,s.total)+'%',sub:'famílias com mais membros que a média',subPct:n(s.acimaMed)+' famílias grandes',color:'cg',icon:'📊'},
+    {id:'s-soz',label:'Famílias unipessoais',value:n(s.sozinhas),pctValue:pct(s.sozinhas,s.total)+'%',sub:'do total de famílias',subPct:n(s.sozinhas)+' morando sozinhos',icon:'🧍'},
+    {id:'s-multi',label:'Múltiplas fam./dom.',value:n(s.multi),pctValue:pct(s.multi,s.total)+'%',sub:'compartilham domicílio',subPct:n(s.multi)+' coabitam com outros',color:'cc',icon:'🏘️'},
+    {id:'s-desat',label:'Cad. desatualizados',value:n(s.desat),pctValue:pct(s.desat,s.total)+'%',sub:'das famílias (busca ativa)',subPct:n(s.desat)+' com pendência',color:'cc',icon:'📋'},
+    {id:'s-aglom',label:'Aglomeração domiciliar',value:n(s.aglom),pctValue:pct(s.aglom,s.total)+'%',sub:'> 2 pessoas por dormitório',subPct:n(s.aglom)+' famílias superlotadas',color:'cg',icon:'⚠️'}
+  ]);
+
+  // ADENSAMENTO (só na carga inicial)
+  if(isInitial){
+    const locFreq={};
+    for(let i=0;i<allData.length;i++){const l=getLoc(allData[i]);locFreq[l]=(locFreq[l]||0)+1;}
+    const freqArr=Object.entries(locFreq).sort((a,b)=>b[1]-a[1]).slice(0,10);
+    barChart('chart-adensamento',freqArr.map(([k])=>k),freqArr.map(([,v])=>v),null,{indexAxis:'y'});
   }
-  
-  // Update header classes
-  document.querySelectorAll('#ranking-thead th.sortable').forEach(th => th.classList.remove('asc', 'desc'));
-  const activeTh = document.querySelector(`#ranking-thead th[onclick="sortRanking('${col}')"]`);
-  if(activeTh) activeTh.classList.add(currentSort.asc ? 'asc' : 'desc');
-  
+
+  // CICLO DE VIDA
+  strip('strip-ciclovida',[
+    {id:'s-prim',label:'1ª infância (0–6)',value:n(s.prim),pctValue:pct(s.prim,s.totalP)+'%',sub:'da população filtrada',subPct:n(s.prim)+' crianças',color:'ct',icon:'👶',miss:s.missI?s.missI+' sem idade':null},
+    {id:'s-adol',label:'Adolescentes (15–17)',value:n(s.adol),pctValue:pct(s.adol,s.totalP)+'%',sub:'da população filtrada',subPct:n(s.adol)+' adolescentes',color:'cg',icon:'🎒'},
+    {id:'s-jov',label:'Jovens (18–29)',value:n(s.jov),pctValue:pct(s.jov,s.totalP)+'%',sub:'da população filtrada',subPct:n(s.jov)+' adultos jovens',color:'cs',icon:'🎓'},
+    {id:'s-id',label:'Idosos (60+)',value:n(s.ido),pctValue:pct(s.ido,s.totalP)+'%',sub:'da população filtrada',subPct:n(s.ido)+' idosos',color:'cl',icon:'🧓'},
+    {id:'s-mrf',label:'Mulher responsável',value:n(s.mrfCount),pctValue:s.pctMrf+'%',sub:'das famílias (chefia)',subPct:n(s.mrfCount)+' lideradas por mulheres',color:'ct',icon:'👩'}
+  ]);
+  document.getElementById('miss-etaria').textContent=s.missI?s.missI+' sem idade':'';
+  dc('chart-etaria');
+  CHARTS['chart-etaria']=new Chart(document.getElementById('chart-etaria'),{type:'bar',
+    data:{labels:s.faixas.map(f=>f.l),datasets:[{label:'Masculino',data:s.masc,backgroundColor:'#2471b8',borderRadius:4},{label:'Feminino',data:s.fem,backgroundColor:'#c8973a',borderRadius:4}]},
+    options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{position:'top',labels:{color:'#4a4a4a',font:{size:10,family:'Syne',weight:'600'},boxWidth:10}},tooltip},
+      scales:{x:{ticks:{color:'#7a7a7a',font:{size:10,family:'Syne',weight:'600'}},grid:{display:false}},y:{ticks:{color:'#7a7a7a',font:{size:10}},grid:{color:'#edeae3'}}}}});
+  document.getElementById('miss-sexo').textContent=s.sxC['Não informado']?s.sxC['Não informado']+' sem sexo':'';
+  donut('chart-sexo',Object.keys(s.sxC).filter(k=>s.sxC[k]>0),Object.values(s.sxC).filter(v=>v>0));
+  document.getElementById('miss-raca').textContent=s.missR?s.missR+' sem raça/cor':'';
+  donut('chart-raca',Object.keys(s.rC),Object.values(s.rC));
+
+  // RENDA
+  strip('strip-renda',[
+    {id:'s-avgr',label:'Renda média da fam.',value:s.avgR>0?'R$'+Math.round(s.avgR).toLocaleString('pt-BR'):'—',sub:'renda bruta / mês',color:'cg',icon:'💰',miss:s.missRenda?s.missRenda+' sem dado':null},
+    {id:'s-alug',label:'Risco Habitacional',value:n(s.inviavel+s.sobrecarga),pctValue:pct(s.inviavel+s.sobrecarga,s.total)+'%',sub:'aluguel base R$ '+ALUGUEL_MERCADO,subPct:n(s.inviavel)+' sem renda para aluguel',color:'cc',icon:'🏚️'},
+    {id:'s-extr',label:'Extrema pobreza',value:n(s.extr),pctValue:Math.round(s.pctExtr)+'%',sub:'renda per capita ≤ R$109',subPct:n(s.extr)+' famílias',color:'cc',icon:'🔴'},
+    {id:'s-pob',label:'Pobreza',value:n(s.pob),pctValue:s.pctPob+'%',sub:'R$110–218 per capita',subPct:n(s.pob)+' famílias',color:'cc',icon:'🟠'},
+    {id:'s-zero',label:'Renda zero',value:n(s.zero),pctValue:s.pctZero+'%',sub:'sem qualquer renda',subPct:n(s.zero)+' famílias com R$0',icon:'⚠️'},
+    {id:'s-pbf',label:'Recebem PBF',value:n(s.pbfF),pctValue:s.pctPbf+'%',sub:'são beneficiárias',subPct:n(s.pbfF)+' famílias',color:'ct',icon:'✅'}
+  ]);
+  document.getElementById('miss-faixarenda').textContent=s.missRenda?s.missRenda+' sem dado':'';
+  barChart('chart-faixarenda',['R$0','R$1–109','R$110–218','R$219–½SM','½SM–1SM','1SM–2SM','>2SM'],s.fxRCount,['#c94f2e','#e06040','#c8973a','#e0ab48','#2471b8','#1a8a72','#0f1e2e']);
+  document.getElementById('miss-rendatrab').textContent=s.missTR?s.missTR+' sem renda de trabalho':'';
+  const te=Object.entries(s.tC).sort((a,b)=>b[1]-a[1]);
+  barChart('chart-rendatrab',te.map(([k])=>k),te.map(([,v])=>v));
+  document.getElementById('miss-composicao').textContent='';
+  donut('chart-composicao',['Só trabalho','Trabalho + benefício','Só benefício','Sem renda'],[s.so_t,s.tb,s.so_b,s.sr]);
+
+  // ESCOLARIDADE
+  strip('strip-escola',[
+    {id:'s-fesc',label:'Fora da escola (5–17)',value:n(s.foraEsc),pctValue:Math.round(s.pctForaEsc)+'%',sub:'da faixa etária 5 a 17 anos',subPct:n(s.foraEsc)+' menores desescolarizados',color:'cc',icon:'📚'},
+    {id:'s-neet',label:'Geração Nem-Nem',value:n(s.neet),pctValue:s.pctNeet+'%',sub:'dos jovens de 18–24 anos',subPct:n(s.neet)+' não estudam e não trabalham',color:'cc',icon:'🔍'},
+    {id:'s-sinstr',label:'RF sem instrução',value:n(s.sInstr),pctValue:s.pctSInstr+'%',sub:'dos Responsáveis Familiares',subPct:n(s.sInstr)+' sem ensino base',color:'cg',icon:'📖'},
+    {id:'s-analf',label:'RF nunca frequentou',value:n(s.analf),pctValue:s.pctAnalf+'%',sub:'(proxy de analfabetismo)',subPct:n(s.analf)+' nunca foram à escola',color:'cc',icon:'🚫'}
+  ]);
+  document.getElementById('miss-instrucao-rf').textContent=s.missIRF?s.missIRF+' sem grau':'';
+  const rfe=Object.entries(s.iRF).sort((a,b)=>b[1]-a[1]);
+  barChart('chart-instrucao-rf',rfe.map(([k])=>k.replace(/ensino /i,'').substring(0,22)),rfe.map(([,v])=>v));
+  document.getElementById('miss-instrucao-adulto').textContent=s.missIA?s.missIA+' adultos sem grau':'';
+  const ae=Object.entries(s.iA).sort((a,b)=>b[1]-a[1]);
+  barChart('chart-instrucao-adulto',ae.map(([k])=>k.replace(/ensino /i,'').substring(0,22)),ae.map(([,v])=>v));
+  document.getElementById('miss-instr-detalhe').textContent=s.missDet?s.missDet+' sem dado':'';
+  const de=Object.entries(s.iD).filter(([,v])=>v>0).sort((a,b)=>b[1]-a[1]);
+  barChart('chart-instr-detalhe',de.map(([k])=>k),de.map(([,v])=>v),['#c94f2e','#e06040','#c8973a','#e0ab48','#2471b8','#1a8a72','#7056c8','#0f1e2e']);
+  document.getElementById('miss-ciclo').textContent='';
+  groupedBar('chart-ciclo',s.ciclos.map(c=>c.l),[{label:'Dentro da escola',data:s.dentroC,backgroundColor:'#1a8a72',borderRadius:4},{label:'Fora da escola',data:s.foraC,backgroundColor:'#c94f2e',borderRadius:4}]);
+  document.getElementById('miss-rede-ciclo').textContent='';
+  groupedBar('chart-rede-ciclo',s.ciclos.map(c=>c.l),[{label:'Rede pública',data:s.redesPub,backgroundColor:'#2471b8',borderRadius:4},{label:'Rede privada',data:s.redesPri,backgroundColor:'#7056c8',borderRadius:4},{label:'Fora da escola',data:s.redesFora,backgroundColor:'#c94f2e',borderRadius:4}]);
+
+  // TRABALHO
+  strip('strip-trabalho',[
+    {id:'s-prod',label:'Força de trab. (18–64)',value:n(s.totalAt),pctValue:pct(s.totalAt,s.totalP)+'%',sub:'população ativa (potencial)',subPct:n(s.totalAt)+' adultos na faixa etária',icon:'👷'},
+    {id:'s-ntr',label:'Não trabalhou',value:n(s.nTrabCount),pctValue:s.pctNTrab+'%',sub:'da força de trabalho (18–64)',subPct:n(s.nTrabCount)+' desocupados ou inativos',color:'cc',icon:'💼'},
+    {id:'s-inf',label:'Trabalho informal',value:n(s.informal),pctValue:s.pctInformal+'%',sub:'dos que trabalharam',subPct:n(s.informal)+' sem carteira/autônomos',color:'cg',icon:'🔧'},
+    {id:'s-cri06',label:'RF desempr. + Criança',value:n(s.cri06D),pctValue:s.pctCri06+'%',sub:'famílias sob dupla vulnerab.',subPct:n(s.cri06D)+' domicílios afetados',color:'cc',icon:'👶'}
+  ]);
+  document.getElementById('miss-trabalho').textContent=s.missT?s.missT+' sem tipo de trabalho':'';
+  const ti=Object.entries(s.tipoC).sort((a,b)=>b[1]-a[1]);
+  barChart('chart-trabalho',ti.map(([k])=>k),ti.map(([,v])=>v));
+  document.getElementById('miss-formal').textContent='';
+  donut('chart-formal',['Formal (CLT/Pub)','Informal','Sem tipo informado'],[s.formal,s.informal,s.missT]);
+  document.getElementById('miss-sittrab').textContent=s.semI?s.semI+' sem informação':'';
+  barChart('chart-sittrab',['Trabalharam','Não trabalharam','Sem informação'],[s.trabCount,s.nTrabCount,s.semI],['#1a8a72','#c94f2e','#ccc9c0']);
+
+  // SANEAMENTO
+  strip('strip-saneamento',[
+    {id:'s-sbn',label:'Sem banheiro no dom.',value:n(s.bn.nao),pctValue:s.pctSemBanh+'%',sub:'das residências afetadas',subPct:n(s.bn.nao)+' famílias',color:'cc',icon:'🚽',miss:s.bn.miss?s.bn.miss+' sem dado':null},
+    {id:'s-sar',label:'Sem água encanada',value:n(s.semAR),pctValue:s.pctSemAgua+'%',sub:'sem acesso à rede geral',subPct:n(s.semAR)+' domicílios',color:'cg',icon:'💧',miss:s.missA?s.missA+' sem dado':null},
+    {id:'s-esgp',label:'Esgotamento precário',value:n(s.esgP),pctValue:s.pctEsgPrec+'%',sub:'das famílias',subPct:n(s.esgP)+' descartam em valas/fossas',color:'cc',icon:'⚠️',miss:s.missE?s.missE+' sem dado':null}
+  ]);
+  document.getElementById('miss-agua').textContent=s.missA?s.missA+' sem dado':'';
+  donut('chart-agua',Object.keys(s.aC),Object.values(s.aC));
+  document.getElementById('miss-esgoto').textContent=s.missE?s.missE+' sem dado':'';
+  barChart('chart-esgoto',Object.keys(s.eC),Object.values(s.eC));
+  document.getElementById('miss-lixo').textContent=s.missL?s.missL+' sem dado':'';
+  barChart('chart-lixo',Object.keys(s.lC),Object.values(s.lC));
+
+  // RANKING
+  const byL={};
+  for(let i=0;i<filteredData.length;i++){const l=getLoc(filteredData[i]);if(!byL[l])byL[l]=[];byL[l].push(filteredData[i]);}
+  rankingRows=Object.entries(byL).map(([lbl,rs])=>{
+    const fSet=new Set(),fRs=[];
+    for(let i=0;i<rs.length;i++){const k=famKey(rs[i]);if(k&&!fSet.has(k)){fSet.add(k);fRs.push(rs[i]);}}
+    const tot=fRs.length;if(!tot)return null;
+    let dsat=0,sBn=0,eP=0,extr=0,avgRSum=0,avgRCount=0;
+    for(let i=0;i<tot;i++){
+      const r=fRs[i];
+      if(String(r.STATUS_CADUNICO||'').trim().toUpperCase()==='DESATUALIZADO')dsat++;
+      if(String(r.COD_BANHEIRO_DOMIC_FAM||'').trim().startsWith('2'))sBn++;
+      const ve=String(r.COD_ESCOA_SANITARIO_DOMIC_FAM||'').trim();if(ve&&!ve.startsWith('1')&&!ve.startsWith('2'))eP++;
+      const rv=parseFloat(r.VLR_RENDA_MEDIA_FAM),pv=parseInt(r.QTD_PESSOAS_DOMIC_FAM)||1;
+      if(!isNaN(rv)){if(rv/pv<=109)extr++;if(rv>0){avgRSum+=rv;avgRCount++;}}
+    }
+    const avgR2=avgRCount?avgRSum/avgRCount:0;
+    const pE=tot?extr/tot*100:0,pD=tot?dsat/tot*100:0,pB=tot?sBn/tot*100:0,pP=tot?eP/tot*100:0;
+    const rS=avgR2>0?Math.max(0,100-(avgR2/SM*50)):100;
+    const score=Math.round(pE*0.30+pD*0.20+pB*0.20+pP*0.15+rS*0.15);
+    return{lbl,tot,pE,avgR:avgR2,pD,pB,pP,score};
+  }).filter(Boolean);
+  document.getElementById('ranking-info').textContent=rankingRows.length+' localidades';
   renderRankingTable();
 }
 
-function renderRankingTable() {
-    rankingRows.sort((a, b) => {
-        let va = a[currentSort.col], vb = b[currentSort.col];
-        if (typeof va === 'string') return currentSort.asc ? va.localeCompare(vb) : vb.localeCompare(va);
-        return currentSort.asc ? va - vb : vb - va;
-    });
-    
-    const sc=v=>v>=70?'#c94f2e':v>=45?'#e06040':v>=25?'#c8973a':'#1a8a72';
-    const pt=v=>{const cl=v>30?'p-red':v>15?'p-orange':'p-green';return`<span class="pill ${cl}">${v.toFixed(0)}%</span>`;};
-    
-    const tb=document.getElementById('ranking-body');tb.innerHTML='';
-    rankingRows.forEach((r,i)=>{
-      const tr=document.createElement('tr');
-      tr.innerHTML=`<td style="font-family:Syne,sans-serif;font-weight:700;font-size:11px;color:var(--navy)">${i+1}</td>
-        <td style="font-weight:500;white-space:nowrap">${r.lbl}</td><td>${r.tot}</td>
-        <td>${pt(r.pE)}</td><td>R$${Math.round(r.avgR).toLocaleString('pt-BR')}</td>
-        <td>${pt(r.pD)}</td><td>${pt(r.pB)}</td><td>${pt(r.pP)}</td>
-        <td><div style="display:flex;align-items:center;gap:7px"><div style="flex:1;background:var(--surface3);border-radius:4px;height:7px;min-width:48px"><div style="width:${Math.min(r.score,100)}%;background:${sc(r.score)};height:7px;border-radius:4px"></div></div><span style="font-family:Syne,sans-serif;font-weight:700;font-size:12px;color:${sc(r.score)};min-width:24px">${r.score}</span></div></td>`;
-      tb.appendChild(tr);
-    });
+// ── COMPARATIVO BAIRRO × FILTRO ───────────────────────────
+window.renderComparativo=function(){
+  const sel=document.getElementById('comp-bairro-sel');
+  const bairro=sel.value;
+  const body=document.getElementById('comp-body');
+
+  if(!bairro||!globalStats.totalP){
+    body.innerHTML='<div class="comp-no-data">Selecione um bairro no menu acima para ver a comparação completa de indicadores.</div>';
+    return;
+  }
+
+  // Filtra registros do bairro dentro da amostra atual
+  const bairroData=filteredData.filter(r=>getLoc(r)===bairro);
+  if(!bairroData.length){
+    body.innerHTML=`<div class="comp-no-data">O bairro "${bairro}" não possui registros no filtro atual.</div>`;
+    return;
+  }
+
+  const G=globalStats; // média do filtro atual
+  const B=computeStats(bairroData); // stats do bairro selecionado
+
+  // Renderiza barra comparativa
+  function compBar(label,bVal,gVal,unit,lowerIsBetter){
+    const max=Math.max(bVal,gVal,0.1);
+    const bPct=Math.round(bVal/max*100);
+    const gPct=Math.round(gVal/max*100);
+    const bBetter=lowerIsBetter?(bVal<=gVal):(bVal>=gVal);
+    const diff=bVal-gVal;
+    const diffFmt=unit==='R$'?'R$'+Math.abs(Math.round(diff)).toLocaleString('pt-BR'):Math.abs(diff).toFixed(1)+(unit==='%'?'%':'');
+    const deltaClass=bBetter?'better':'worse';
+    const deltaSign=diff>0?'▲':'▼';
+    const bValFmt=unit==='R$'?'R$'+Math.round(bVal).toLocaleString('pt-BR'):bVal.toFixed(1)+(unit==='%'?'%':'');
+    const gValFmt=unit==='R$'?'R$'+Math.round(gVal).toLocaleString('pt-BR'):gVal.toFixed(1)+(unit==='%'?'%':'');
+    return`<div class="comp-card">
+      <span class="comp-delta ${deltaClass}">${deltaSign} ${diffFmt}</span>
+      <div class="comp-card-label">${label}</div>
+      <div class="comp-row">
+        <span class="comp-dot" style="background:#c8973a"></span>
+        <span class="comp-name">${bairro.substring(0,16)}</span>
+        <div class="comp-bar-wrap"><div class="comp-bar" style="width:${bPct}%;background:#c8973a"></div></div>
+        <span class="comp-val" style="color:#c8973a">${bValFmt}</span>
+      </div>
+      <div class="comp-row">
+        <span class="comp-dot" style="background:#2471b8"></span>
+        <span class="comp-name">Média filtro</span>
+        <div class="comp-bar-wrap"><div class="comp-bar" style="width:${gPct}%;background:#2471b8"></div></div>
+        <span class="comp-val" style="color:#2471b8">${gValFmt}</span>
+      </div>
+    </div>`;
+  }
+
+  const sec=label=>`<div class="comp-section-label">${label}</div>`;
+
+  let html=`<div class="comp-legend">
+    <div class="comp-leg-item"><span class="comp-leg-dot" style="background:#c8973a"></span>${bairro}</div>
+    <div class="comp-leg-item"><span class="comp-leg-dot" style="background:#2471b8"></span>Média do filtro atual (${n(G.total)} famílias)</div>
+    <div class="comp-leg-item"><span class="comp-leg-dot" style="background:#e1f5ee;border:1px solid #0b5c3a"></span>▲/▼ = diferença vs. média (verde=melhor, vermelho=pior)</div>
+  </div>`;
+
+  // ESTRUTURA
+  html+=sec('Estrutura familiar');
+  html+=`<div class="comp-grid">
+    ${compBar('Famílias',B.total,G.total,'',false)}
+    ${compBar('Pessoas',B.totalP,G.totalP,'',false)}
+    ${compBar('Média membros/fam.',B.avg,G.avg,'',false)}
+    ${compBar('% Desatualizados',pct(B.desat,B.total),pct(G.desat,G.total),'%',true)}
+    ${compBar('% Aglomeração',pct(B.aglom,B.total),pct(G.aglom,G.total),'%',true)}
+    ${compBar('% Múlt. famílias/dom.',pct(B.multi,B.total),pct(G.multi,G.total),'%',true)}
+  </div>`;
+
+  // RENDA
+  html+=sec('Renda e pobreza');
+  html+=`<div class="comp-grid">
+    ${compBar('Renda média familiar (R$)',B.avgR,G.avgR,'R$',false)}
+    ${compBar('% Extrema pobreza',B.pctExtr,G.pctExtr,'%',true)}
+    ${compBar('% Pobreza',B.pctPob,G.pctPob,'%',true)}
+    ${compBar('% Renda zero',B.pctZero,G.pctZero,'%',true)}
+    ${compBar('% Recebem PBF',B.pctPbf,G.pctPbf,'%',false)}
+    ${compBar('% Risco habitacional',pct(B.inviavel+B.sobrecarga,B.total),pct(G.inviavel+G.sobrecarga,G.total),'%',true)}
+  </div>`;
+
+  // CICLO DE VIDA
+  html+=sec('Ciclo de vida e gênero');
+  html+=`<div class="comp-grid">
+    ${compBar('% Mulher responsável',B.pctMrf,G.pctMrf,'%',false)}
+    ${compBar('% 1ª infância (0–6)',pct(B.prim,B.totalP),pct(G.prim,G.totalP),'%',false)}
+    ${compBar('% Adolescentes (15–17)',pct(B.adol,B.totalP),pct(G.adol,G.totalP),'%',false)}
+    ${compBar('% Jovens (18–29)',pct(B.jov,B.totalP),pct(G.jov,G.totalP),'%',false)}
+    ${compBar('% Idosos (60+)',pct(B.ido,B.totalP),pct(G.ido,G.totalP),'%',false)}
+  </div>`;
+
+  // ESCOLARIDADE
+  html+=sec('Escolaridade e acesso à escola');
+  html+=`<div class="comp-grid">
+    ${compBar('% Fora da escola (5–17)',B.pctForaEsc,G.pctForaEsc,'%',true)}
+    ${compBar('% NEET (18–24)',B.pctNeet,G.pctNeet,'%',true)}
+    ${compBar('% RF sem instrução',B.pctSInstr,G.pctSInstr,'%',true)}
+    ${compBar('% RF nunca frequentou',B.pctAnalf,G.pctAnalf,'%',true)}
+  </div>`;
+
+  // TRABALHO
+  html+=sec('Trabalho e ocupação');
+  html+=`<div class="comp-grid">
+    ${compBar('% Não trabalhou (18–64)',B.pctNTrab,G.pctNTrab,'%',true)}
+    ${compBar('% Trabalho informal',B.pctInformal,G.pctInformal,'%',true)}
+    ${compBar('% RF desempr. + criança',B.pctCri06,G.pctCri06,'%',true)}
+    ${compBar('% Trabalho formal',pct(B.formal,B.trabCount),pct(G.formal,G.trabCount),'%',false)}
+  </div>`;
+
+  // SANEAMENTO
+  html+=sec('Saneamento e moradia');
+  html+=`<div class="comp-grid">
+    ${compBar('% Sem banheiro',B.pctSemBanh,G.pctSemBanh,'%',true)}
+    ${compBar('% Sem água de rede',B.pctSemAgua,G.pctSemAgua,'%',true)}
+    ${compBar('% Esgoto precário',B.pctEsgPrec,G.pctEsgPrec,'%',true)}
+  </div>`;
+
+  // SCORE E RADAR
+  html+=sec('Score de vulnerabilidade');
+  html+=`<div class="comp-grid">
+    ${compBar('Score de vulnerabilidade',B.score,G.score,'',true)}
+  </div>`;
+
+  // RADAR COMPARATIVO
+  html+=`<div class="comp-radar-wrap">
+    <div class="chart-card">
+      <div class="chart-title">Radar — Vulnerabilidades (%)</div>
+      <div class="chart-wrap tall"><canvas id="chart-comp-radar"></canvas></div>
+    </div>
+    <div class="chart-card">
+      <div class="chart-title">Radar — Perfil socioeconômico (%)</div>
+      <div class="chart-wrap tall"><canvas id="chart-comp-radar2"></canvas></div>
+    </div>
+  </div>`;
+
+  body.innerHTML=html;
+
+  // Renderiza os radares
+  setTimeout(()=>{
+    radarChart('chart-comp-radar',
+      ['Extrema Pobreza','Desatualizados','Sem Banheiro','Esgoto Precário','Déficit Renda'],
+      [
+        {label:bairro,data:[B.pctExtr,pct(B.desat,B.total),B.pctSemBanh,B.pctEsgPrec,(B.avgR>0?Math.max(0,100-(B.avgR/SM*50)):100)],backgroundColor:'rgba(200,151,58,.25)',borderColor:'#c8973a',pointBackgroundColor:'#c8973a'},
+        {label:'Média filtro',data:[G.pctExtr,pct(G.desat,G.total),G.pctSemBanh,G.pctEsgPrec,(G.avgR>0?Math.max(0,100-(G.avgR/SM*50)):100)],backgroundColor:'rgba(36,113,184,.15)',borderColor:'#2471b8',pointBackgroundColor:'#2471b8'}
+      ]
+    );
+    radarChart('chart-comp-radar2',
+      ['Mulher RF','% Jovens','% Idosos','% PBF','% Formal','% Fora Escola'],
+      [
+        {label:bairro,data:[B.pctMrf,pct(B.jov,B.totalP),pct(B.ido,B.totalP),B.pctPbf,pct(B.formal,B.trabCount),B.pctForaEsc],backgroundColor:'rgba(200,151,58,.25)',borderColor:'#c8973a',pointBackgroundColor:'#c8973a'},
+        {label:'Média filtro',data:[G.pctMrf,pct(G.jov,G.totalP),pct(G.ido,G.totalP),G.pctPbf,pct(G.formal,G.trabCount),G.pctForaEsc],backgroundColor:'rgba(36,113,184,.15)',borderColor:'#2471b8',pointBackgroundColor:'#2471b8'}
+      ]
+    );
+  },50);
+};
+
+// ── POPULATE COMPARATIVO SELECT ────────────────────────────
+function populateCompSelect(){
+  const sel=document.getElementById('comp-bairro-sel');
+  const currentVal=sel.value;
+  const locs=[...new Set(filteredData.map(r=>getLoc(r)))].filter(Boolean).sort();
+  sel.innerHTML='<option value="">— Selecione um bairro —</option>';
+  locs.forEach(v=>{const o=document.createElement('option');o.value=v;o.textContent=v;sel.appendChild(o);});
+  // Tenta restaurar seleção anterior (ex: Jardim Vilas Boas)
+  if(currentVal&&locs.includes(currentVal))sel.value=currentVal;
+  // Pré-seleciona Jardim Vilas Boas se disponível e nada selecionado
+  if(!sel.value){const vb=locs.find(l=>l.toUpperCase().includes('VILAS BOAS'));if(vb){sel.value=vb;}}
+  renderComparativo();
 }
 
+// ── RANKING SORTING ────────────────────────────────────────
+window.sortRanking=function(col){
+  if(currentSort.col===col)currentSort.asc=!currentSort.asc;
+  else{currentSort.col=col;currentSort.asc=(col==='lbl');}
+  document.querySelectorAll('#ranking-thead th.sortable').forEach(th=>th.classList.remove('asc','desc'));
+  const at=document.querySelector(`#ranking-thead th[onclick="sortRanking('${col}')"]`);
+  if(at)at.classList.add(currentSort.asc?'asc':'desc');
+  renderRankingTable();
+};
 
-// ── TABELA ────────────────────────────────────────────────
+function renderRankingTable(){
+  rankingRows.sort((a,b)=>{let va=a[currentSort.col],vb=b[currentSort.col];if(typeof va==='string')return currentSort.asc?va.localeCompare(vb):vb.localeCompare(va);return currentSort.asc?va-vb:vb-va;});
+  const sc=v=>v>=70?'#c94f2e':v>=45?'#e06040':v>=25?'#c8973a':'#1a8a72';
+  const pt=v=>{const cl=v>30?'p-red':v>15?'p-orange':'p-green';return`<span class="pill ${cl}">${v.toFixed(0)}%</span>`;};
+  const tb=document.getElementById('ranking-body');tb.innerHTML='';
+  rankingRows.forEach((r,i)=>{
+    const tr=document.createElement('tr');
+    tr.innerHTML=`<td style="font-family:Syne,sans-serif;font-weight:700;font-size:11px;color:var(--navy)">${i+1}</td>
+      <td style="font-weight:500;white-space:nowrap">${r.lbl}</td><td>${r.tot}</td>
+      <td>${pt(r.pE)}</td><td>R$${Math.round(r.avgR).toLocaleString('pt-BR')}</td>
+      <td>${pt(r.pD)}</td><td>${pt(r.pB)}</td><td>${pt(r.pP)}</td>
+      <td><div style="display:flex;align-items:center;gap:7px"><div style="flex:1;background:var(--surface3);border-radius:4px;height:7px;min-width:48px"><div style="width:${Math.min(r.score,100)}%;background:${sc(r.score)};height:7px;border-radius:4px"></div></div><span style="font-family:Syne,sans-serif;font-weight:700;font-size:12px;color:${sc(r.score)};min-width:24px">${r.score}</span></div></td>`;
+    tb.appendChild(tr);
+  });
+}
+
+// ── TABELA ─────────────────────────────────────────────────
 const PCOLS=['GR_FAM','COD_FAMILIAR','NOME_DA_LOCALIDADE','STATUS_CADUNICO','MARC_PBF','QTD_PESSOAS_DOMIC_FAM','VLR_RENDA_MEDIA_FAM','COD_SEXO_PESSOA','IDADE_PESSOA','GRAU_INSTRUCAO','COD_TRABALHOU_MEMB','COD_PRINCIPAL_TRAB_MEMB','COD_BANHEIRO_DOMIC_FAM','COD_ABASTE_AGUA_DOMIC_FAM','COD_ESCOA_SANITARIO_DOMIC_FAM','COD_DESTINO_LIXO_DOMIC_FAM','FAM_FAM_MULHER_RF','COD_RACA_COR_PESSOA','DAT_ATUALIZACAO_FAMILIA'];
 function pillCls(col,val){const v=String(val||'').trim().toUpperCase();if(col==='MARC_PBF')return v==='SIM'?'p-green':'p-gray';if(col==='STATUS_CADUNICO')return v==='ATUALIZADO'?'p-blue':'p-orange';if(col==='COD_BANHEIRO_DOMIC_FAM')return v.startsWith('1')?'p-green':'p-red';if(col==='COD_TRABALHOU_MEMB')return v.startsWith('1')?'p-green':'p-gray';if(col==='FAM_FAM_MULHER_RF')return v==='SIM'?'p-purple':'';return'';}
 function renderTable(data){
@@ -1371,69 +1103,51 @@ function renderPager(total){
 }
 function goPage(p){currentPage=p;renderTable(filteredData);window.scrollTo({top:document.getElementById('panel-tabela').offsetTop-80,behavior:'smooth'});}
 
-// ── FILTROS & EVENTOS ─────────────────────────────────────
+// ── FILTROS ────────────────────────────────────────────────
 ['f-pbf','f-renda','f-status','f-rf-sexo','f-criancas','f-ciclo'].forEach(id=>document.getElementById(id).addEventListener('change',applyFilter));
 ['f-idade-min','f-idade-max'].forEach(id=>document.getElementById(id).addEventListener('input',applyFilter));
 document.getElementById('f-search').addEventListener('input',applyFilter);
-
-// Fechar multi-select clicando fora
-document.addEventListener('click', e => {
-   const cb = document.getElementById('f-loc-opts');
-   const btn = document.getElementById('f-loc-btn');
-   if(cb.classList.contains('open') && !cb.contains(e.target) && !btn.contains(e.target)) cb.classList.remove('open');
+document.addEventListener('click',e=>{
+  const cb=document.getElementById('f-loc-opts'),btn=document.getElementById('f-loc-btn');
+  if(cb.classList.contains('open')&&!cb.contains(e.target)&&!btn.contains(e.target))cb.classList.remove('open');
 });
-
 document.getElementById('btn-reset').addEventListener('click',()=>{
   ['f-pbf','f-renda','f-status','f-rf-sexo','f-criancas','f-ciclo'].forEach(id=>document.getElementById(id).value='');
   ['f-idade-min','f-idade-max','f-search'].forEach(id=>document.getElementById(id).value='');
-  setAllLocs(false); // Clear multi-select
+  setAllLocs(false);
 });
-
-window.setAllLocs = function(check) {
-   document.querySelectorAll('.loc-cb').forEach(cb => cb.checked = check);
-   updateLocBtn(); applyFilter();
+window.setAllLocs=function(check){document.querySelectorAll('.loc-cb').forEach(cb=>cb.checked=check);updateLocBtn();applyFilter();};
+window.updateLocBtn=function(){
+  const cbs=Array.from(document.querySelectorAll('.loc-cb:checked'));
+  selectedLocs=new Set(cbs.map(c=>c.value));
+  const btn=document.getElementById('f-loc-btn');
+  const total=document.querySelectorAll('.loc-cb').length;
+  if(selectedLocs.size===0||selectedLocs.size===total)btn.textContent='Todas as localidades';
+  else if(selectedLocs.size===1)btn.textContent=cbs[0].value;
+  else btn.textContent=selectedLocs.size+' bairros selecionados';
 };
-
-window.updateLocBtn = function() {
-   const cbs = Array.from(document.querySelectorAll('.loc-cb:checked'));
-   selectedLocs = new Set(cbs.map(c => c.value));
-   const btn = document.getElementById('f-loc-btn');
-   if(selectedLocs.size === 0 || selectedLocs.size === document.querySelectorAll('.loc-cb').length) btn.textContent = 'Todas as localidades';
-   else if (selectedLocs.size === 1) btn.textContent = cbs[0].value;
-   else btn.textContent = `${selectedLocs.size} bairros selecionados`;
-};
-
-function populateLocFilter() {
-   const locs=[...new Set(Object.values(localidadeMap))].sort();
-   const container = document.getElementById('loc-cb-container');
-   container.innerHTML = locs.map(v => `<label class="ms-opt"><input type="checkbox" class="loc-cb" value="${v}" onchange="updateLocBtn(); applyFilter()"> ${v}</label>`).join('');
-   updateLocBtn();
+function populateLocFilter(){
+  const locs=[...new Set(Object.values(localidadeMap))].sort();
+  const container=document.getElementById('loc-cb-container');
+  container.innerHTML=locs.map(v=>`<label class="ms-opt"><input type="checkbox" class="loc-cb" value="${v}" onchange="updateLocBtn();applyFilter()"> ${v}</label>`).join('');
+  updateLocBtn();
 }
 
 function applyFilter(){
-  document.getElementById('soft-loader').style.display = 'block';
-
-  const pbf=document.getElementById('f-pbf').value;
-  const renda=document.getElementById('f-renda').value;
-  const status=document.getElementById('f-status').value;
-  const rfSx=document.getElementById('f-rf-sexo').value;
-  const cri=document.getElementById('f-criancas').value;
-  const ciclo=document.getElementById('f-ciclo').value;
+  document.getElementById('soft-loader').style.display='block';
+  const pbf=document.getElementById('f-pbf').value,renda=document.getElementById('f-renda').value,status=document.getElementById('f-status').value,rfSx=document.getElementById('f-rf-sexo').value,cri=document.getElementById('f-criancas').value,ciclo=document.getElementById('f-ciclo').value;
   const idMn=document.getElementById('f-idade-min').value!==''?parseInt(document.getElementById('f-idade-min').value):null;
   const idMx=document.getElementById('f-idade-max').value!==''?parseInt(document.getElementById('f-idade-max').value):null;
   const srch=document.getElementById('f-search').value.trim().toLowerCase();
-  
-  const isLocFiltered = selectedLocs.size > 0 && selectedLocs.size < document.querySelectorAll('.loc-cb').length;
-
+  const isLocF=selectedLocs.size>0&&selectedLocs.size<document.querySelectorAll('.loc-cb').length;
   const famData={};
   allData.forEach(r=>{const k=famKey(r);if(k){if(!famData[k])famData[k]=[];famData[k].push(r);}});
-
   let famFilter=null;
-  if(isLocFiltered||pbf||renda||status||rfSx||cri||ciclo){
+  if(isLocF||pbf||renda||status||rfSx||cri||ciclo){
     famFilter=new Set();
     Object.entries(famData).forEach(([k,rs])=>{
       const rep=rs[0];
-      if(isLocFiltered){const lv=localidadeMap[String(rep.NOME_DA_LOCALIDADE||'').trim()]||String(rep.NOME_DA_LOCALIDADE||'').trim();if(!selectedLocs.has(lv))return;}
+      if(isLocF){const lv=localidadeMap[String(rep.NOME_DA_LOCALIDADE||'').trim()]||String(rep.NOME_DA_LOCALIDADE||'').trim();if(!selectedLocs.has(lv))return;}
       if(pbf){const hp=rs.some(r=>String(r.MARC_PBF||'').trim().toUpperCase()==='SIM');if(pbf==='SIM'&&!hp)return;if(pbf==='NAO'&&hp)return;}
       if(status&&String(rep.STATUS_CADUNICO||'').trim().toUpperCase()!==status)return;
       if(renda){const rv=parseFloat(rep.VLR_RENDA_MEDIA_FAM),pv=parseInt(rep.QTD_PESSOAS_DOMIC_FAM)||1,pc=isNaN(rv)?null:rv/pv;if(renda==='extrema'&&(pc===null||pc>109))return;if(renda==='pobreza'&&(pc===null||pc<=109||pc>218))return;if(renda==='baixa'&&(pc===null||pc<=218||pc>SM/2))return;if(renda==='media'&&(pc===null||pc<=SM/2))return;if(renda==='zero'&&(isNaN(rv)||rv!==0))return;}
@@ -1443,7 +1157,6 @@ function applyFilter(){
       famFilter.add(k);
     });
   }
-
   filteredData=allData.filter(r=>{
     const k=famKey(r);
     if(famFilter&&!famFilter.has(k))return false;
@@ -1451,71 +1164,62 @@ function applyFilter(){
     if(srch){const g=String(r.GR_FAM||'').toLowerCase(),c=String(r.COD_FAMILIAR||'').toLowerCase();if(!g.includes(srch)&&!c.includes(srch))return false;}
     return true;
   });
-
   const fc=document.getElementById('filtered-count');
   fc.innerHTML=filteredData.length!==allData.length?`<span style="display:inline-block;width:8px;height:8px;background:var(--coral);border-radius:50%"></span> Exibindo ${filteredData.length.toLocaleString('pt-BR')} registros filtrados`:'';
-  
   currentPage=0;
-  
-  // Roda todos os cálculos com o subset de dados atual
-  setTimeout(() => runComputeSteps(filteredData, false), 10);
+  setTimeout(()=>{
+    prog(64,'Calculando…');
+    globalStats=computeStats(filteredData);
+    renderAll(globalStats,false);
+    renderTable(filteredData);
+    populateCompSelect();
+    document.getElementById('soft-loader').style.display='none';
+    setStatus('✓ '+n(allData.length)+' registros base','ok');
+  },10);
 }
 
-// ── PARSE COM PAPAPARSE ───────────────────────────────────
+// ── PARSE ──────────────────────────────────────────────────
 function startProcessing(text,src){
   prog(10,'Analisando estrutura do CSV…');
-  const rows=[];
-  let fields=[];
-  let rowCount=0;
-  const totalChars=text.length;
-  let charsSeen=0;
-
-  const firstLine = text.substring(0, text.indexOf('\n') < 0 ? text.length : text.indexOf('\n'));
-  const delimiter = firstLine.includes(';') ? ';' : ',';
-  const safeText = text.replace(/\\/g, '/');
-
+  const rows=[];let fields=[],rowCount=0;
+  const totalChars=text.length;let charsSeen=0;
+  const firstLine=text.substring(0,text.indexOf('\n')<0?text.length:text.indexOf('\n'));
+  const delimiter=firstLine.includes(';')?';':',';
+  const safeText=text.replace(/\\/g,'/');
   Papa.parse(safeText,{
-    header:true,
-    skipEmptyLines:true,
-    dynamicTyping:false,
-    delimiter: delimiter,
-    newline: '',
-    transformHeader:h=>h.trim(),
-    chunkSize:1024*128,
+    header:true,skipEmptyLines:true,dynamicTyping:false,delimiter,newline:'',
+    transformHeader:h=>h.trim(),chunkSize:1024*128,
     chunk(results){
-      if(!fields.length&&results.meta&&results.meta.fields) fields=results.meta.fields;
-      Array.prototype.push.apply(rows, results.data);
-      rowCount+=results.data.length;
-      charsSeen+=1024*128;
+      if(!fields.length&&results.meta&&results.meta.fields)fields=results.meta.fields;
+      Array.prototype.push.apply(rows,results.data);
+      rowCount+=results.data.length;charsSeen+=1024*128;
       const p=Math.min(60,Math.round(10+(charsSeen/totalChars)*50));
-      prog(p, `Lendo CSV… ${rowCount.toLocaleString('pt-BR')} registros`);
+      prog(p,'Lendo CSV… '+rowCount.toLocaleString('pt-BR')+' registros');
     },
     complete(){
-      if(!rows.length){
-        setStatus('CSV vazio ou formato inválido','err');
-        hideOv();
-        return;
-      }
+      if(!rows.length){setStatus('CSV vazio ou inválido','err');hideOv();return;}
       prog(62,'Normalizando localidades…');
-      allData=rows;
-      columns=fields;
-      filteredData=[...allData];
+      allData=rows;columns=fields;filteredData=[...allData];
       setTimeout(()=>{
         localidadeMap=buildLocMap(allData);
-        populateLocFilter(); // Preenche o multi-select novo
-        prog(64,'Iniciando cálculos globais…');
-        setTimeout(()=>runComputeSteps(allData, true), 30);
+        populateLocFilter();
+        prog(64,'Computando indicadores…');
+        setTimeout(()=>{
+          globalStats=computeStats(allData);
+          renderAll(globalStats,true);
+          renderTable(allData);
+          populateCompSelect();
+          prog(100,'Dados carregados!');
+          setStatus('✓ '+n(allData.length)+' registros base','ok');
+          setTimeout(hideOv,600);
+        },30);
       },30);
     },
-    error(err){
-      console.error('PapaParse error:',err);
-      setStatus('Erro ao processar CSV','err');
-      hideOv();
-    }
+    error(err){console.error(err);setStatus('Erro ao processar CSV','err');hideOv();}
   });
 }
 
-// ── PANEL TOGGLE / DRAG ───────────────────────────────────
+// ── PANELS ─────────────────────────────────────────────────
 function togglePanel(id){
   const p=document.getElementById('panel-'+id);if(!p)return;
   const b=p.querySelector('.btn-min');
@@ -1524,43 +1228,25 @@ function togglePanel(id){
   savePanelState();
   if(!p.classList.contains('minimized'))setTimeout(()=>Object.values(CHARTS).forEach(c=>c.resize&&c.resize()),60);
 }
-function savePanelState(){try{const ord=[...document.querySelectorAll('#panels-container>.panel-block')].map(p=>p.id),mn=[...document.querySelectorAll('.panel-block.minimized')].map(p=>p.id);localStorage.setItem('desp3-ord',JSON.stringify(ord));localStorage.setItem('desp3-mn',JSON.stringify(mn));}catch(e){}}
-function restorePanelState(){try{const ord=JSON.parse(localStorage.getItem('desp3-ord')||'[]'),mn=JSON.parse(localStorage.getItem('desp3-mn')||'[]'),c=document.getElementById('panels-container');if(ord.length)ord.forEach(id=>{const el=document.getElementById(id);if(el)c.appendChild(el);});mn.forEach(id=>{const el=document.getElementById(id);if(!el)return;el.classList.add('minimized');const b=el.querySelector('.btn-min');if(b)b.textContent='+';});}catch(e){}}
+function savePanelState(){try{const ord=[...document.querySelectorAll('#panels-container>.panel-block')].map(p=>p.id),mn=[...document.querySelectorAll('.panel-block.minimized')].map(p=>p.id);localStorage.setItem('desp4-ord',JSON.stringify(ord));localStorage.setItem('desp4-mn',JSON.stringify(mn));}catch(e){}}
+function restorePanelState(){try{const ord=JSON.parse(localStorage.getItem('desp4-ord')||'[]'),mn=JSON.parse(localStorage.getItem('desp4-mn')||'[]'),c=document.getElementById('panels-container');if(ord.length)ord.forEach(id=>{const el=document.getElementById(id);if(el)c.appendChild(el);});mn.forEach(id=>{const el=document.getElementById(id);if(!el)return;el.classList.add('minimized');const b=el.querySelector('.btn-min');if(b)b.textContent='+';});}catch(e){}}
 
 document.getElementById('csv-input').addEventListener('change',e=>{
   const f=e.target.files[0];if(!f)return;
   document.getElementById('lov').classList.remove('hidden');
   prog(1,'Lendo arquivo…');
-  const r=new FileReader();
-  r.onload=ev=>startProcessing(ev.target.result,f.name);
-  r.readAsText(f,'UTF-8');
+  const r=new FileReader();r.onload=ev=>startProcessing(ev.target.result,f.name);r.readAsText(f,'UTF-8');
 });
 
 document.addEventListener('DOMContentLoaded',()=>{
   restorePanelState();
   prog(1,'Conectando ao Supabase…');
-
   fetch(SUPABASE_URL)
-    .then(r=>{
-      if(!r.ok)throw new Error('HTTP '+r.status);
-      prog(5,'Baixando CSV do Supabase…');
-      return r.text();
-    })
-    .then(text=>{
-      prog(9,'CSV recebido — iniciando parse…');
-      setTimeout(()=>startProcessing(text,'Supabase · base.csv'),50);
-    })
-    .catch(err=>{
-      console.error(err);
-      setStatus('Falha ao carregar — use "Carregar CSV"','err');
-      hideOv();
-    });
-
+    .then(r=>{if(!r.ok)throw new Error('HTTP '+r.status);prog(5,'Baixando CSV…');return r.text();})
+    .then(text=>{prog(9,'CSV recebido…');setTimeout(()=>startProcessing(text,'Supabase · base.csv'),50);})
+    .catch(err=>{console.error(err);setStatus('Falha — use "Carregar CSV"','err');hideOv();});
   if(typeof Sortable!=='undefined')
-    Sortable.create(document.getElementById('panels-container'),{
-      animation:180,handle:'.panel-header',ghostClass:'sortable-ghost',
-      onEnd(){savePanelState();setTimeout(()=>Object.values(CHARTS).forEach(c=>c.resize&&c.resize()),120);}
-    });
+    Sortable.create(document.getElementById('panels-container'),{animation:180,handle:'.panel-header',ghostClass:'sortable-ghost',onEnd(){savePanelState();setTimeout(()=>Object.values(CHARTS).forEach(c=>c.resize&&c.resize()),120);}});
 });
 </script>
 </body>

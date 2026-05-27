@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
@@ -28,7 +29,7 @@ html{scroll-behavior:smooth}
 body{background:var(--bg);color:var(--text);font-family:var(--fb);font-size:14px;line-height:1.55;min-height:100vh}
 ::-webkit-scrollbar{width:5px;height:5px}::-webkit-scrollbar-track{background:transparent}::-webkit-scrollbar-thumb{background:var(--border2);border-radius:10px}
 
-/* HEADER */
+/* HEADER & OVERLAYS */
 header{background:var(--navy);padding:0 28px;display:flex;align-items:center;min-height:64px;gap:18px;position:sticky;top:0;z-index:300;border-bottom:2px solid var(--gold)}
 .logo-block{display:flex;align-items:center;gap:12px;flex-shrink:0}
 .logo-sun{width:38px;height:38px;background:var(--gold);border-radius:50%;display:flex;align-items:center;justify-content:center}
@@ -45,7 +46,6 @@ header{background:var(--navy);padding:0 28px;display:flex;align-items:center;min
 .file-btn:hover{background:var(--gold2)}
 #csv-input{display:none}
 
-/* HERO */
 .hero{background:var(--navy2);padding:24px 28px 20px;border-bottom:1px solid var(--navy3);display:flex;align-items:flex-end;justify-content:space-between;gap:16px;flex-wrap:wrap}
 .hero h1{font-family:var(--fh);font-weight:800;font-size:24px;color:#fff;letter-spacing:-.5px;line-height:1.1}
 .hero h1 em{color:var(--gold2);font-style:normal}
@@ -54,24 +54,22 @@ header{background:var(--navy);padding:0 28px;display:flex;align-items:center;min
 .hbadge{font-family:var(--fh);font-size:10px;font-weight:600;letter-spacing:.8px;text-transform:uppercase;padding:5px 12px;border-radius:20px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.15);color:rgba(255,255,255,.75)}
 .hbadge.gold{background:rgba(200,151,58,.15);border-color:var(--gold);color:var(--gold2)}
 
-/* PROGRESS BAR */
 #pbar-wrap{height:3px;background:var(--navy3);position:sticky;top:64px;z-index:299}
-#pbar{height:3px;background:var(--gold);width:0%;transition:width .5s ease}
+#pbar{height:3px;background:var(--gold);width:0%;transition:width .1s ease}
 
-/* LOADING OVERLAY */
 #lov{position:fixed;inset:0;background:rgba(10,20,34,.85);z-index:500;display:flex;align-items:center;justify-content:center}
 #lov.hidden{display:none}
 .lov-box{background:#fff;border-radius:18px;padding:36px 44px;text-align:center;max-width:380px;width:92%}
 .lov-title{font-family:var(--fh);font-weight:700;font-size:16px;color:var(--navy);margin-bottom:6px}
 .lov-sub{font-size:12px;color:var(--text3);margin-bottom:20px;min-height:18px;line-height:1.5}
 .lov-track{background:var(--surface3);border-radius:8px;height:8px;overflow:hidden;margin-bottom:10px}
-.lov-fill{background:var(--gold);height:8px;border-radius:8px;width:0%;transition:width .5s ease}
+.lov-fill{background:var(--gold);height:8px;border-radius:8px;width:0%;transition:width .3s ease}
 .lov-pct{font-family:var(--fh);font-weight:800;font-size:14px;color:var(--gold)}
 
-/* WRAPPER */
-.wrapper{padding:24px 28px;max-width:1400px;margin:0 auto}
+#soft-loader{display:none;position:fixed;top:67px;left:50%;transform:translateX(-50%);background:var(--gold);color:var(--navy);padding:4px 16px;border-radius:0 0 8px 8px;font-family:var(--fh);font-weight:700;font-size:10px;text-transform:uppercase;letter-spacing:1px;z-index:400;box-shadow:var(--sh)}
 
-/* PANELS */
+/* PANELS & CARDS */
+.wrapper{padding:24px 28px;max-width:1400px;margin:0 auto}
 .panel-block{margin-bottom:28px}
 .panel-block.minimized .panel-body{display:none}
 .panel-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;gap:8px;cursor:grab;user-select:none;padding:4px 0}
@@ -86,28 +84,20 @@ header{background:var(--navy);padding:0 28px;display:flex;align-items:center;min
 .btn-min:hover{border-color:var(--sky);color:var(--sky)}
 .sortable-ghost{opacity:.3}
 
-/* STAT CARDS */
 .stat-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(185px,1fr));gap:12px;margin-bottom:16px}
 .stat-card{background:var(--surface);border:1px solid var(--border);border-top:3px solid var(--border2);border-radius:var(--rl);padding:16px 18px;box-shadow:var(--sh);position:relative;z-index:1;transition:box-shadow .2s,transform .2s; display: flex; flex-direction: column;}
 .stat-card:hover, .stat-card:focus-within{box-shadow:var(--sh-lg);transform:translateY(-1px);z-index:50;}
-.stat-card.cg{border-top-color:var(--gold)}.stat-card.ct{border-top-color:var(--teal2)}.stat-card.cc{border-top-color:var(--coral)}.stat-card.cs{border-top-color:var(--sky)}.stat-card.cl{border-top-color:var(--lav)}
+.stat-card.cg{border-top-color:var(--gold)}.stat-card.ct{border-top-color:var(--teal2)}.stat-card.cc{border-top-color:var(--coral)}.stat-card.cs{border-top-color:var(--sky)}.stat-card.cl{border-top-color:var(--lav)}.stat-card.cv{border-top-color:var(--navy)}
 .stat-icon{position:absolute;right:14px;top:14px;font-size:19px;opacity:.65}
 .stat-label{font-family:var(--fh);font-size:9px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--text3);margin-bottom:8px;padding-right:24px;display:flex;align-items:center;flex-wrap:wrap;gap:4px}
 .stat-val{font-family:var(--fb);font-weight:700;font-size:26px;line-height:1;color:var(--navy);letter-spacing:-1px}
-.stat-card.cg .stat-val{color:var(--gold)}.stat-card.ct .stat-val{color:var(--teal)}.stat-card.cc .stat-val{color:var(--coral)}.stat-card.cs .stat-val{color:var(--sky)}.stat-card.cl .stat-val{color:var(--lav)}
+.stat-card.cg .stat-val{color:var(--gold)}.stat-card.ct .stat-val{color:var(--teal)}.stat-card.cc .stat-val{color:var(--coral)}.stat-card.cs .stat-val{color:var(--sky)}.stat-card.cl .stat-val{color:var(--lav)}.stat-card.cv .stat-val{color:var(--navy)}
 .stat-sub{font-size:11px;color:var(--text3);margin-top:4px;font-weight:400; line-height: 1.3}
 .stat-miss{font-size:10px;color:var(--text3);margin-top:auto;padding-top:6px;border-top:1px dashed var(--border);font-style:italic}
 
-/* TOGGLE BUTTON NAS CARDS E GRÁFICOS */
-.card-toggle {
-  background: var(--surface2); border: 1px solid var(--border);
-  border-radius: 4px; padding: 2px 5px; font-size: 10px; color: var(--navy);
-  cursor: pointer; display: inline-flex; align-items: center; justify-content: center;
-  transition: all 0.2s; font-family: var(--fb); font-weight: 700;
-}
+.card-toggle {background: var(--surface2); border: 1px solid var(--border); border-radius: 4px; padding: 2px 5px; font-size: 10px; color: var(--navy); cursor: pointer; display: inline-flex; align-items: center; justify-content: center; transition: all 0.2s; font-family: var(--fb); font-weight: 700;}
 .card-toggle:hover { background: var(--sky); border-color: var(--sky); color: #fff; }
 
-/* TOOLTIP */
 .tip-btn{width:14px;height:14px;border-radius:50%;background:var(--surface3);border:none;cursor:pointer;font-family:var(--fh);font-size:8px;font-weight:700;color:var(--text3);display:inline-flex;align-items:center;justify-content:center;position:static;vertical-align:middle;transition:background .15s;flex-shrink:0}
 .tip-btn:hover,.tip-btn:focus{background:var(--gold);color:var(--navy);outline:none}
 .tip-pop{display:none;position:absolute;top:38px;left:50%;transform:translateX(-50%);background:var(--navy);color:#fff;border-radius:var(--r);padding:12px 14px;min-width:200px;width:max-content;max-width:250px;z-index:999;box-shadow:var(--sh-lg);pointer-events:none;text-align:left}
@@ -122,36 +112,49 @@ header{background:var(--navy);padding:0 28px;display:flex;align-items:center;min
 .chart-card:hover, .chart-card:focus-within{z-index:50;}
 .chart-title{font-family:var(--fh);font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--navy);margin-bottom:4px;display:flex;align-items:center;gap:5px;flex-wrap:wrap}
 .chart-miss{font-size:10px;color:var(--text3);font-style:italic;margin-bottom:10px;min-height:14px}
-.chart-wrap{position:relative;height:200px}.chart-wrap.tall{height:240px}
+.chart-wrap{position:relative;height:200px}.chart-wrap.tall{height:250px}
+
+/* RANKING & TABLES */
+.ranking-wrap{background:var(--surface);border:1px solid var(--border);border-radius:var(--rl);box-shadow:var(--sh);overflow:hidden;margin-bottom:16px}
+.ranking-head{background:var(--navy);padding:12px 18px;display:flex;align-items:center;justify-content:space-between}
+.ranking-head span{font-family:var(--fh);font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:#fff}
+.ranking-head small{font-size:11px;color:rgba(255,255,255,.4)}
+.table-scroll{overflow-x:auto;-webkit-overflow-scrolling:touch}
+table{width:100%;border-collapse:collapse}
+thead th{background:var(--surface2);padding:9px 12px;text-align:left;font-family:var(--fh);font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:.8px;color:var(--navy);border-bottom:2px solid var(--border);white-space:nowrap; position:relative}
+th.sortable{cursor:pointer; transition:background 0.15s;}
+th.sortable:hover{background:var(--border)}
+th.sortable::after{content:'↕'; font-size:10px; opacity:0.3; margin-left:4px;}
+th.sortable.asc::after{content:'▲'; opacity:1; color:var(--sky);}
+th.sortable.desc::after{content:'▼'; opacity:1; color:var(--sky);}
+tbody tr{border-bottom:1px solid var(--surface3);transition:background .1s}
+tbody tr:hover{background:var(--surface2)}
+tbody td{padding:8px 12px;font-size:12px;color:var(--text2);white-space:nowrap;max-width:200px;overflow:hidden;text-overflow:ellipsis}
+.pill{display:inline-block;padding:2px 9px;border-radius:12px;font-family:var(--fh);font-size:10px;font-weight:700;letter-spacing:.3px}
+.p-green{background:#e1f5ee;color:#0b5c3a}.p-blue{background:#e6f1fb;color:#144a8a}.p-red{background:#fde8e8;color:#8a1c1c}.p-orange{background:#fff0e0;color:#8a4800}.p-purple{background:#f0ecff;color:#4a2a8a}.p-gray{background:var(--surface3);color:var(--text3)}
 
 /* FORMULA */
 .formula-card{background:var(--navy);border-radius:var(--rl);padding:20px 22px;margin-bottom:16px; margin-top: 16px;}
 .formula-title{font-family:var(--fh);font-weight:700;font-size:11px;letter-spacing:1.5px;text-transform:uppercase;color:var(--gold2);margin-bottom:12px}
 .formula-expr{font-family:monospace;font-size:13px;color:#fff;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.1);border-radius:8px;padding:12px 16px;margin-bottom:14px;line-height:1.9;white-space:pre-wrap}
 .formula-tbl{width:100%;border-collapse:collapse;margin-bottom:12px}
-.formula-tbl th{font-family:var(--fh);font-size:9px;letter-spacing:1px;text-transform:uppercase;color:var(--gold3);padding:5px 10px;border-bottom:1px solid rgba(255,255,255,.1);text-align:left}
+.formula-tbl th{font-family:var(--fh);font-size:9px;letter-spacing:1px;text-transform:uppercase;color:var(--gold3);padding:5px 10px;border-bottom:1px solid rgba(255,255,255,.1);text-align:left; cursor:default;}
+.formula-tbl th::after{display:none}
 .formula-tbl td{font-size:12px;color:rgba(255,255,255,.8);padding:5px 10px;border-bottom:1px solid rgba(255,255,255,.05)}
 .formula-tbl td:first-child{color:rgba(255,255,255,.95);font-weight:500}
 .formula-tbl td:nth-child(2){color:var(--gold3);font-family:var(--fh);font-weight:700;font-size:11px}
 .formula-tbl td:last-child{color:rgba(255,255,255,.4);font-style:italic;font-size:11px}
-.formula-tbl tbody tr { transition: background 0.2s ease; }
 .formula-tbl tbody tr:hover { background: rgba(255,255,255,0.08) !important; }
 .formula-note{font-size:11px;color:rgba(255,255,255,.4);line-height:1.6;font-style:italic;margin-top:10px}
 .score-legend{display:flex;gap:10px;flex-wrap:wrap;margin-top:10px}
 .score-pill{font-family:var(--fh);font-size:10px;font-weight:600;padding:3px 10px;border-radius:12px}
 
-/* RANKING */
-.ranking-wrap{background:var(--surface);border:1px solid var(--border);border-radius:var(--rl);box-shadow:var(--sh);overflow:hidden;margin-bottom:16px}
-.ranking-head{background:var(--navy);padding:12px 18px;display:flex;align-items:center;justify-content:space-between}
-.ranking-head span{font-family:var(--fh);font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:#fff}
-.ranking-head small{font-size:11px;color:rgba(255,255,255,.4)}
-
-/* FILTERS */
+/* FILTERS & MULTI-SELECT */
 .filters-wrap{background:var(--surface);border:1px solid var(--border);border-radius:var(--rl);padding:16px 18px;box-shadow:var(--sh);margin-bottom:16px}
 .filters-bar{display:flex;flex-wrap:wrap;gap:12px;align-items:flex-end}
-.fg{display:flex;flex-direction:column;gap:4px}
+.fg{display:flex;flex-direction:column;gap:4px; position:relative}
 .fg-label{font-family:var(--fh);font-size:9px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--text3)}
-select,input[type=text],input[type=number]{background:var(--surface2);border:1px solid var(--border);color:var(--text);padding:7px 10px;border-radius:7px;font-family:var(--fb);font-size:13px;outline:none;transition:border-color .18s;min-width:148px}
+select,input[type=text],input[type=number]{background:var(--surface2);border:1px solid var(--border);color:var(--text);padding:7px 10px;border-radius:7px;font-family:var(--fb);font-size:13px;outline:none;transition:border-color .18s;min-width:148px;height:36px}
 select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%237a7a7a' stroke-width='2'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 8px center;padding-right:28px;appearance:none;-webkit-appearance:none}
 select:focus,input:focus{border-color:var(--sky);background:#fff}
 input[type=number]{min-width:68px;-moz-appearance:textfield}
@@ -160,21 +163,25 @@ input[type=number]::-webkit-inner-spin-button{-webkit-appearance:none}
 .age-sep{font-size:12px;color:var(--text3)}
 .btn-reset{background:transparent;border:1px solid var(--border);color:var(--text3);padding:7px 14px;border-radius:7px;cursor:pointer;font-family:var(--fh);font-weight:600;font-size:10px;letter-spacing:.5px;text-transform:uppercase;transition:all .18s;white-space:nowrap;height:36px}
 .btn-reset:hover{border-color:var(--coral);color:var(--coral)}
-#filtered-count{font-size:12px;color:var(--text3);font-family:var(--fh);font-weight:600;align-self:flex-end;margin-left:auto}
+#filtered-count{font-size:12px;color:var(--text3);font-family:var(--fh);font-weight:600;align-self:flex-end;margin-left:auto; display:flex; align-items:center; gap:8px}
 
-/* TABLE */
+/* CUSTOM MULTI-SELECT */
+.ms-btn{background:var(--surface2);border:1px solid var(--border);color:var(--text);padding:0 28px 0 10px;border-radius:7px;font-family:var(--fb);font-size:13px;cursor:pointer;height:36px;display:flex;align-items:center;position:relative;min-width:180px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;transition:border .18s}
+.ms-btn::after{content:'';position:absolute;right:10px;top:50%;transform:translateY(-50%);width:12px;height:12px;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%237a7a7a' stroke-width='2'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E");background-repeat:no-repeat;pointer-events:none}
+.ms-btn:hover{border-color:var(--sky);background:#fff}
+.ms-options{position:absolute;top:calc(100% + 5px);left:0;background:#fff;border:1px solid var(--border);border-radius:7px;box-shadow:var(--sh-lg);z-index:400;width:240px;max-height:280px;overflow-y:auto;display:none;flex-direction:column;padding:6px 0}
+.ms-options.open{display:flex}
+.ms-opt{padding:6px 12px;display:flex;align-items:center;gap:8px;cursor:pointer;font-size:12px;color:var(--text2);transition:background .1s}
+.ms-opt:hover{background:var(--surface2)}
+.ms-opt input{cursor:pointer;accent-color:var(--sky);width:14px;height:14px}
+.ms-actions{display:flex;justify-content:space-between;padding:8px 12px;border-bottom:1px solid var(--surface3);margin-bottom:4px}
+.ms-act-btn{background:none;border:none;color:var(--sky);font-family:var(--fh);font-size:9px;font-weight:700;text-transform:uppercase;cursor:pointer}
+.ms-act-btn:hover{text-decoration:underline}
+
 .table-section{background:var(--surface);border:1px solid var(--border);border-radius:var(--rl);box-shadow:var(--sh);overflow:hidden}
 .table-hd{display:flex;align-items:center;justify-content:space-between;padding:12px 18px;background:var(--navy)}
 .table-hd span{font-family:var(--fh);font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:#fff}
 .table-hd small{font-size:11px;color:rgba(255,255,255,.4)}
-.table-scroll{overflow-x:auto;-webkit-overflow-scrolling:touch}
-table{width:100%;border-collapse:collapse}
-thead th{background:var(--surface2);padding:9px 12px;text-align:left;font-family:var(--fh);font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:.8px;color:var(--navy);border-bottom:2px solid var(--border);white-space:nowrap}
-tbody tr{border-bottom:1px solid var(--surface3);transition:background .1s}
-tbody tr:hover{background:var(--surface2)}
-tbody td{padding:8px 12px;font-size:12px;color:var(--text2);white-space:nowrap;max-width:200px;overflow:hidden;text-overflow:ellipsis}
-.pill{display:inline-block;padding:2px 9px;border-radius:12px;font-family:var(--fh);font-size:10px;font-weight:700;letter-spacing:.3px}
-.p-green{background:#e1f5ee;color:#0b5c3a}.p-blue{background:#e6f1fb;color:#144a8a}.p-red{background:#fde8e8;color:#8a1c1c}.p-orange{background:#fff0e0;color:#8a4800}.p-purple{background:#f0ecff;color:#4a2a8a}.p-gray{background:var(--surface3);color:var(--text3)}
 .pager{display:flex;align-items:center;justify-content:flex-end;gap:4px;padding:12px 18px;border-top:1px solid var(--border);background:var(--surface2)}
 .pg-btn{background:var(--surface);border:1px solid var(--border);color:var(--text3);width:30px;height:30px;border-radius:6px;cursor:pointer;font-family:var(--fh);font-size:11px;font-weight:600;display:flex;align-items:center;justify-content:center;transition:all .13s}
 .pg-btn:hover{border-color:var(--sky);color:var(--sky)}.pg-btn.active{background:var(--navy);border-color:var(--navy);color:#fff}.pg-btn:disabled{opacity:.3;cursor:default}
@@ -183,7 +190,7 @@ tbody td{padding:8px 12px;font-size:12px;color:var(--text2);white-space:nowrap;m
 
 footer{background:var(--navy);color:rgba(255,255,255,.35);font-family:var(--fh);font-size:10px;letter-spacing:.8px;text-align:center;padding:14px 28px;margin-top:8px}
 footer strong{color:var(--gold2);font-weight:700}
-@media(max-width:640px){.wrapper{padding:16px}header{padding:0 16px;gap:10px}.hero{padding:16px}.hero h1{font-size:19px}.stat-grid{grid-template-columns:repeat(2,1fr)}.hero-badges{display:none}}
+@media(max-width:640px){.wrapper{padding:16px}header{padding:0 16px;gap:10px}.hero{padding:16px}.hero h1{font-size:19px}.stat-grid{grid-template-columns:repeat(2,1fr)}.hero-badges{display:none} .ms-options{width:100%} .chart-wrap.tall{height:200px}}
 </style>
 </head>
 <body>
@@ -196,6 +203,7 @@ footer strong{color:var(--gold2);font-weight:700}
     <div class="lov-pct" id="lov-pct">0%</div>
   </div>
 </div>
+<div id="soft-loader">↻ Recalculando gráficos...</div>
 
 <header>
   <div class="logo-block">
@@ -224,9 +232,71 @@ footer strong{color:var(--gold2);font-weight:700}
 
 <div class="wrapper"><div id="panels-container">
 
+<div class="panel-block" id="panel-filtros">
+  <div class="panel-header"><div class="drag-wrap"><div class="drag-dots"><span></span><span></span><span></span><span></span><span></span><span></span></div><div class="sec-title">Filtros dinâmicos (Atualiza o painel inteiro)</div></div><button class="btn-min" onclick="togglePanel('filtros')">−</button></div>
+  <div class="panel-body">
+    <div class="filters-wrap"><div class="filters-bar">
+      <div class="fg">
+        <span class="fg-label">Localidades / Bairros</span>
+        <div class="ms-btn" id="f-loc-btn" onclick="document.getElementById('f-loc-opts').classList.toggle('open')">Todas as localidades</div>
+        <div class="ms-options" id="f-loc-opts">
+          <div class="ms-actions">
+             <button class="ms-act-btn" onclick="setAllLocs(true)">Marcar Todos</button>
+             <button class="ms-act-btn" onclick="setAllLocs(false)">Limpar</button>
+          </div>
+          <div id="loc-cb-container"></div>
+        </div>
+      </div>
+      
+      <div class="fg"><span class="fg-label">Bolsa família</span><select id="f-pbf"><option value="">Todos</option><option value="SIM">Beneficiário PBF</option><option value="NAO">Não beneficiário</option></select></div>
+      <div class="fg"><span class="fg-label">Faixa de renda</span><select id="f-renda"><option value="">Todas</option><option value="extrema">Extrema pobreza ≤R$109 p/p</option><option value="pobreza">Pobreza R$110–218 p/p</option><option value="baixa">Baixa renda R$219–½SM</option><option value="media">Acima de ½ SM</option><option value="zero">Renda zero</option></select></div>
+      <div class="fg"><span class="fg-label">Status cadastro</span><select id="f-status"><option value="">Todos</option><option value="ATUALIZADO">Atualizado</option><option value="DESATUALIZADO">Desatualizado</option></select></div>
+      <div class="fg"><span class="fg-label">Responsável</span><select id="f-rf-sexo"><option value="">Todos</option><option value="mulher">Mulher responsável</option><option value="homem">Homem responsável</option></select></div>
+      <div class="fg"><span class="fg-label">Crianças na Família</span><select id="f-criancas"><option value="">Todas as famílias</option><option value="0a6">Com criança 0–6</option><option value="7a14">Com criança 7–14</option><option value="15a17">Com adolescente 15–17</option><option value="semcrianca">Sem menores de 18</option></select></div>
+      <div class="fg"><span class="fg-label">Ciclo escolar (Pessoa)</span><select id="f-ciclo"><option value="">Todos</option><option value="fund1">Fund. I (5–10 anos)</option><option value="fund2">Fund. II (11–14 anos)</option><option value="medio">Ensino Médio (15–17)</option></select></div>
+      <div class="fg"><span class="fg-label">Idade (Pessoa)</span><div class="age-row"><input type="number" id="f-idade-min" min="0" max="120" placeholder="De"><span class="age-sep">–</span><input type="number" id="f-idade-max" min="0" max="120" placeholder="Até"></div></div>
+      <div class="fg"><span class="fg-label">Cód. Familiar / GR</span><input type="text" id="f-search" placeholder="GR_FAM…" style="min-width:120px"></div>
+      
+      <button class="btn-reset" id="btn-reset">✕ Limpar Filtros</button>
+      <div id="filtered-count"></div>
+    </div></div>
+  </div>
+</div>
+
 <div class="panel-block" id="panel-estrutura">
   <div class="panel-header"><div class="drag-wrap"><div class="drag-dots"><span></span><span></span><span></span><span></span><span></span><span></span></div><div class="sec-title">Estrutura familiar</div></div><button class="btn-min" onclick="togglePanel('estrutura')">−</button></div>
   <div class="panel-body"><div class="stat-grid" id="strip-estrutura"></div></div>
+</div>
+
+<div class="panel-block" id="panel-adensamento">
+  <div class="panel-header"><div class="drag-wrap"><div class="drag-dots"><span></span><span></span><span></span><span></span><span></span><span></span></div><div class="sec-title">Demografia e Adensamento por Bairro</div></div><button class="btn-min" onclick="togglePanel('adensamento')">−</button></div>
+  <div class="panel-body">
+    <div class="chart-card" style="padding-bottom: 24px">
+      <div class="chart-title">Bairros mais adensados (Volume absoluto)
+        <button class="tip-btn" tabindex="0">?<div class="tip-pop"><strong>Adensamento</strong><p>Os 15 bairros com o maior número total de pessoas cadastradas na amostra filtrada atual.</p></div></button>
+        <button class="card-toggle" style="margin-left:auto" onclick="toggleChart(this, 'chart-adensamento')" title="Alternar N / %">⇅</button>
+      </div>
+      <div class="chart-wrap tall"><canvas id="chart-adensamento"></canvas></div>
+    </div>
+  </div>
+</div>
+
+<div class="panel-block" id="panel-vilasboas">
+  <div class="panel-header"><div class="drag-wrap"><div class="drag-dots"><span></span><span></span><span></span><span></span><span></span><span></span></div><div class="sec-title">Foco de Atuação: Jardim Vilas Boas vs. Média do Filtro Atual</div></div><button class="btn-min" onclick="togglePanel('vilasboas')">−</button></div>
+  <div class="panel-body">
+    <div class="filters-wrap" style="background:var(--surface2)">
+       <p style="font-size:12px; color:var(--text2); margin-bottom:12px;">Esta seção isola os dados do bairro <strong>Jardim Vilas Boas</strong> dentro da amostra que você filtrou acima, permitindo comparar rapidamente as fragilidades locais contra a média de todos os outros bairros selecionados.</p>
+       <div class="stat-grid" id="strip-vilas"></div>
+       <div class="chart-grid" style="margin-top:16px;">
+          <div class="chart-card">
+            <div class="chart-title">Radar de Vulnerabilidades (%)
+               <button class="tip-btn" tabindex="0">?<div class="tip-pop"><strong>Comparativo</strong><p>Compara as taxas de problemas estruturais. Quanto mais larga a teia, pior o cenário.</p></div></button>
+            </div>
+            <div class="chart-wrap tall"><canvas id="chart-radar-vilas"></canvas></div>
+          </div>
+       </div>
+    </div>
+  </div>
 </div>
 
 <div class="panel-block" id="panel-ciclovida">
@@ -295,25 +365,25 @@ footer strong{color:var(--gold2);font-weight:700}
     <div class="stat-grid" id="strip-escola"></div>
     <div class="chart-grid">
       <div class="chart-card">
-        <div class="chart-title">Instrução — responsáveis
-          <button class="tip-btn" tabindex="0">?<div class="tip-pop"><strong>Instrução (RF)</strong><p>Nível de escolaridade consolidado apenas para os Responsáveis Familiares.</p><div class="tip-campo">GRAU_INSTRUCAO (RF)</div></div></button>
+        <div class="chart-title">Instrução bruta — responsáveis
+          <button class="tip-btn" tabindex="0">?<div class="tip-pop"><strong>Instrução (RF)</strong><p>Visão original dos dados do sistema. Exibe as respostas exatas digitadas no cadastro sem agrupamentos, útil para auditoria.</p><div class="tip-campo">GRAU_INSTRUCAO (RF)</div></div></button>
           <button class="card-toggle" style="margin-left:auto" onclick="toggleChart(this, 'chart-instrucao-rf')" title="Alternar N / %">⇅</button>
         </div>
         <div class="chart-miss" id="miss-instrucao-rf"></div><div class="chart-wrap"><canvas id="chart-instrucao-rf"></canvas></div>
       </div>
       <div class="chart-card">
-        <div class="chart-title">Instrução — adultos 18+
-          <button class="tip-btn" tabindex="0">?<div class="tip-pop"><strong>Instrução (18+)</strong><p>Nível de escolaridade alcançado por todos os membros maiores de 18 anos.</p><div class="tip-campo">GRAU_INSTRUCAO · IDADE_PESSOA</div></div></button>
-          <button class="card-toggle" style="margin-left:auto" onclick="toggleChart(this, 'chart-instrucao-adulto')" title="Alternar N / %">⇅</button>
-        </div>
-        <div class="chart-miss" id="miss-instrucao-adulto"></div><div class="chart-wrap"><canvas id="chart-instrucao-adulto"></canvas></div>
-      </div>
-      <div class="chart-card">
-        <div class="chart-title">Instrução detalhada — responsáveis
-          <button class="tip-btn" tabindex="0">?<div class="tip-pop"><strong>Instrução Detalhada</strong><p>Detalhamento cruzado da situação educacional e cursos frequentados pelos RFs.</p><div class="tip-campo">GRAU_INSTRUCAO · COD_CURSO_FREQUENTOU</div></div></button>
+        <div class="chart-title">Instrução consolidada — responsáveis
+          <button class="tip-btn" tabindex="0">?<div class="tip-pop"><strong>Instrução Detalhada</strong><p>Visão analítica. Padroniza nomenclaturas diferentes (ex: 1º grau vs Fundamental) na mesma barra e cruza com histórico de escola para identificar real evasão e analfabetismo.</p><div class="tip-campo">GRAU_INSTRUCAO + COD_CURSO_FREQUENTOU</div></div></button>
           <button class="card-toggle" style="margin-left:auto" onclick="toggleChart(this, 'chart-instr-detalhe')" title="Alternar N / %">⇅</button>
         </div>
         <div class="chart-miss" id="miss-instr-detalhe"></div><div class="chart-wrap"><canvas id="chart-instr-detalhe"></canvas></div>
+      </div>
+      <div class="chart-card">
+        <div class="chart-title">Instrução bruta — adultos 18+
+          <button class="tip-btn" tabindex="0">?<div class="tip-pop"><strong>Instrução (18+)</strong><p>Nível de escolaridade relatado no cadastro por todos os membros maiores de 18 anos da família.</p><div class="tip-campo">GRAU_INSTRUCAO · IDADE_PESSOA</div></div></button>
+          <button class="card-toggle" style="margin-left:auto" onclick="toggleChart(this, 'chart-instrucao-adulto')" title="Alternar N / %">⇅</button>
+        </div>
+        <div class="chart-miss" id="miss-instrucao-adulto"></div><div class="chart-wrap"><canvas id="chart-instrucao-adulto"></canvas></div>
       </div>
     </div>
     <div class="chart-grid">
@@ -399,8 +469,25 @@ footer strong{color:var(--gold2);font-weight:700}
   <div class="panel-header"><div class="drag-wrap"><div class="drag-dots"><span></span><span></span><span></span><span></span><span></span><span></span></div><div class="sec-title">Vulnerabilidade por localidade</div></div><button class="btn-min" onclick="togglePanel('vuln')">−</button></div>
   <div class="panel-body">
     <div class="ranking-wrap">
-      <div class="ranking-head"><span>Ranking de vulnerabilidade — por localidade</span><small id="ranking-info"></small></div>
-      <div class="table-scroll"><table style="min-width:880px"><thead><tr id="ranking-thead"></tr></thead><tbody id="ranking-body"></tbody></table></div>
+      <div class="ranking-head"><span>Ranking de vulnerabilidade (Clique nas colunas para ordenar)</span><small id="ranking-info"></small></div>
+      <div class="table-scroll">
+         <table style="min-width:880px">
+           <thead id="ranking-thead">
+              <tr>
+                <th>#</th>
+                <th class="sortable asc" onclick="sortRanking('lbl')">Localidade</th>
+                <th class="sortable" onclick="sortRanking('tot')">Famílias</th>
+                <th class="sortable" onclick="sortRanking('pE')">% Extr. Pob.</th>
+                <th class="sortable" onclick="sortRanking('avgR')">Renda Média</th>
+                <th class="sortable" onclick="sortRanking('pD')">% Desatual.</th>
+                <th class="sortable" onclick="sortRanking('pB')">% Sem Banh.</th>
+                <th class="sortable" onclick="sortRanking('pP')">% Esgoto Prec.</th>
+                <th class="sortable" onclick="sortRanking('score')">Score Vulnerab.</th>
+              </tr>
+           </thead>
+           <tbody id="ranking-body"></tbody>
+         </table>
+      </div>
     </div>
     
     <div class="formula-card">
@@ -433,27 +520,8 @@ Renda Score = max(0,  100 − (Renda Média ÷ 1.518 × 50))</div>
   </div>
 </div>
 
-<div class="panel-block" id="panel-filtros">
-  <div class="panel-header"><div class="drag-wrap"><div class="drag-dots"><span></span><span></span><span></span><span></span><span></span><span></span></div><div class="sec-title">Filtros e busca</div></div><button class="btn-min" onclick="togglePanel('filtros')">−</button></div>
-  <div class="panel-body">
-    <div class="filters-wrap"><div class="filters-bar">
-      <div class="fg"><span class="fg-label">Localidade / bairro</span><select id="f-localidade"><option value="">Todas</option></select></div>
-      <div class="fg"><span class="fg-label">Bolsa família</span><select id="f-pbf"><option value="">Todos</option><option value="SIM">Beneficiário PBF</option><option value="NAO">Não beneficiário</option></select></div>
-      <div class="fg"><span class="fg-label">Faixa de renda</span><select id="f-renda"><option value="">Todas</option><option value="extrema">Extrema pobreza ≤R$109 p/p</option><option value="pobreza">Pobreza R$110–218 p/p</option><option value="baixa">Baixa renda R$219–½SM</option><option value="media">Acima de ½ SM</option><option value="zero">Renda zero</option></select></div>
-      <div class="fg"><span class="fg-label">Status cadastro</span><select id="f-status"><option value="">Todos</option><option value="ATUALIZADO">Atualizado</option><option value="DESATUALIZADO">Desatualizado</option></select></div>
-      <div class="fg"><span class="fg-label">Responsável</span><select id="f-rf-sexo"><option value="">Todos</option><option value="mulher">Mulher responsável</option><option value="homem">Homem responsável</option></select></div>
-      <div class="fg"><span class="fg-label">Crianças</span><select id="f-criancas"><option value="">Todas as famílias</option><option value="0a6">Com criança 0–6</option><option value="7a14">Com criança 7–14</option><option value="15a17">Com adolescente 15–17</option><option value="semcrianca">Sem crianças/adolescentes</option></select></div>
-      <div class="fg"><span class="fg-label">Ciclo escolar</span><select id="f-ciclo"><option value="">Todos</option><option value="fund1">Fund. I (5–10 anos)</option><option value="fund2">Fund. II (11–14 anos)</option><option value="medio">Ensino Médio (15–17)</option></select></div>
-      <div class="fg"><span class="fg-label">Faixa etária membros</span><div class="age-row"><input type="number" id="f-idade-min" min="0" max="120" placeholder="De"><span class="age-sep">–</span><input type="number" id="f-idade-max" min="0" max="120" placeholder="Até"></div></div>
-      <div class="fg"><span class="fg-label">Código familiar</span><input type="text" id="f-search" placeholder="GR_FAM…" style="min-width:120px"></div>
-      <button class="btn-reset" id="btn-reset">✕ Limpar</button>
-      <span id="filtered-count"></span>
-    </div></div>
-  </div>
-</div>
-
 <div class="panel-block" id="panel-tabela">
-  <div class="panel-header"><div class="drag-wrap"><div class="drag-dots"><span></span><span></span><span></span><span></span><span></span><span></span></div><div class="sec-title">Registros do território</div></div><button class="btn-min" onclick="togglePanel('tabela')">−</button></div>
+  <div class="panel-header"><div class="drag-wrap"><div class="drag-dots"><span></span><span></span><span></span><span></span><span></span><span></span></div><div class="sec-title">Registros em formato tabela</div></div><button class="btn-min" onclick="togglePanel('tabela')">−</button></div>
   <div class="panel-body">
     <div class="table-section">
       <div class="table-hd"><span>Dados individuais — membros</span><small id="rows-info">0 registros</small></div>
@@ -470,12 +538,21 @@ Renda Score = max(0,  100 − (Renda Média ÷ 1.518 × 50))</div>
 <script>
 const SUPABASE_URL='https://ksrjoelvcwexepbnumiy.supabase.co/storage/v1/object/public/dados/base.csv';
 const SM=1518;
+const ALUGUEL_MERCADO = 1100; 
 const PAL=['#1a8a72','#2471b8','#c8973a','#c94f2e','#7056c8','#22b093','#e0ab48','#3d8fd4','#e06040','#0f1e2e','#f0c060'];
 const NVY='#0f1e2e';
 const CHARTS={};
+
 let allData=[], filteredData=[], columns=[], localidadeMap={};
 let currentPage=0;
 const PAGE=50;
+
+// Variables for Ranking Sorting
+let rankingRows = [];
+let currentSort = { col: 'score', asc: false };
+
+// Variables for Multi-select
+let selectedLocs = new Set();
 
 // ── PROGRESS ──────────────────────────────────────────────
 function prog(pct,msg){
@@ -507,11 +584,12 @@ function getLoc(r){return localidadeMap[String(r.NOME_DA_LOCALIDADE||'').trim()]
 
 // ── TOGGLE ENGINE & CHART HELPERS ─────────────────────────
 window.toggleCard = function(btn) {
-  const card = btn.closest('.stat-card');
+  const card = btn.closest('.stat-card') || btn.closest('.chart-card');
   const valTarget = card.querySelector('.card-val-target');
   const subTarget = card.querySelector('.card-sub-target');
-  const isPct = card.hasAttribute('data-showing-pct');
+  if(!valTarget) return; // If clicked on a chart toggle that has no stat-val
   
+  const isPct = card.hasAttribute('data-showing-pct');
   if (isPct) {
       valTarget.textContent = card.getAttribute('data-val');
       subTarget.textContent = card.getAttribute('data-sub');
@@ -530,21 +608,17 @@ window.toggleChart = function(btn, chartId) {
    const isPct = card.hasAttribute('data-showing-pct');
    
    if (isPct) {
-       // Voltar para Números Absolutos
-       chart.data.datasets.forEach(ds => {
-           if(ds._absData) ds.data = [...ds._absData];
-       });
-       if (chart.options.scales && chart.options.scales.y) {
+       chart.data.datasets.forEach(ds => { if(ds._absData) ds.data = [...ds._absData]; });
+       if (chart.options.scales && chart.options.scales.y && chart.options.scales.y.ticks) {
            chart.options.scales.y.ticks.callback = Chart.Ticks.formatters.numeric;
+       }
+       if (chart.options.scales && chart.options.scales.x && chart.options.indexAxis === 'y') {
+           chart.options.scales.x.ticks.callback = Chart.Ticks.formatters.numeric;
        }
        card.removeAttribute('data-showing-pct');
    } else {
-       // Converter para Porcentagem
        let isCategoryPct = (chartId === 'chart-ciclo' || chartId === 'chart-rede-ciclo');
-       
-       chart.data.datasets.forEach(ds => {
-           if(!ds._absData) ds._absData = [...ds.data]; // Backup
-       });
+       chart.data.datasets.forEach(ds => { if(!ds._absData) ds._absData = [...ds.data]; });
        
        let totalAll = 0;
        if (!isCategoryPct) {
@@ -562,15 +636,17 @@ window.toggleChart = function(btn, chartId) {
            });
        });
        
-       if (chart.options.scales && chart.options.scales.y) {
+       if (chart.options.scales && chart.options.scales.y && chart.options.indexAxis !== 'y') {
            chart.options.scales.y.ticks.callback = function(val) { return val + '%'; };
+       }
+       if (chart.options.scales && chart.options.scales.x && chart.options.indexAxis === 'y') {
+           chart.options.scales.x.ticks.callback = function(val) { return val + '%'; };
        }
        card.setAttribute('data-showing-pct', 'true');
    }
    chart.update();
 }
 
-// Tooltip Global adaptado para a checagem dinâmica de porcentagem
 const tooltip = {
   backgroundColor: NVY, cornerRadius: 8, padding: 10, titleColor: '#e0ab48', bodyColor: '#fff',
   callbacks: {
@@ -586,11 +662,15 @@ const tooltip = {
 };
 
 function dc(id){if(CHARTS[id]){CHARTS[id].destroy();delete CHARTS[id];}}
-function barChart(id,labels,values,colors){
+function barChart(id,labels,values,colors, opts={}){
   dc(id);const ctx=document.getElementById(id);if(!ctx)return;
-  CHARTS[id]=new Chart(ctx,{type:'bar',data:{labels,datasets:[{data:values,backgroundColor:colors||PAL,borderRadius:5,borderSkipped:false}]},
-    options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false},tooltip},
-      scales:{x:{ticks:{color:'#7a7a7a',font:{size:10,family:'Syne',weight:'600'}},grid:{display:false}},y:{ticks:{color:'#7a7a7a',font:{size:10}},grid:{color:'#edeae3'}}}}});
+  const isHoriz = opts.indexAxis === 'y';
+  CHARTS[id]=new Chart(ctx,{type:'bar',data:{labels,datasets:[{data:values,backgroundColor:colors||PAL,borderRadius:4}]},
+    options:{indexAxis: opts.indexAxis||'x', responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false},tooltip},
+      scales:{
+          x:{ticks:{color:'#7a7a7a',font:{size:10,family:'Syne',weight:'600'}},grid:{display:!isHoriz, color:'#edeae3'}},
+          y:{ticks:{color:'#7a7a7a',font:{size:10,family:'Syne',weight:isHoriz?'600':'400'}},grid:{display:isHoriz,color:'#edeae3'}}
+      }}});
 }
 function donut(id,labels,values){
   dc(id);const ctx=document.getElementById(id);if(!ctx)return;
@@ -602,6 +682,15 @@ function groupedBar(id,labels,datasets){
   CHARTS[id]=new Chart(ctx,{type:'bar',data:{labels,datasets},
     options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{position:'top',labels:{color:'#4a4a4a',font:{size:10,family:'Syne',weight:'600'},boxWidth:10,padding:8}},tooltip},
       scales:{x:{ticks:{color:'#7a7a7a',font:{size:10,family:'Syne',weight:'600'}},grid:{display:false}},y:{ticks:{color:'#7a7a7a',font:{size:10}},grid:{color:'#edeae3'}}}}});
+}
+function radarChart(id, labels, datasets) {
+  dc(id); const ctx = document.getElementById(id); if(!ctx) return;
+  CHARTS[id] = new Chart(ctx, { type: 'radar', data: { labels, datasets },
+    options: { responsive: true, maintainAspectRatio: false, elements: { line: { borderWidth: 3 } },
+      scales: { r: { angleLines: { color: '#edeae3' }, grid: { color: '#edeae3' }, pointLabels: { font: { family: 'Syne', size: 10, weight: '700' }, color: '#0f1e2e' }, ticks: { display: false, max: 100, min: 0 } } },
+      plugins: { legend: { position: 'bottom', labels: { font: { family: 'Syne', size: 11, weight: '600' }, color: '#4a4a4a', boxWidth: 12 } }, tooltip }
+    }
+  });
 }
 
 // ── CARD BUILDER ──────────────────────────────────────────
@@ -628,11 +717,11 @@ function lblCode(v,mx){if(!v)return'';const m=String(v).match(/^\d+\s*-\s*(.+)/)
 const n=v=>Number(v).toLocaleString('pt-BR');
 const pct=(a,b)=>b?Math.round(a/b*100):0;
 
-// ── COMPUTE + RENDER (Otimizados com Tooltips + Toggles) ─
-function computeAndRender(data){
+// ── COMPUTE & RENDER STEPS (NOW ACCEPTS DATA AS ARGUMENT) ─
+function runComputeSteps(data, isInitialLoad = true) {
   const totalP = data.length;
   
-  prog(64,'Indexando famílias…');
+  if (isInitialLoad) prog(64,'Indexando famílias…');
   const fR = []; 
   const rfs = []; 
   const famGroups = {}; 
@@ -660,12 +749,13 @@ function computeAndRender(data){
   const tf = famSet.size;
 
   const steps=[
-    // PASSO 1: Estrutura
+    // PASSO 1: Estrutura + Adensamento
     ()=>{
-      prog(65,'Calculando estrutura familiar…');
+      if (isInitialLoad) prog(65,'Calculando estrutura familiar…');
       let tamSum = 0, tamCount = 0;
       let sozinhas = 0, multi = 0, aglom = 0;
       let desat = 0, atual = 0;
+      const locFreq = {};
       
       for (let i = 0; i < total; i++) {
         const r = fR[i];
@@ -683,6 +773,12 @@ function computeAndRender(data){
         if (!isNaN(p) && !isNaN(dor) && dor > 0 && p / dor > 2) aglom++;
       }
 
+      // Calc Pessoas por Bairro
+      for(let i=0; i<totalP; i++) {
+          const l = getLoc(data[i]);
+          locFreq[l] = (locFreq[l]||0) + 1;
+      }
+      
       const avg = tamCount ? tamSum / tamCount : 0;
       const missT = total - tamCount;
       let acimaMed = 0;
@@ -698,20 +794,24 @@ function computeAndRender(data){
       document.getElementById('badge-atualizado').textContent=pct(atual,total)+'% atualizados';
       
       strip('strip-estrutura',[
-        { id:'s-tf', label:'Total de famílias', value:n(total), pctValue:'100%', sub:'grupos familiares únicos', subPct:'do total da base', color:'cs', icon:'👥', tip:'Contagem de grupos familiares distintos na base carregada.', campo:'COD_FAMILIAR' },
-        { id:'s-tp', label:'Total de pessoas', value:n(totalP), pctValue:'100%', sub:'membros cadastrados', subPct:'do total da base', icon:'🧑‍🤝‍🧑', tip:'Total absoluto de pessoas cadastradas nestas famílias.', campo:'(Total de registros na base)' },
-        { id:'s-avg', label:'Média membros/família', value:avg>0?avg.toFixed(1):'—', sub:missT?`${missT} sem dado`:'pessoas por família em média', color:'cg', icon:'🏠', miss:missT?`${missT} família(s) sem dado`:null, tip:'Média simples da quantidade de pessoas no domicílio por família.', campo:'QTD_PESSOAS_DOMIC_FAM' },
-        { id:'s-acima', label:'Acima da média', value:n(acimaMed), pctValue: pct(acimaMed, total)+'%', sub:`das famílias (> ${avg.toFixed(1)} pessoas)`, subPct:`${n(acimaMed)} famílias grandes`, color:'cg', icon:'📊', tip:'Quantidade de famílias cujo número de membros é maior que a média do território.', campo:'QTD_PESSOAS_DOMIC_FAM > MÉDIA' },
+        { id:'s-tf', label:'Total de famílias', value:n(total), pctValue:'100%', sub:'grupos familiares na amostra', subPct:'do total filtrado', color:'cs', icon:'👥', tip:'Contagem de grupos familiares distintos.', campo:'COD_FAMILIAR' },
+        { id:'s-tp', label:'Total de pessoas', value:n(totalP), pctValue:'100%', sub:'membros cadastrados na amostra', subPct:'do total filtrado', icon:'🧑‍🤝‍🧑', tip:'Total absoluto de pessoas.', campo:'(Contagem de registros)' },
+        { id:'s-avg', label:'Média membros/fam.', value:avg>0?avg.toFixed(1):'—', sub:missT?`${missT} sem dado`:'pessoas por família em média', color:'cg', icon:'🏠', miss:missT?`${missT} família(s) sem dado`:null, tip:'Média simples da quantidade de pessoas no domicílio por família.', campo:'QTD_PESSOAS_DOMIC_FAM' },
+        { id:'s-acima', label:'Acima da média', value:n(acimaMed), pctValue: pct(acimaMed, total)+'%', sub:`das famílias (> ${avg.toFixed(1)} pessoas)`, subPct:`${n(acimaMed)} famílias grandes`, color:'cg', icon:'📊', tip:'Quantidade de famílias cujo número de membros é maior que a média.', campo:'QTD_PESSOAS_DOMIC_FAM > MÉDIA' },
         { id:'s-soz', label:'Famílias unipessoais', value:n(sozinhas), pctValue: pct(sozinhas, total)+'%', sub:'do total de famílias', subPct:`${n(sozinhas)} famílias compostas por 1 membro`, icon:'🧍', tip:'Famílias compostas por apenas um indivíduo morando sozinho.', campo:'QTD_PESSOAS_DOMIC_FAM == 1' },
-        { id:'s-multi', label:'Múltiplas famílias/dom.', value:n(multi), pctValue: pct(multi, total)+'%', sub:'compartilham domicílio', subPct:`${n(multi)} coabitam com outros núcleos`, color:'cc', icon:'🏘️', tip:'Sinaliza domicílios onde convivem duas ou mais famílias diferentes.', campo:'QTD_FAMILIAS_DOMIC_FAM > 1' },
-        { id:'s-desat', label:'Cad. desatualizados', value:n(desat), pctValue: pct(desat, total)+'%', sub:'das famílias (busca ativa)', subPct:`${n(desat)} grupos em risco de perder benefício`, color:'cc', icon:'📋', tip:'Cadastros não atualizados há mais de 24 meses (regra federal do Cadastro Único).', campo:'STATUS_CADUNICO' },
-        { id:'s-aglom', label:'Aglomeração domiciliar', value:n(aglom), pctValue: pct(aglom, total)+'%', sub:'> 2 pessoas por dormitório', subPct:`${n(aglom)} famílias em adensamento excessivo`, color:'cg', icon:'⚠️', tip:'Indica superlotação: média de mais de 2 pessoas dormindo no mesmo cômodo.', campo:'QTD_PESSOAS / QTD_COMODOS_DORMITORIO' }
+        { id:'s-multi', label:'Múltiplas fam./dom.', value:n(multi), pctValue: pct(multi, total)+'%', sub:'compartilham domicílio', subPct:`${n(multi)} coabitam com outros núcleos`, color:'cc', icon:'🏘️', tip:'Sinaliza domicílios onde convivem duas ou mais famílias diferentes.', campo:'QTD_FAMILIAS_DOMIC_FAM > 1' },
+        { id:'s-desat', label:'Cad. desatualizados', value:n(desat), pctValue: pct(desat, total)+'%', sub:'das famílias (busca ativa)', subPct:`${n(desat)} grupos com pendência`, color:'cc', icon:'📋', tip:'Cadastros não atualizados há mais de 24 meses.', campo:'STATUS_CADUNICO' },
+        { id:'s-aglom', label:'Aglomeração domiciliar', value:n(aglom), pctValue: pct(aglom, total)+'%', sub:'> 2 pessoas por dormitório', subPct:`${n(aglom)} famílias em adensamento`, color:'cg', icon:'⚠️', tip:'Indica superlotação: média de mais de 2 pessoas dormindo no mesmo cômodo.', campo:'QTD_PESSOAS / QTD_COMODOS' }
       ]);
+      
+      // Gráfico Adensamento Demográfico
+      const freqArr = Object.entries(locFreq).sort((a,b)=>b[1]-a[1]).slice(0, 15); // Top 15
+      barChart('chart-adensamento', freqArr.map(([k])=>k), freqArr.map(([,v])=>v), null, { indexAxis: 'y' });
     },
 
     // PASSO 2: Ciclo de vida
     ()=>{
-      prog(70,'Calculando ciclo de vida e gênero…');
+      if (isInitialLoad) prog(70,'Calculando ciclo de vida e gênero…');
       const faixas=[{l:'0–5',mn:0,mx:5},{l:'6–14',mn:6,mx:14},{l:'15–17',mn:15,mx:17},{l:'18–29',mn:18,mx:29},{l:'30–39',mn:30,mx:39},{l:'40–49',mn:40,mx:49},{l:'50–59',mn:50,mx:59},{l:'60+',mn:60,mx:999}];
       const masc=[0,0,0,0,0,0,0,0], fem=[0,0,0,0,0,0,0,0];
       
@@ -754,11 +854,11 @@ function computeAndRender(data){
       }
 
       strip('strip-ciclovida',[
-        { id:'s-prim', label:'1ª infância (0–6)', value:n(prim), pctValue:pct(prim, totalP)+'%', sub:'da população total', subPct:`${n(prim)} crianças de 0 a 6 anos`, color:'ct', icon:'👶', miss:missI?`${missI} sem idade`:null, tip:'Crianças na fase de Primeira Infância, fundamental para políticas de desenvolvimento cognitivo e assistência básica.', campo:'IDADE_PESSOA <= 6' },
-        { id:'s-adol', label:'Adolescentes (15–17)', value:n(adol), pctValue:pct(adol, totalP)+'%', sub:'da população (Prot. Especial)', subPct:`${n(adol)} adolescentes`, color:'cg', icon:'🎒', tip:'Jovens em idade de transição escolar e início da aprendizagem profissional.', campo:'IDADE_PESSOA ENTRE 15 e 17' },
-        { id:'s-jov', label:'Jovens (18–29)', value:n(jov), pctValue:pct(jov, totalP)+'%', sub:'da população total', subPct:`${n(jov)} adultos jovens`, color:'cs', icon:'🎓', tip:'Faixa prioritária para qualificação técnica, primeiro emprego e empreendedorismo.', campo:'IDADE_PESSOA ENTRE 18 e 29' },
-        { id:'s-id', label:'Idosos (60+)', value:n(ido), pctValue:pct(ido, totalP)+'%', sub:'da população total', subPct:`${n(ido)} idosos`, color:'cl', icon:'🧓', tip:'Pessoas na terceira idade, elegíveis para BPC ou proteção social especializada.', campo:'IDADE_PESSOA >= 60' },
-        { id:'s-mrf', label:'Mulher responsável', value:n(mrfCount), pctValue:pct(mrfCount, tf)+'%', sub:'das famílias (chefia)', subPct:`${n(mrfCount)} famílias lideradas por mulheres`, color:'ct', icon:'👩', tip:'Famílias onde uma mulher é identificada como a Responsável Familiar (RF).', campo:'FAM_FAM_MULHER_RF == SIM' }
+        { id:'s-prim', label:'1ª infância (0–6)', value:n(prim), pctValue:pct(prim, totalP)+'%', sub:'da população filtrada', subPct:`${n(prim)} crianças de 0 a 6 anos`, color:'ct', icon:'👶', miss:missI?`${missI} sem idade`:null, tip:'Crianças na fase de Primeira Infância.', campo:'IDADE_PESSOA <= 6' },
+        { id:'s-adol', label:'Adolescentes (15–17)', value:n(adol), pctValue:pct(adol, totalP)+'%', sub:'da população filtrada', subPct:`${n(adol)} adolescentes`, color:'cg', icon:'🎒', tip:'Jovens em idade de transição escolar.', campo:'IDADE_PESSOA ENTRE 15 e 17' },
+        { id:'s-jov', label:'Jovens (18–29)', value:n(jov), pctValue:pct(jov, totalP)+'%', sub:'da população filtrada', subPct:`${n(jov)} adultos jovens`, color:'cs', icon:'🎓', tip:'Faixa prioritária para qualificação técnica.', campo:'IDADE_PESSOA ENTRE 18 e 29' },
+        { id:'s-id', label:'Idosos (60+)', value:n(ido), pctValue:pct(ido, totalP)+'%', sub:'da população filtrada', subPct:`${n(ido)} idosos`, color:'cl', icon:'🧓', tip:'Pessoas na terceira idade.', campo:'IDADE_PESSOA >= 60' },
+        { id:'s-mrf', label:'Mulher responsável', value:n(mrfCount), pctValue:pct(mrfCount, tf)+'%', sub:'das famílias (chefia)', subPct:`${n(mrfCount)} famílias lideradas por mulheres`, color:'ct', icon:'👩', tip:'Famílias onde a mulher é Responsável Familiar.', campo:'FAM_FAM_MULHER_RF == SIM' }
       ]);
       document.getElementById('miss-etaria').textContent = missI ? `${missI} sem idade` : '';
       barChart('chart-etaria',faixas.map(f=>f.l), [0], null); 
@@ -773,11 +873,12 @@ function computeAndRender(data){
 
     // PASSO 3: Renda
     ()=>{
-      prog(75,'Calculando renda e pobreza…');
+      if (isInitialLoad) prog(75,'Calculando renda e pobreza…');
       let avgRSum = 0, avgRCount = 0, missR = 0;
       let extr = 0, pob = 0, zero = 0;
       let pbfF = 0, aposF = 0;
       let so_t = 0, so_b = 0, tb = 0, sr = 0;
+      let inviavel = 0, sobrecarga = 0;
       
       const fxRCount = [0,0,0,0,0,0,0];
 
@@ -791,6 +892,12 @@ function computeAndRender(data){
         if (isNaN(rv)) {
           missR++;
         } else {
+          // Risco Habitacional
+          if (rv > 0) {
+              if (rv < ALUGUEL_MERCADO) inviavel++; 
+              else if ((ALUGUEL_MERCADO / rv) > 0.30) sobrecarga++;
+          }
+            
           const pc = rv / pv;
           if (pc <= 109) extr++;
           else if (pc <= 218) pob++;
@@ -832,11 +939,11 @@ function computeAndRender(data){
 
       strip('strip-renda',[
         { id:'s-avgr', label:'Renda média da fam.', value:avgR>0?'R$'+Math.round(avgR).toLocaleString('pt-BR'):'—', sub:'renda bruta / mês', color:'cg', icon:'💰', miss:missR?`${missR} sem dado`:null, tip:'Renda bruta mensal declarada no grupo familiar (soma do ganho de todos os membros).', campo:'VLR_RENDA_MEDIA_FAM' },
-        { id:'s-extr', label:'Extrema pobreza', value:n(extr), pctValue: pct(extr, total)+'%', sub:'renda per capita ≤ R$109', subPct:`${n(extr)} famílias`, color:'cc', icon:'🔴', tip:'Famílias com renda per capita igual ou inferior à linha de extrema pobreza estabelecida pelo MDS.', campo:'(VLR_RENDA_MEDIA_FAM / QTD_PESSOAS) <= 109' },
-        { id:'s-pob', label:'Pobreza', value:n(pob), pctValue: pct(pob, total)+'%', sub:'R$110–218 per capita', subPct:`${n(pob)} famílias`, color:'cc', icon:'🟠', tip:'Famílias acima da extrema pobreza, porém na linha de pobreza oficial (R$110 a R$218 por pessoa).', campo:'(RENDA_PER_CAPITA) > 109 e <= 218' },
-        { id:'s-zero', label:'Renda zero', value:n(zero), pctValue: pct(zero, total)+'%', sub:'sem qualquer renda', subPct:`${n(zero)} famílias declararam renda R$0`, icon:'⚠️', tip:'O grupo familiar declarou que não possui nenhuma fonte de renda no momento do cadastro.', campo:'VLR_RENDA_MEDIA_FAM == 0' },
-        { id:'s-pbf', label:'Recebem PBF', value:n(pbfF), pctValue: pct(pbfF, total)+'%', sub:'são beneficiárias', subPct:`${n(pbfF)} famílias no Bolsa Família`, color:'ct', icon:'✅', tip:'Famílias com marcação ativa de recebimento do Programa Bolsa Família.', campo:'MARC_PBF == SIM' },
-        { id:'s-apos', label:'Aposent. / Pensão', value:n(aposF), pctValue: pct(aposF, total)+'%', sub:'têm membro aposentado', subPct:`${n(aposF)} famílias recebem INSS/BPC`, color:'cs', icon:'🏦', tip:'Famílias que possuem ao menos um membro com renda declarada oriunda de aposentadoria, BPC ou pensão.', campo:'FX_RND_VAL_RENDA_APOSENT_MEMB' }
+        { id:'s-alug', label:'Risco Habitacional', value:n(inviavel + sobrecarga), pctValue: pct(inviavel + sobrecarga, total)+'%', sub:`aluguel base R$ ${ALUGUEL_MERCADO}`, subPct:`${n(inviavel)} não têm renda para aluguel`, color:'cc', icon:'🏚️', tip:`Famílias que comprometeriam mais de 30% da renda com um aluguel médio regional estimado ou cuja renda é inferior a este valor.`, campo:'VLR_RENDA vs ALUGUEL' },
+        { id:'s-extr', label:'Extrema pobreza', value:n(extr), pctValue: pct(extr, total)+'%', sub:'renda per capita ≤ R$109', subPct:`${n(extr)} famílias`, color:'cc', icon:'🔴', tip:'Famílias com renda per capita na linha de extrema pobreza (MDS).', campo:'RENDA_PER_CAPITA <= 109' },
+        { id:'s-pob', label:'Pobreza', value:n(pob), pctValue: pct(pob, total)+'%', sub:'R$110–218 per capita', subPct:`${n(pob)} famílias`, color:'cc', icon:'🟠', tip:'Famílias na linha de pobreza oficial.', campo:'RENDA_PER_CAPITA > 109 e <= 218' },
+        { id:'s-zero', label:'Renda zero', value:n(zero), pctValue: pct(zero, total)+'%', sub:'sem qualquer renda', subPct:`${n(zero)} famílias com R$0`, icon:'⚠️', tip:'Grupo declarou não possuir fonte de renda.', campo:'VLR_RENDA_MEDIA_FAM == 0' },
+        { id:'s-pbf', label:'Recebem PBF', value:n(pbfF), pctValue: pct(pbfF, total)+'%', sub:'são beneficiárias', subPct:`${n(pbfF)} famílias no Bolsa Família`, color:'ct', icon:'✅', tip:'Marcação ativa do Programa Bolsa Família.', campo:'MARC_PBF == SIM' }
       ]);
 
       const fxRLabels = ['R$0','R$1–109','R$110–218','R$219–½SM','½SM–1SM','1SM–2SM','>2SM'];
@@ -863,7 +970,7 @@ function computeAndRender(data){
 
     // PASSO 4: Escolaridade
     ()=>{
-      prog(80,'Calculando escolaridade…');
+      if (isInitialLoad) prog(80,'Calculando escolaridade…');
       const iRF={}; let missIRF=0, sInstr=0, analf=0, missDet=0;
       const iD={'Nunca frequentou':0,'Sem instrução':0,'Fund. incompleto':0,'Fund. completo':0,'Médio incompleto':0,'Médio completo':0,'Superior':0,'Outros':0};
 
@@ -950,16 +1057,16 @@ function computeAndRender(data){
       groupedBar('chart-rede-ciclo',ciclos.map(c=>c.l),[{label:'Rede pública',data:ciclos.map(c=>redes[c.l].Pública),backgroundColor:'#2471b8',borderRadius:4},{label:'Rede privada',data:ciclos.map(c=>redes[c.l].Privada),backgroundColor:'#7056c8',borderRadius:4},{label:'Fora da escola',data:ciclos.map(c=>redes[c.l].Fora),backgroundColor:'#c94f2e',borderRadius:4}]);
 
       strip('strip-escola',[
-        { id:'s-fesc', label:'Fora da escola (5–17)', value:n(foraEsc), pctValue: pct(foraEsc, e517Count)+'%', sub:'da faixa etária 5 a 17 anos', subPct:`${n(foraEsc)} menores desescolarizados`, color:'cc', icon:'📚', tip:'Crianças ou adolescentes em idade escolar obrigatória (5 a 17 anos) que não frequentam creche nem escola.', campo:'IND_FREQUENTA_ESCOLA_MEMB == "Não"' },
-        { id:'s-neet', label:'Geração Nem-Nem', value:n(neet), pctValue: pct(neet, j1824Count)+'%', sub:'dos jovens de 18–24 anos', subPct:`${n(neet)} não estudam e não trabalham`, color:'cc', icon:'🔍', tip:'Jovens de 18 a 24 anos que não estudam nem possuem registro de trabalho ativo (proxy para exclusão social).', campo:'(ESCOLA == Não) AND (TRABALHO == Não)' },
-        { id:'s-sinstr', label:'RF sem instrução', value:n(sInstr), pctValue: pct(sInstr, rfs.length)+'%', sub:'dos Responsáveis Familiares', subPct:`${n(sInstr)} declarados sem ensino base`, color:'cg', icon:'📖', tip:'Grau de escolaridade formal do responsável familiar classificado como "sem instrução" ou que nunca frequentou escola.', campo:'GRAU_INSTRUCAO' },
-        { id:'s-analf', label:'RF nunca frequentou', value:n(analf), pctValue: pct(analf, rfs.length)+'%', sub:'(proxy de analfabetismo)', subPct:`${n(analf)} nunca foram à escola`, color:'cc', icon:'🚫', tip:'Marcador explícito de que a pessoa nunca frequentou nenhuma instituição de ensino (alta probabilidade de analfabetismo).', campo:'COD_CURSO_FREQUENTOU == 4' }
+        { id:'s-fesc', label:'Fora da escola (5–17)', value:n(foraEsc), pctValue: pct(foraEsc, e517Count)+'%', sub:'da faixa etária 5 a 17 anos', subPct:`${n(foraEsc)} menores desescolarizados`, color:'cc', icon:'📚', tip:'Crianças ou adolescentes em idade escolar obrigatória (5 a 17 anos) que não frequentam creche nem escola.', campo:'IND_FREQUENTA_ESCOLA_MEMB' },
+        { id:'s-neet', label:'Geração Nem-Nem', value:n(neet), pctValue: pct(neet, j1824Count)+'%', sub:'dos jovens de 18–24 anos', subPct:`${n(neet)} não estudam e não trabalham`, color:'cc', icon:'🔍', tip:'Jovens de 18 a 24 anos que não estudam nem possuem registro de trabalho ativo.', campo:'ESCOLA E TRABALHO' },
+        { id:'s-sinstr', label:'RF sem instrução', value:n(sInstr), pctValue: pct(sInstr, rfs.length)+'%', sub:'dos Responsáveis Familiares', subPct:`${n(sInstr)} sem ensino base`, color:'cg', icon:'📖', tip:'Grau de escolaridade formal do responsável familiar classificado como sem instrução.', campo:'GRAU_INSTRUCAO' },
+        { id:'s-analf', label:'RF nunca frequentou', value:n(analf), pctValue: pct(analf, rfs.length)+'%', sub:'(proxy de analfabetismo)', subPct:`${n(analf)} nunca foram à escola`, color:'cc', icon:'🚫', tip:'Pessoas que nunca frequentaram nenhuma instituição de ensino (alta probabilidade de analfabetismo).', campo:'COD_CURSO == 4' }
       ]);
     },
 
     // PASSO 5: Trabalho
     ()=>{
-      prog(85,'Calculando trabalho e ocupação…');
+      if (isInitialLoad) prog(85,'Calculando trabalho e ocupação…');
       let totalAt = 0, trabCount = 0, nTrabCount = 0, formal = 0, informal = 0;
       const tipoM={'1':'Autônomo','2':'Rural temp.','3':'Dom. s/cart.','4':'CLT','5':'Dom. s/cart.','6':'Dom. c/cart.','7':'Não remunerado','8':'Serv. Público','9':'Empregador','10':'Estagiário','11':'Aprendiz'};
       const tipoC={}; let missT=0;
@@ -1000,10 +1107,10 @@ function computeAndRender(data){
       fams06.forEach(k => { if (rfD.has(k)) cri06D++; });
 
       strip('strip-trabalho',[
-        { id:'s-prod', label:'Força de trab. (18–64)', value:n(totalAt), pctValue: pct(totalAt, totalP)+'%', sub:'população ativa (potencial)', subPct:`${n(totalAt)} adultos na faixa etária`, icon:'👷', tip:'Total de pessoas na faixa etária considerada produtiva (18 a 64 anos completos).', campo:'IDADE_PESSOA ENTRE 18 E 64' },
-        { id:'s-ntr', label:'Não trabalhou', value:n(nTrabCount), pctValue:pct(nTrabCount, totalAt)+'%', sub:'da força de trabalho (18-64)', subPct:`${n(nTrabCount)} desocupados ou inativos`, color:'cc', icon:'💼', tip:'Adultos que declararam não ter exercido atividade remunerada nos 12 meses anteriores.', campo:'COD_TRABALHOU_MEMB == "Não"' },
-        { id:'s-inf', label:'Trabalho informal', value:n(informal), pctValue:pct(informal, trabCount)+'%', sub:'dos que trabalharam', subPct:`${n(informal)} atuam sem carteira ou autônomos`, color:'cg', icon:'🔧', tip:'Trabalhadores sem vínculo de proteção social formal (CLT/Estatutário). Engloba bicos e autônomos.', campo:'COD_PRINCIPAL_TRAB_MEMB' },
-        { id:'s-cri06', label:'RF desempr. + Crianças 0–6', value:n(cri06D), pctValue:pct(cri06D, tf)+'%', sub:'famílias com dupla vulnerabilidade', subPct:`${n(cri06D)} domicílios afetados`, color:'cc', icon:'👶', tip:'Cruza duas fragilidades: Presença de filhos pequenos (0-6 anos) e Responsável Familiar sem emprego declarado.', campo:'(CRIA <= 6) AND (RF TRABALHA == Não)' }
+        { id:'s-prod', label:'Força de trab. (18–64)', value:n(totalAt), pctValue: pct(totalAt, totalP)+'%', sub:'população ativa (potencial)', subPct:`${n(totalAt)} adultos na faixa etária`, icon:'👷', tip:'Total de pessoas na faixa etária considerada produtiva (18 a 64 anos completos).', campo:'IDADE_PESSOA' },
+        { id:'s-ntr', label:'Não trabalhou', value:n(nTrabCount), pctValue:pct(nTrabCount, totalAt)+'%', sub:'da força de trabalho (18-64)', subPct:`${n(nTrabCount)} desocupados ou inativos`, color:'cc', icon:'💼', tip:'Adultos que declararam não ter exercido atividade remunerada nos 12 meses anteriores.', campo:'COD_TRABALHOU' },
+        { id:'s-inf', label:'Trabalho informal', value:n(informal), pctValue:pct(informal, trabCount)+'%', sub:'dos que trabalharam', subPct:`${n(informal)} atuam sem carteira/autônomos`, color:'cg', icon:'🔧', tip:'Trabalhadores sem vínculo de proteção social formal (CLT/Estatutário).', campo:'COD_PRINCIPAL_TRAB' },
+        { id:'s-cri06', label:'RF desempr. + Criança', value:n(cri06D), pctValue:pct(cri06D, tf)+'%', sub:'famílias sob dupla vulnerab.', subPct:`${n(cri06D)} domicílios afetados`, color:'cc', icon:'👶', tip:'Cruza fragilidades: Presença de filhos pequenos (0-6 anos) e RF sem emprego declarado.', campo:'CRIA <= 6 & RF S/TRAB' }
       ]);
       
       document.getElementById('miss-trabalho').textContent=missT?`${missT} sem tipo de trabalho`:'';
@@ -1019,7 +1126,7 @@ function computeAndRender(data){
 
     // PASSO 6: Saneamento
     ()=>{
-      prog(90,'Calculando saneamento e moradia…');
+      if (isInitialLoad) prog(90,'Calculando saneamento e moradia…');
       const bn={sim:0,nao:0,miss:0};
       const aM={'1':'Rede geral','2':'Poço/Nascente','3':'Cisterna','4':'Outra'};
       const aC={'Rede geral':0}; let missA=0;
@@ -1062,9 +1169,9 @@ function computeAndRender(data){
       const esgP = Object.entries(eC).filter(([k])=>!['Rede coletora','Fossa séptica'].includes(k)).reduce((a,[,v])=>a+v,0);
       
       strip('strip-saneamento',[
-        { id:'s-sbn', label:'Sem banheiro no dom.', value:n(bn.nao), pctValue:pct(bn.nao, total)+'%', sub:'das residências afetadas', subPct:`${n(bn.nao)} famílias sem vaso sanitário`, color:'cc', icon:'🚽', miss:bn.miss?`${bn.miss} sem dado`:null, tip:'Domicílios que declararam não possuir instalação sanitária básica na residência ou lote.', campo:'COD_BANHEIRO_DOMIC_FAM' },
-        { id:'s-sar', label:'Sem água encanada', value:n(semAR), pctValue:pct(semAR, total)+'%', sub:'sem acesso à rede geral', subPct:`${n(semAR)} domicílios usam poços/valas`, color:'cg', icon:'💧', miss:missA?`${missA} sem dado`:null, tip:'O abastecimento de água não é feito pela rede geral de distribuição do município (SABESP).', campo:'COD_ABASTE_AGUA_DOMIC != 1' },
-        { id:'s-esgp', label:'Esgotamento precário', value:n(esgP), pctValue:pct(esgP, total)+'%', sub:'das famílias', subPct:`${n(esgP)} descartam em valas/rios/fossas rudim.`, color:'cc', icon:'⚠️', miss:missE?`${missE} sem dado`:null, tip:'O destino dos dejetos sanitários ocorre de forma precária: fossa rudimentar, vala aberta, rios ou escoamento livre no terreno.', campo:'COD_ESCOA_SANITARIO_DOMIC' }
+        { id:'s-sbn', label:'Sem banheiro no dom.', value:n(bn.nao), pctValue:pct(bn.nao, total)+'%', sub:'das residências afetadas', subPct:`${n(bn.nao)} famílias sem vaso sanitário`, color:'cc', icon:'🚽', miss:bn.miss?`${bn.miss} sem dado`:null, tip:'Domicílios que declararam não possuir instalação sanitária básica na residência.', campo:'COD_BANHEIRO' },
+        { id:'s-sar', label:'Sem água encanada', value:n(semAR), pctValue:pct(semAR, total)+'%', sub:'sem acesso à rede geral', subPct:`${n(semAR)} domicílios usam poços/valas`, color:'cg', icon:'💧', miss:missA?`${missA} sem dado`:null, tip:'O abastecimento de água não é feito pela rede geral.', campo:'COD_ABASTE_AGUA' },
+        { id:'s-esgp', label:'Esgotamento precário', value:n(esgP), pctValue:pct(esgP, total)+'%', sub:'das famílias', subPct:`${n(esgP)} descartam em valas/rios/fossas`, color:'cc', icon:'⚠️', miss:missE?`${missE} sem dado`:null, tip:'O destino dos dejetos ocorre de forma precária: fossa rudimentar, vala aberta, rios.', campo:'COD_ESCOA_SANITARIO' }
       ]);
       
       document.getElementById('miss-agua').textContent=missA?`${missA} sem dado`:'';
@@ -1075,9 +1182,13 @@ function computeAndRender(data){
       barChart('chart-lixo',Object.keys(lC),Object.values(lC));
     },
 
-    // PASSO 7: Ranking
+    // PASSO 7: Ranking e Vilas Boas
     ()=>{
-      prog(94,'Calculando ranking de vulnerabilidade…');
+      if (isInitialLoad) prog(94,'Calculando rankings e comparações…');
+      
+      // -- GLOBAL SCORE VARIABLES --
+      let gTot=0, gExtr=0, gDsat=0, gSBn=0, gEp=0, gAvgRSum=0, gAvgRCount=0;
+      
       const byL={}; 
       for(let i=0; i<totalP; i++) {
           const l=getLoc(data[i]);
@@ -1085,12 +1196,7 @@ function computeAndRender(data){
           byL[l].push(data[i]);
       }
       
-      const sc=v=>v>=70?'#c94f2e':v>=45?'#e06040':v>=25?'#c8973a':'#1a8a72';
-      const pt=v=>{const cl=v>30?'p-red':v>15?'p-orange':'p-green';return`<span class="pill ${cl}">${v.toFixed(0)}%</span>`;};
-      const cols=['#','Localidade','Famílias','% Extr. Pob.','Renda Média','% Desatual.','% Sem Banh.','% Esgoto Prec.','Score'];
-      document.getElementById('ranking-thead').innerHTML=cols.map(c=>`<th>${c}</th>`).join('');
-      
-      const rows=Object.entries(byL).map(([lbl,rs])=>{
+      rankingRows = Object.entries(byL).map(([lbl,rs])=>{
         const fSet = new Set();
         const fRs = [];
         for (let i=0; i<rs.length; i++) {
@@ -1116,41 +1222,73 @@ function computeAndRender(data){
             }
         }
         
+        // Sum Global
+        gTot+=tot; gExtr+=extr; gDsat+=dsat; gSBn+=sBn; gEp+=eP; gAvgRSum+=avgRSum; gAvgRCount+=avgRCount;
+        
         const avgR = avgRCount ? avgRSum/avgRCount : 0;
         const pE=tot?extr/tot*100:0, pD=tot?dsat/tot*100:0, pB=tot?sBn/tot*100:0, pP=tot?eP/tot*100:0;
         const rS=avgR>0?Math.max(0,100-(avgR/SM*50)):100;
         const score=Math.round(pE*0.30+pD*0.20+pB*0.20+pP*0.15+rS*0.15);
         return{lbl,tot,pE,avgR,pD,pB,pP,score};
-      }).filter(Boolean).sort((a,b)=>b.score-a.score);
+      }).filter(Boolean);
+
+      document.getElementById('ranking-info').textContent=`${rankingRows.length} localidades`;
+      renderRankingTable(); // Triggers table creation
       
-      document.getElementById('ranking-info').textContent=`${rows.length} localidades`;
-      const tb=document.getElementById('ranking-body');tb.innerHTML='';
-      rows.forEach((r,i)=>{
-        const tr=document.createElement('tr');
-        tr.innerHTML=`<td style="font-family:Syne,sans-serif;font-weight:700;font-size:11px;color:var(--navy)">${i+1}</td>
-          <td style="font-weight:500;white-space:nowrap">${r.lbl}</td><td>${r.tot}</td>
-          <td>${pt(r.pE)}</td><td>R$${Math.round(r.avgR).toLocaleString('pt-BR')}</td>
-          <td>${pt(r.pD)}</td><td>${pt(r.pB)}</td><td>${pt(r.pP)}</td>
-          <td><div style="display:flex;align-items:center;gap:7px"><div style="flex:1;background:var(--surface3);border-radius:4px;height:7px;min-width:48px"><div style="width:${Math.min(r.score,100)}%;background:${sc(r.score)};height:7px;border-radius:4px"></div></div><span style="font-family:Syne,sans-serif;font-weight:700;font-size:12px;color:${sc(r.score)};min-width:24px">${r.score}</span></div></td>`;
-        tb.appendChild(tr);
-      });
+      // -- VILAS BOAS COMPARISON --
+      const vbRow = rankingRows.find(r => r.lbl.toUpperCase().includes('VILAS BOAS'));
+      const pbPanel = document.getElementById('panel-vilasboas');
+      
+      if (!vbRow) {
+          pbPanel.querySelector('.filters-wrap').innerHTML = '<p style="text-align:center;color:var(--text3);padding:20px;">O Jardim Vilas Boas não está presente nos filtros atuais de bairro.</p>';
+      } else {
+          // Rebuild HTML just in case it was overwritten
+          if(!document.getElementById('strip-vilas')) {
+             pbPanel.querySelector('.filters-wrap').innerHTML = `<p style="font-size:12px; color:var(--text2); margin-bottom:12px;">Esta seção isola os dados do bairro <strong>Jardim Vilas Boas</strong> dentro da amostra que você filtrou acima, permitindo comparar rapidamente as fragilidades locais contra a média de todos os outros bairros selecionados.</p><div class="stat-grid" id="strip-vilas"></div><div class="chart-grid" style="margin-top:16px;"><div class="chart-card"><div class="chart-title">Radar de Vulnerabilidades (%)<button class="tip-btn" tabindex="0">?<div class="tip-pop"><strong>Comparativo</strong><p>Compara as taxas de problemas estruturais. Quanto mais larga a teia, pior o cenário.</p></div></button></div><div class="chart-wrap tall"><canvas id="chart-radar-vilas"></canvas></div></div></div>`;
+          }
+          
+          const glAvgR = gAvgRCount ? gAvgRSum/gAvgRCount : 0;
+          const glpE = gTot ? gExtr/gTot*100 : 0;
+          const glpD = gTot ? gDsat/gTot*100 : 0;
+          const glpB = gTot ? gSBn/gTot*100 : 0;
+          const glpP = gTot ? gEp/gTot*100 : 0;
+          const glrS = glAvgR>0 ? Math.max(0,100-(glAvgR/SM*50)) : 100;
+          const glScore = Math.round(glpE*0.30+glpD*0.20+glpB*0.20+glpP*0.15+glrS*0.15);
+
+          const rdiff = vbRow.avgR - glAvgR;
+          const rdiffStr = rdiff > 0 ? `+ R$ ${Math.round(rdiff)} acima da média` : `- R$ ${Math.abs(Math.round(rdiff))} abaixo da média`;
+          
+          strip('strip-vilas',[
+             {id:'v-score', label:'Score de Vulnerabilidade', value:vbRow.score, sub:`Global do Filtro: ${glScore}`, color: vbRow.score > glScore ? 'cc' : 'ct', icon:'🎯'},
+             {id:'v-renda', label:'Renda Média (Jd Vilas Boas)', value:'R$ '+Math.round(vbRow.avgR), sub:rdiffStr, color: rdiff < 0 ? 'cc' : 'ct', icon:'💰'},
+             {id:'v-extr', label:'Extrema Pobreza', value:vbRow.pE.toFixed(1)+'%', sub:`Global do Filtro: ${glpE.toFixed(1)}%`, color: vbRow.pE > glpE ? 'cc' : 'ct', icon:'🔴'}
+          ]);
+          
+          radarChart('chart-radar-vilas', 
+             ['% Extrema Pobreza', '% Desatualizados', '% Sem Banheiro', '% Esgoto Precário', 'Déficit de Renda (Score)'],
+             [
+                { label: 'Jardim Vilas Boas', data: [vbRow.pE, vbRow.pD, vbRow.pB, vbRow.pP, (vbRow.avgR>0?Math.max(0,100-(vbRow.avgR/SM*50)):100)], backgroundColor: 'rgba(200, 151, 58, 0.3)', borderColor: '#c8973a', pointBackgroundColor: '#c8973a' },
+                { label: 'Média Global (Filtro)', data: [glpE, glpD, glpB, glpP, glrS], backgroundColor: 'rgba(36, 113, 184, 0.2)', borderColor: '#2471b8', pointBackgroundColor: '#2471b8' }
+             ]
+          );
+      }
     },
 
-    // PASSO 8: Filtros e tabela
+    // PASSO 8: Tabela
     ()=>{
-      prog(98,'Preparando filtros e tabela…');
-      const locs=[...new Set(Object.values(localidadeMap))].sort();
-      const sel=document.getElementById('f-localidade');
-      sel.innerHTML='<option value="">Todas</option>';
-      locs.forEach(v=>{const o=document.createElement('option');o.value=v;o.textContent=v;sel.appendChild(o);});
-      renderTable(filteredData);
+      if (isInitialLoad) prog(98,'Preparando visualizações…');
+      renderTable(data);
     },
 
     // PASSO 9: Finalizar
     ()=>{
-      prog(100,'Dados carregados com sucesso!');
-      setStatus(`✓ ${n(allData.length)} registros carregados`,'ok');
-      setTimeout(hideOv, 600);
+      if (isInitialLoad) {
+          prog(100,'Dados carregados com sucesso!');
+          setStatus(`✓ ${n(allData.length)} registros base`,'ok');
+          setTimeout(hideOv, 600);
+      } else {
+          document.getElementById('soft-loader').style.display = 'none';
+      }
     }
   ];
 
@@ -1159,25 +1297,64 @@ function computeAndRender(data){
     if(i>=steps.length)return;
     try{ steps[i](); }catch(e){ console.error('Erro no passo '+i+':',e); }
     i++;
-    setTimeout(nextStep, 30);
+    setTimeout(nextStep, isInitialLoad ? 20 : 5); // Faster execution on update
   }
   nextStep();
 }
+
+// ── RANKING SORTING & RENDER ──────────────────────────────
+window.sortRanking = function(col) {
+  if (currentSort.col === col) {
+      currentSort.asc = !currentSort.asc;
+  } else {
+      currentSort.col = col;
+      currentSort.asc = (col === 'lbl'); 
+  }
+  
+  // Update header classes
+  document.querySelectorAll('#ranking-thead th.sortable').forEach(th => th.classList.remove('asc', 'desc'));
+  const activeTh = document.querySelector(`#ranking-thead th[onclick="sortRanking('${col}')"]`);
+  if(activeTh) activeTh.classList.add(currentSort.asc ? 'asc' : 'desc');
+  
+  renderRankingTable();
+}
+
+function renderRankingTable() {
+    rankingRows.sort((a, b) => {
+        let va = a[currentSort.col], vb = b[currentSort.col];
+        if (typeof va === 'string') return currentSort.asc ? va.localeCompare(vb) : vb.localeCompare(va);
+        return currentSort.asc ? va - vb : vb - va;
+    });
+    
+    const sc=v=>v>=70?'#c94f2e':v>=45?'#e06040':v>=25?'#c8973a':'#1a8a72';
+    const pt=v=>{const cl=v>30?'p-red':v>15?'p-orange':'p-green';return`<span class="pill ${cl}">${v.toFixed(0)}%</span>`;};
+    
+    const tb=document.getElementById('ranking-body');tb.innerHTML='';
+    rankingRows.forEach((r,i)=>{
+      const tr=document.createElement('tr');
+      tr.innerHTML=`<td style="font-family:Syne,sans-serif;font-weight:700;font-size:11px;color:var(--navy)">${i+1}</td>
+        <td style="font-weight:500;white-space:nowrap">${r.lbl}</td><td>${r.tot}</td>
+        <td>${pt(r.pE)}</td><td>R$${Math.round(r.avgR).toLocaleString('pt-BR')}</td>
+        <td>${pt(r.pD)}</td><td>${pt(r.pB)}</td><td>${pt(r.pP)}</td>
+        <td><div style="display:flex;align-items:center;gap:7px"><div style="flex:1;background:var(--surface3);border-radius:4px;height:7px;min-width:48px"><div style="width:${Math.min(r.score,100)}%;background:${sc(r.score)};height:7px;border-radius:4px"></div></div><span style="font-family:Syne,sans-serif;font-weight:700;font-size:12px;color:${sc(r.score)};min-width:24px">${r.score}</span></div></td>`;
+      tb.appendChild(tr);
+    });
+}
+
 
 // ── TABELA ────────────────────────────────────────────────
 const PCOLS=['GR_FAM','COD_FAMILIAR','NOME_DA_LOCALIDADE','STATUS_CADUNICO','MARC_PBF','QTD_PESSOAS_DOMIC_FAM','VLR_RENDA_MEDIA_FAM','COD_SEXO_PESSOA','IDADE_PESSOA','GRAU_INSTRUCAO','COD_TRABALHOU_MEMB','COD_PRINCIPAL_TRAB_MEMB','COD_BANHEIRO_DOMIC_FAM','COD_ABASTE_AGUA_DOMIC_FAM','COD_ESCOA_SANITARIO_DOMIC_FAM','COD_DESTINO_LIXO_DOMIC_FAM','FAM_FAM_MULHER_RF','COD_RACA_COR_PESSOA','DAT_ATUALIZACAO_FAMILIA'];
 function pillCls(col,val){const v=String(val||'').trim().toUpperCase();if(col==='MARC_PBF')return v==='SIM'?'p-green':'p-gray';if(col==='STATUS_CADUNICO')return v==='ATUALIZADO'?'p-blue':'p-orange';if(col==='COD_BANHEIRO_DOMIC_FAM')return v.startsWith('1')?'p-green':'p-red';if(col==='COD_TRABALHOU_MEMB')return v.startsWith('1')?'p-green':'p-gray';if(col==='FAM_FAM_MULHER_RF')return v==='SIM'?'p-purple':'';return'';}
 function renderTable(data){
-  const d=data||filteredData;
-  document.getElementById('empty-msg').style.display=d.length?'none':'block';
-  const wrap=document.getElementById('table-wrap');wrap.style.display=d.length?'block':'none';
-  if(!d.length){document.getElementById('pager').innerHTML='';return;}
-  document.getElementById('rows-info').textContent=`${d.length.toLocaleString('pt-BR')} registros`;
+  document.getElementById('empty-msg').style.display=data.length?'none':'block';
+  const wrap=document.getElementById('table-wrap');wrap.style.display=data.length?'block':'none';
+  if(!data.length){document.getElementById('pager').innerHTML='';return;}
+  document.getElementById('rows-info').textContent=`${data.length.toLocaleString('pt-BR')} registros na amostra`;
   const cols=[...PCOLS.filter(c=>columns.includes(c)),...columns.filter(c=>!PCOLS.includes(c))];
   document.getElementById('thead').innerHTML='<tr>'+cols.map(c=>`<th>${c.replace(/_/g,' ')}</th>`).join('')+'</tr>';
-  const start=currentPage*PAGE,pd=d.slice(start,start+PAGE);
+  const start=currentPage*PAGE,pd=data.slice(start,start+PAGE);
   document.getElementById('tbody').innerHTML=pd.map(r=>'<tr>'+cols.map(c=>{const v=r[c]??'',pc=pillCls(c,v),s=String(v).length>28?String(v).substring(0,26)+'…':String(v);return pc?`<td><span class="pill ${pc}">${s}</span></td>`:`<td title="${String(v).replace(/"/g,'&quot;')}">${s}</td>`;}).join('')+'</tr>').join('');
-  renderPager(d.length);
+  renderPager(data.length);
 }
 function renderPager(total){
   const pages=Math.ceil(total/PAGE),el=document.getElementById('pager');
@@ -1191,19 +1368,50 @@ function renderPager(total){
   h+=`<span class="pg-info">${currentPage*PAGE+1}–${Math.min((currentPage+1)*PAGE,total)} de ${total.toLocaleString('pt-BR')}</span>`;
   el.innerHTML=h;
 }
-function goPage(p){currentPage=p;renderTable();window.scrollTo({top:document.getElementById('panel-tabela').offsetTop-80,behavior:'smooth'});}
+function goPage(p){currentPage=p;renderTable(filteredData);window.scrollTo({top:document.getElementById('panel-tabela').offsetTop-80,behavior:'smooth'});}
 
-// ── FILTROS ───────────────────────────────────────────────
-['f-localidade','f-pbf','f-renda','f-status','f-rf-sexo','f-criancas','f-ciclo'].forEach(id=>document.getElementById(id).addEventListener('change',applyFilter));
+// ── FILTROS & EVENTOS ─────────────────────────────────────
+['f-pbf','f-renda','f-status','f-rf-sexo','f-criancas','f-ciclo'].forEach(id=>document.getElementById(id).addEventListener('change',applyFilter));
 ['f-idade-min','f-idade-max'].forEach(id=>document.getElementById(id).addEventListener('input',applyFilter));
 document.getElementById('f-search').addEventListener('input',applyFilter);
-document.getElementById('btn-reset').addEventListener('click',()=>{
-  ['f-localidade','f-pbf','f-renda','f-status','f-rf-sexo','f-criancas','f-ciclo'].forEach(id=>document.getElementById(id).value='');
-  ['f-idade-min','f-idade-max','f-search'].forEach(id=>document.getElementById(id).value='');
-  applyFilter();
+
+// Fechar multi-select clicando fora
+document.addEventListener('click', e => {
+   const cb = document.getElementById('f-loc-opts');
+   const btn = document.getElementById('f-loc-btn');
+   if(cb.classList.contains('open') && !cb.contains(e.target) && !btn.contains(e.target)) cb.classList.remove('open');
 });
+
+document.getElementById('btn-reset').addEventListener('click',()=>{
+  ['f-pbf','f-renda','f-status','f-rf-sexo','f-criancas','f-ciclo'].forEach(id=>document.getElementById(id).value='');
+  ['f-idade-min','f-idade-max','f-search'].forEach(id=>document.getElementById(id).value='');
+  setAllLocs(false); // Clear multi-select
+});
+
+window.setAllLocs = function(check) {
+   document.querySelectorAll('.loc-cb').forEach(cb => cb.checked = check);
+   updateLocBtn(); applyFilter();
+};
+
+window.updateLocBtn = function() {
+   const cbs = Array.from(document.querySelectorAll('.loc-cb:checked'));
+   selectedLocs = new Set(cbs.map(c => c.value));
+   const btn = document.getElementById('f-loc-btn');
+   if(selectedLocs.size === 0 || selectedLocs.size === document.querySelectorAll('.loc-cb').length) btn.textContent = 'Todas as localidades';
+   else if (selectedLocs.size === 1) btn.textContent = cbs[0].value;
+   else btn.textContent = `${selectedLocs.size} bairros selecionados`;
+};
+
+function populateLocFilter() {
+   const locs=[...new Set(Object.values(localidadeMap))].sort();
+   const container = document.getElementById('loc-cb-container');
+   container.innerHTML = locs.map(v => `<label class="ms-opt"><input type="checkbox" class="loc-cb" value="${v}" onchange="updateLocBtn(); applyFilter()"> ${v}</label>`).join('');
+   updateLocBtn();
+}
+
 function applyFilter(){
-  const loc_=document.getElementById('f-localidade').value;
+  document.getElementById('soft-loader').style.display = 'block';
+
   const pbf=document.getElementById('f-pbf').value;
   const renda=document.getElementById('f-renda').value;
   const status=document.getElementById('f-status').value;
@@ -1213,16 +1421,18 @@ function applyFilter(){
   const idMn=document.getElementById('f-idade-min').value!==''?parseInt(document.getElementById('f-idade-min').value):null;
   const idMx=document.getElementById('f-idade-max').value!==''?parseInt(document.getElementById('f-idade-max').value):null;
   const srch=document.getElementById('f-search').value.trim().toLowerCase();
+  
+  const isLocFiltered = selectedLocs.size > 0 && selectedLocs.size < document.querySelectorAll('.loc-cb').length;
 
   const famData={};
   allData.forEach(r=>{const k=famKey(r);if(k){if(!famData[k])famData[k]=[];famData[k].push(r);}});
 
   let famFilter=null;
-  if(loc_||pbf||renda||status||rfSx||cri||ciclo){
+  if(isLocFiltered||pbf||renda||status||rfSx||cri||ciclo){
     famFilter=new Set();
     Object.entries(famData).forEach(([k,rs])=>{
       const rep=rs[0];
-      if(loc_){const lv=localidadeMap[String(rep.NOME_DA_LOCALIDADE||'').trim()]||String(rep.NOME_DA_LOCALIDADE||'').trim();if(lv!==loc_)return;}
+      if(isLocFiltered){const lv=localidadeMap[String(rep.NOME_DA_LOCALIDADE||'').trim()]||String(rep.NOME_DA_LOCALIDADE||'').trim();if(!selectedLocs.has(lv))return;}
       if(pbf){const hp=rs.some(r=>String(r.MARC_PBF||'').trim().toUpperCase()==='SIM');if(pbf==='SIM'&&!hp)return;if(pbf==='NAO'&&hp)return;}
       if(status&&String(rep.STATUS_CADUNICO||'').trim().toUpperCase()!==status)return;
       if(renda){const rv=parseFloat(rep.VLR_RENDA_MEDIA_FAM),pv=parseInt(rep.QTD_PESSOAS_DOMIC_FAM)||1,pc=isNaN(rv)?null:rv/pv;if(renda==='extrema'&&(pc===null||pc>109))return;if(renda==='pobreza'&&(pc===null||pc<=109||pc>218))return;if(renda==='baixa'&&(pc===null||pc<=218||pc>SM/2))return;if(renda==='media'&&(pc===null||pc<=SM/2))return;if(renda==='zero'&&(isNaN(rv)||rv!==0))return;}
@@ -1242,8 +1452,12 @@ function applyFilter(){
   });
 
   const fc=document.getElementById('filtered-count');
-  fc.textContent=filteredData.length!==allData.length?`${filteredData.length.toLocaleString('pt-BR')} registros filtrados`:'';
-  currentPage=0;renderTable();
+  fc.innerHTML=filteredData.length!==allData.length?`<span style="display:inline-block;width:8px;height:8px;background:var(--coral);border-radius:50%"></span> Exibindo ${filteredData.length.toLocaleString('pt-BR')} registros filtrados`:'';
+  
+  currentPage=0;
+  
+  // Roda todos os cálculos com o subset de dados atual
+  setTimeout(() => runComputeSteps(filteredData, false), 10);
 }
 
 // ── PARSE COM PAPAPARSE ───────────────────────────────────
@@ -1287,8 +1501,9 @@ function startProcessing(text,src){
       filteredData=[...allData];
       setTimeout(()=>{
         localidadeMap=buildLocMap(allData);
-        prog(64,'Iniciando cálculos…');
-        setTimeout(()=>computeAndRender(allData),30);
+        populateLocFilter(); // Preenche o multi-select novo
+        prog(64,'Iniciando cálculos globais…');
+        setTimeout(()=>runComputeSteps(allData, true), 30);
       },30);
     },
     error(err){
@@ -1311,7 +1526,6 @@ function togglePanel(id){
 function savePanelState(){try{const ord=[...document.querySelectorAll('#panels-container>.panel-block')].map(p=>p.id),mn=[...document.querySelectorAll('.panel-block.minimized')].map(p=>p.id);localStorage.setItem('desp3-ord',JSON.stringify(ord));localStorage.setItem('desp3-mn',JSON.stringify(mn));}catch(e){}}
 function restorePanelState(){try{const ord=JSON.parse(localStorage.getItem('desp3-ord')||'[]'),mn=JSON.parse(localStorage.getItem('desp3-mn')||'[]'),c=document.getElementById('panels-container');if(ord.length)ord.forEach(id=>{const el=document.getElementById(id);if(el)c.appendChild(el);});mn.forEach(id=>{const el=document.getElementById(id);if(!el)return;el.classList.add('minimized');const b=el.querySelector('.btn-min');if(b)b.textContent='+';});}catch(e){}}
 
-// ── CSV MANUAL ────────────────────────────────────────────
 document.getElementById('csv-input').addEventListener('change',e=>{
   const f=e.target.files[0];if(!f)return;
   document.getElementById('lov').classList.remove('hidden');
@@ -1321,7 +1535,6 @@ document.getElementById('csv-input').addEventListener('change',e=>{
   r.readAsText(f,'UTF-8');
 });
 
-// ── INIT ──────────────────────────────────────────────────
 document.addEventListener('DOMContentLoaded',()=>{
   restorePanelState();
   prog(1,'Conectando ao Supabase…');

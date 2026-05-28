@@ -750,14 +750,22 @@ function renderAll(s,isInitial){
 
   // ESTRUTURA
   strip('strip-estrutura',[
-    {id:'s-tf',label:'Total de famílias',value:n(s.total),pctValue:'100%',sub:'grupos familiares na amostra',subPct:'do total filtrado',color:'cs',icon:'👥'},
-    {id:'s-tp',label:'Total de pessoas',value:n(s.totalP),pctValue:'100%',sub:'membros cadastrados',subPct:'do total filtrado',icon:'🧑‍🤝‍🧑'},
-    {id:'s-avg',label:'Média membros/fam.',value:s.avg>0?s.avg.toFixed(1):'—',sub:s.avg>0?'pessoas por família':'-',color:'cg',icon:'🏠',miss:null},
-    {id:'s-acima',label:'Acima da média',value:n(s.acimaMed),pctValue:pct(s.acimaMed,s.total)+'%',sub:'famílias com mais membros que a média',subPct:n(s.acimaMed)+' famílias grandes',color:'cg',icon:'📊'},
-    {id:'s-soz',label:'Famílias unipessoais',value:n(s.sozinhas),pctValue:pct(s.sozinhas,s.total)+'%',sub:'do total de famílias',subPct:n(s.sozinhas)+' morando sozinhos',icon:'🧍'},
-    {id:'s-multi',label:'Múltiplas fam./dom.',value:n(s.multi),pctValue:pct(s.multi,s.total)+'%',sub:'compartilham domicílio',subPct:n(s.multi)+' coabitam com outros',color:'cc',icon:'🏘️'},
-    {id:'s-desat',label:'Cad. desatualizados',value:n(s.desat),pctValue:pct(s.desat,s.total)+'%',sub:'das famílias (busca ativa)',subPct:n(s.desat)+' com pendência',color:'cc',icon:'📋'},
-    {id:'s-aglom',label:'Aglomeração domiciliar',value:n(s.aglom),pctValue:pct(s.aglom,s.total)+'%',sub:'> 2 pessoas por dormitório',subPct:n(s.aglom)+' famílias superlotadas',color:'cg',icon:'⚠️'}
+    {id:'s-tf',label:'Total de famílias',value:n(s.total),pctValue:'100%',sub:'grupos familiares na amostra',subPct:'do total filtrado',color:'cs',icon:'👥',
+     tip:'Contagem de grupos familiares distintos pelo código identificador único.',campo:'COD_FAMILIAR / GR_FAM'},
+    {id:'s-tp',label:'Total de pessoas',value:n(s.totalP),pctValue:'100%',sub:'membros cadastrados',subPct:'do total filtrado',icon:'🧑‍🤝‍🧑',
+     tip:'Total absoluto de pessoas — cada linha do CSV equivale a um membro.',campo:'(Contagem de registros)'},
+    {id:'s-avg',label:'Média membros/fam.',value:s.avg>0?s.avg.toFixed(1):'—',sub:s.avg>0?'pessoas por família':'-',color:'cg',icon:'🏠',miss:null,
+     tip:'Média simples da quantidade de pessoas declaradas no domicílio, calculada por família.',campo:'QTD_PESSOAS_DOMIC_FAM'},
+    {id:'s-acima',label:'Acima da média',value:n(s.acimaMed),pctValue:pct(s.acimaMed,s.total)+'%',sub:'famílias com mais membros que a média',subPct:n(s.acimaMed)+' famílias grandes',color:'cg',icon:'📊',
+     tip:'Quantidade de famílias cujo número de membros supera a média calculada para o filtro atual. Indica concentração de pessoas.',campo:'QTD_PESSOAS_DOMIC_FAM > média calculada'},
+    {id:'s-soz',label:'Famílias unipessoais',value:n(s.sozinhas),pctValue:pct(s.sozinhas,s.total)+'%',sub:'do total de famílias',subPct:n(s.sozinhas)+' morando sozinhos',icon:'🧍',
+     tip:'Famílias compostas por apenas um indivíduo. Podem indicar isolamento social ou idosos sem suporte familiar.',campo:'QTD_PESSOAS_DOMIC_FAM = 1'},
+    {id:'s-multi',label:'Múltiplas fam./dom.',value:n(s.multi),pctValue:pct(s.multi,s.total)+'%',sub:'compartilham domicílio',subPct:n(s.multi)+' coabitam com outros',color:'cc',icon:'🏘️',
+     tip:'Domicílios onde convivem dois ou mais núcleos familiares distintos — indicador de pressão habitacional.',campo:'QTD_FAMILIAS_DOMIC_FAM > 1'},
+    {id:'s-desat',label:'Cad. desatualizados',value:n(s.desat),pctValue:pct(s.desat,s.total)+'%',sub:'das famílias (busca ativa)',subPct:n(s.desat)+' com pendência',color:'cc',icon:'📋',
+     tip:'Cadastros não atualizados há mais de 24 meses. Famílias desatualizadas podem perder acesso a benefícios sociais.',campo:'STATUS_CADUNICO = DESATUALIZADO'},
+    {id:'s-aglom',label:'Aglomeração domiciliar',value:n(s.aglom),pctValue:pct(s.aglom,s.total)+'%',sub:'> 2 pessoas por dormitório',subPct:n(s.aglom)+' famílias superlotadas',color:'cg',icon:'⚠️',
+     tip:'Razão entre pessoas e cômodos de dormir acima de 2 — indicador de superlotação e risco sanitário.',campo:'QTD_PESSOAS_DOMIC_FAM ÷ QTD_COMODOS_DORMITORIO_FAM > 2'}
   ]);
 
   // ADENSAMENTO (só na carga inicial)
@@ -770,11 +778,16 @@ function renderAll(s,isInitial){
 
   // CICLO DE VIDA
   strip('strip-ciclovida',[
-    {id:'s-prim',label:'1ª infância (0–6)',value:n(s.prim),pctValue:pct(s.prim,s.totalP)+'%',sub:'da população filtrada',subPct:n(s.prim)+' crianças',color:'ct',icon:'👶',miss:s.missI?s.missI+' sem idade':null},
-    {id:'s-adol',label:'Adolescentes (15–17)',value:n(s.adol),pctValue:pct(s.adol,s.totalP)+'%',sub:'da população filtrada',subPct:n(s.adol)+' adolescentes',color:'cg',icon:'🎒'},
-    {id:'s-jov',label:'Jovens (18–29)',value:n(s.jov),pctValue:pct(s.jov,s.totalP)+'%',sub:'da população filtrada',subPct:n(s.jov)+' adultos jovens',color:'cs',icon:'🎓'},
-    {id:'s-id',label:'Idosos (60+)',value:n(s.ido),pctValue:pct(s.ido,s.totalP)+'%',sub:'da população filtrada',subPct:n(s.ido)+' idosos',color:'cl',icon:'🧓'},
-    {id:'s-mrf',label:'Mulher responsável',value:n(s.mrfCount),pctValue:s.pctMrf+'%',sub:'das famílias (chefia)',subPct:n(s.mrfCount)+' lideradas por mulheres',color:'ct',icon:'👩'}
+    {id:'s-prim',label:'1ª infância (0–6)',value:n(s.prim),pctValue:pct(s.prim,s.totalP)+'%',sub:'da população filtrada',subPct:n(s.prim)+' crianças',color:'ct',icon:'👶',miss:s.missI?s.missI+' sem idade':null,
+     tip:'Crianças na fase de Primeira Infância — período crítico de desenvolvimento cognitivo e emocional.',campo:'IDADE_PESSOA <= 6'},
+    {id:'s-adol',label:'Adolescentes (15–17)',value:n(s.adol),pctValue:pct(s.adol,s.totalP)+'%',sub:'da população filtrada',subPct:n(s.adol)+' adolescentes',color:'cg',icon:'🎒',
+     tip:'Jovens em transição escolar obrigatória — faixa prioritária para programas de permanência escolar e aprendizagem.',campo:'IDADE_PESSOA ENTRE 15 E 17'},
+    {id:'s-jov',label:'Jovens (18–29)',value:n(s.jov),pctValue:pct(s.jov,s.totalP)+'%',sub:'da população filtrada',subPct:n(s.jov)+' adultos jovens',color:'cs',icon:'🎓',
+     tip:'Faixa prioritária para qualificação técnica e inserção produtiva. Alvo principal dos cursos profissionalizantes Despertar.',campo:'IDADE_PESSOA ENTRE 18 E 29'},
+    {id:'s-id',label:'Idosos (60+)',value:n(s.ido),pctValue:pct(s.ido,s.totalP)+'%',sub:'da população filtrada',subPct:n(s.ido)+' idosos',color:'cl',icon:'🧓',
+     tip:'Pessoas na terceira idade — demandam atenção especial em saneamento, saúde e benefícios como BPC e aposentadoria.',campo:'IDADE_PESSOA >= 60'},
+    {id:'s-mrf',label:'Mulher responsável',value:n(s.mrfCount),pctValue:s.pctMrf+'%',sub:'das famílias (chefia)',subPct:n(s.mrfCount)+' lideradas por mulheres',color:'ct',icon:'👩',
+     tip:'Famílias onde a Responsável Familiar declarada é mulher. Indicador relevante para políticas de proteção social e geração de renda.',campo:'FAM_FAM_MULHER_RF = SIM'}
   ]);
   document.getElementById('miss-etaria').textContent=s.missI?s.missI+' sem idade':'';
   dc('chart-etaria');
@@ -789,12 +802,18 @@ function renderAll(s,isInitial){
 
   // RENDA
   strip('strip-renda',[
-    {id:'s-avgr',label:'Renda média da fam.',value:s.avgR>0?'R$'+Math.round(s.avgR).toLocaleString('pt-BR'):'—',sub:'renda bruta / mês',color:'cg',icon:'💰',miss:s.missRenda?s.missRenda+' sem dado':null},
-    {id:'s-alug',label:'Risco Habitacional',value:n(s.inviavel+s.sobrecarga),pctValue:pct(s.inviavel+s.sobrecarga,s.total)+'%',sub:'aluguel base R$ '+ALUGUEL_MERCADO,subPct:n(s.inviavel)+' sem renda para aluguel',color:'cc',icon:'🏚️'},
-    {id:'s-extr',label:'Extrema pobreza',value:n(s.extr),pctValue:Math.round(s.pctExtr)+'%',sub:'renda per capita ≤ R$109',subPct:n(s.extr)+' famílias',color:'cc',icon:'🔴'},
-    {id:'s-pob',label:'Pobreza',value:n(s.pob),pctValue:s.pctPob+'%',sub:'R$110–218 per capita',subPct:n(s.pob)+' famílias',color:'cc',icon:'🟠'},
-    {id:'s-zero',label:'Renda zero',value:n(s.zero),pctValue:s.pctZero+'%',sub:'sem qualquer renda',subPct:n(s.zero)+' famílias com R$0',icon:'⚠️'},
-    {id:'s-pbf',label:'Recebem PBF',value:n(s.pbfF),pctValue:s.pctPbf+'%',sub:'são beneficiárias',subPct:n(s.pbfF)+' famílias',color:'ct',icon:'✅'}
+    {id:'s-avgr',label:'Renda média da fam.',value:s.avgR>0?'R$'+Math.round(s.avgR).toLocaleString('pt-BR'):'—',sub:'renda bruta / mês',color:'cg',icon:'💰',miss:s.missRenda?s.missRenda+' sem dado':null,
+     tip:'Média da renda bruta mensal declarada pelo grupo familiar — soma do ganho de todos os membros da família.',campo:'VLR_RENDA_MEDIA_FAM (exclui zeros e nulos da média)'},
+    {id:'s-alug',label:'Risco Habitacional',value:n(s.inviavel+s.sobrecarga),pctValue:pct(s.inviavel+s.sobrecarga,s.total)+'%',sub:'aluguel base R$ '+ALUGUEL_MERCADO,subPct:n(s.inviavel)+' sem renda para aluguel',color:'cc',icon:'🏚️',
+     tip:'Famílias que comprometem mais de 30% da renda com aluguel de mercado estimado (R$ '+ALUGUEL_MERCADO+') ou cuja renda total é inferior a esse valor. Indica impossibilidade de arcar com moradia fora do cadastro.',campo:'VLR_RENDA_MEDIA_FAM vs. aluguel estimado'},
+    {id:'s-extr',label:'Extrema pobreza',value:n(s.extr),pctValue:Math.round(s.pctExtr)+'%',sub:'renda per capita ≤ R$109',subPct:n(s.extr)+' famílias',color:'cc',icon:'🔴',
+     tip:'Famílias com renda per capita igual ou inferior a R$109 — linha de extrema pobreza do Ministério do Desenvolvimento Social (MDS).',campo:'VLR_RENDA_MEDIA_FAM ÷ QTD_PESSOAS_DOMIC_FAM ≤ R$109'},
+    {id:'s-pob',label:'Pobreza',value:n(s.pob),pctValue:s.pctPob+'%',sub:'R$110–218 per capita',subPct:n(s.pob)+' famílias',color:'cc',icon:'🟠',
+     tip:'Famílias na faixa de pobreza oficial do CadÚnico — renda per capita entre R$110 e R$218.',campo:'VLR_RENDA_MEDIA_FAM ÷ QTD_PESSOAS > R$109 e ≤ R$218'},
+    {id:'s-zero',label:'Renda zero',value:n(s.zero),pctValue:s.pctZero+'%',sub:'sem qualquer renda',subPct:n(s.zero)+' famílias com R$0',icon:'⚠️',
+     tip:'Famílias que declararam não possuir nenhuma fonte de renda. Podem depender exclusivamente de benefícios não declarados ou estar em situação de extrema vulnerabilidade.',campo:'VLR_RENDA_MEDIA_FAM = 0'},
+    {id:'s-pbf',label:'Recebem PBF',value:n(s.pbfF),pctValue:s.pctPbf+'%',sub:'são beneficiárias',subPct:n(s.pbfF)+' famílias',color:'ct',icon:'✅',
+     tip:'Famílias com marcação ativa de beneficiárias do Programa Bolsa Família no cadastro.',campo:'MARC_PBF = SIM'}
   ]);
   document.getElementById('miss-faixarenda').textContent=s.missRenda?s.missRenda+' sem dado':'';
   barChart('chart-faixarenda',['R$0','R$1–109','R$110–218','R$219–½SM','½SM–1SM','1SM–2SM','>2SM'],s.fxRCount,['#c94f2e','#e06040','#c8973a','#e0ab48','#2471b8','#1a8a72','#0f1e2e']);
@@ -806,10 +825,14 @@ function renderAll(s,isInitial){
 
   // ESCOLARIDADE
   strip('strip-escola',[
-    {id:'s-fesc',label:'Fora da escola (5–17)',value:n(s.foraEsc),pctValue:Math.round(s.pctForaEsc)+'%',sub:'da faixa etária 5 a 17 anos',subPct:n(s.foraEsc)+' menores desescolarizados',color:'cc',icon:'📚'},
-    {id:'s-neet',label:'Geração Nem-Nem',value:n(s.neet),pctValue:s.pctNeet+'%',sub:'dos jovens de 18–24 anos',subPct:n(s.neet)+' não estudam e não trabalham',color:'cc',icon:'🔍'},
-    {id:'s-sinstr',label:'RF sem instrução',value:n(s.sInstr),pctValue:s.pctSInstr+'%',sub:'dos Responsáveis Familiares',subPct:n(s.sInstr)+' sem ensino base',color:'cg',icon:'📖'},
-    {id:'s-analf',label:'RF nunca frequentou',value:n(s.analf),pctValue:s.pctAnalf+'%',sub:'(proxy de analfabetismo)',subPct:n(s.analf)+' nunca foram à escola',color:'cc',icon:'🚫'}
+    {id:'s-fesc',label:'Fora da escola (5–17)',value:n(s.foraEsc),pctValue:Math.round(s.pctForaEsc)+'%',sub:'da faixa etária 5 a 17 anos',subPct:n(s.foraEsc)+' menores desescolarizados',color:'cc',icon:'📚',
+     tip:'Crianças e adolescentes de 5 a 17 anos em situação de evasão escolar — nunca frequentaram ou deixaram de frequentar a escola.',campo:'IND_FREQUENTA_ESCOLA_MEMB = 3 (já frequentou) ou 4 (nunca frequentou) · IDADE 5–17'},
+    {id:'s-neet',label:'Geração Nem-Nem',value:n(s.neet),pctValue:s.pctNeet+'%',sub:'dos jovens de 18–24 anos',subPct:n(s.neet)+' não estudam e não trabalham',color:'cc',icon:'🔍',
+     tip:'Indicador internacional NEET (Not in Employment, Education or Training). Jovens de 18 a 24 anos que não trabalham e não frequentam escola ou curso. Sinaliza risco de exclusão permanente do mercado de trabalho.',campo:'COD_TRABALHOU_MEMB ≠ 1 E IND_FREQUENTA_ESCOLA ≠ 1/2 · IDADE 18–24'},
+    {id:'s-sinstr',label:'RF sem instrução',value:n(s.sInstr),pctValue:s.pctSInstr+'%',sub:'dos Responsáveis Familiares',subPct:n(s.sInstr)+' sem ensino base',color:'cg',icon:'📖',
+     tip:'Responsáveis Familiares com grau de instrução classificado como "sem instrução" ou que nunca frequentaram escola. Impacta a mediação educacional dos filhos.',campo:'GRAU_INSTRUCAO = sem instrução OU COD_CURSO = 4 (nunca frequentou)'},
+    {id:'s-analf',label:'RF nunca frequentou',value:n(s.analf),pctValue:s.pctAnalf+'%',sub:'(proxy de analfabetismo)',subPct:n(s.analf)+' nunca foram à escola',color:'cc',icon:'🚫',
+     tip:'Responsáveis que declararam nunca ter frequentado qualquer instituição de ensino. Proxy mais preciso de analfabetismo do que o grau de instrução declarado.',campo:'COD_CURSO_FREQUENTOU_PESSOA_MEMB começa com 4'}
   ]);
   document.getElementById('miss-instrucao-rf').textContent=s.missIRF?s.missIRF+' sem grau':'';
   const rfe=Object.entries(s.iRF).sort((a,b)=>b[1]-a[1]);
@@ -827,10 +850,14 @@ function renderAll(s,isInitial){
 
   // TRABALHO
   strip('strip-trabalho',[
-    {id:'s-prod',label:'Força de trab. (18–64)',value:n(s.totalAt),pctValue:pct(s.totalAt,s.totalP)+'%',sub:'população ativa (potencial)',subPct:n(s.totalAt)+' adultos na faixa etária',icon:'👷'},
-    {id:'s-ntr',label:'Não trabalhou',value:n(s.nTrabCount),pctValue:s.pctNTrab+'%',sub:'da força de trabalho (18–64)',subPct:n(s.nTrabCount)+' desocupados ou inativos',color:'cc',icon:'💼'},
-    {id:'s-inf',label:'Trabalho informal',value:n(s.informal),pctValue:s.pctInformal+'%',sub:'dos que trabalharam',subPct:n(s.informal)+' sem carteira/autônomos',color:'cg',icon:'🔧'},
-    {id:'s-cri06',label:'RF desempr. + Criança',value:n(s.cri06D),pctValue:s.pctCri06+'%',sub:'famílias sob dupla vulnerab.',subPct:n(s.cri06D)+' domicílios afetados',color:'cc',icon:'👶'}
+    {id:'s-prod',label:'Força de trab. (18–64)',value:n(s.totalAt),pctValue:pct(s.totalAt,s.totalP)+'%',sub:'população ativa (potencial)',subPct:n(s.totalAt)+' adultos na faixa etária',icon:'👷',
+     tip:'Total de pessoas na faixa etária considerada produtiva (18 a 64 anos completos). É o denominador para os indicadores de empregabilidade.',campo:'IDADE_PESSOA ENTRE 18 E 64'},
+    {id:'s-ntr',label:'Não trabalhou',value:n(s.nTrabCount),pctValue:s.pctNTrab+'%',sub:'da força de trabalho (18–64)',subPct:n(s.nTrabCount)+' desocupados ou inativos',color:'cc',icon:'💼',
+     tip:'Adultos de 18 a 64 anos que declararam não ter exercido atividade remunerada no período de referência do cadastro. Inclui desempregados e inativos.',campo:'COD_TRABALHOU_MEMB = 2 (Não) · IDADE 18–64'},
+    {id:'s-inf',label:'Trabalho informal',value:n(s.informal),pctValue:s.pctInformal+'%',sub:'dos que trabalharam',subPct:n(s.informal)+' sem carteira/autônomos',color:'cg',icon:'🔧',
+     tip:'Trabalhadores sem vínculo formal de proteção social. Exclui CLT (cód 4), estatutários/militares (cód 8) e doméstico com carteira (cód 6). A informalidade impede acesso a FGTS, seguro-desemprego e aposentadoria regulatória.',campo:'COD_PRINCIPAL_TRAB_MEMB ≠ 4, 6, 8 · Base: quem declarou ter trabalhado'},
+    {id:'s-cri06',label:'RF desempr. + Criança',value:n(s.cri06D),pctValue:s.pctCri06+'%',sub:'famílias sob dupla vulnerab.',subPct:n(s.cri06D)+' domicílios afetados',color:'cc',icon:'👶',
+     tip:'Cruzamento de fragilidades: famílias com criança de 0 a 6 anos E cujo Responsável Familiar adulto não trabalhou. Sinaliza risco de privação na primeira infância.',campo:'Criança ≤ 6 no GR_FAM + RF COD_TRABALHOU = 2'}
   ]);
   document.getElementById('miss-trabalho').textContent=s.missT?s.missT+' sem tipo de trabalho':'';
   const ti=Object.entries(s.tipoC).sort((a,b)=>b[1]-a[1]);
@@ -842,9 +869,12 @@ function renderAll(s,isInitial){
 
   // SANEAMENTO
   strip('strip-saneamento',[
-    {id:'s-sbn',label:'Sem banheiro no dom.',value:n(s.bn.nao),pctValue:s.pctSemBanh+'%',sub:'das residências afetadas',subPct:n(s.bn.nao)+' famílias',color:'cc',icon:'🚽',miss:s.bn.miss?s.bn.miss+' sem dado':null},
-    {id:'s-sar',label:'Sem água encanada',value:n(s.semAR),pctValue:s.pctSemAgua+'%',sub:'sem acesso à rede geral',subPct:n(s.semAR)+' domicílios',color:'cg',icon:'💧',miss:s.missA?s.missA+' sem dado':null},
-    {id:'s-esgp',label:'Esgotamento precário',value:n(s.esgP),pctValue:s.pctEsgPrec+'%',sub:'das famílias',subPct:n(s.esgP)+' descartam em valas/fossas',color:'cc',icon:'⚠️',miss:s.missE?s.missE+' sem dado':null}
+    {id:'s-sbn',label:'Sem banheiro no dom.',value:n(s.bn.nao),pctValue:s.pctSemBanh+'%',sub:'das residências afetadas',subPct:n(s.bn.nao)+' famílias',color:'cc',icon:'🚽',miss:s.bn.miss?s.bn.miss+' sem dado':null,
+     tip:'Domicílios que declararam não possuir instalação sanitária básica (banheiro ou sanitário) na residência. Indicador direto de precariedade habitacional.',campo:'COD_BANHEIRO_DOMIC_FAM = 2 (Não tem)'},
+    {id:'s-sar',label:'Sem água encanada',value:n(s.semAR),pctValue:s.pctSemAgua+'%',sub:'sem acesso à rede geral',subPct:n(s.semAR)+' domicílios',color:'cg',icon:'💧',miss:s.missA?s.missA+' sem dado':null,
+     tip:'Famílias cujo abastecimento de água não é feito pela rede geral de distribuição. Inclui poço, nascente, cisterna e outras fontes alternativas.',campo:'COD_ABASTE_AGUA_DOMIC_FAM ≠ 1 (Rede geral)'},
+    {id:'s-esgp',label:'Esgotamento precário',value:n(s.esgP),pctValue:s.pctEsgPrec+'%',sub:'das famílias',subPct:n(s.esgP)+' descartam em valas/fossas',color:'cc',icon:'⚠️',miss:s.missE?s.missE+' sem dado':null,
+     tip:'O destino dos dejetos ocorre de forma precária: fossa rudimentar, vala a céu aberto, rio/mar ou outro. Exclui rede coletora e fossa séptica. Risco sanitário direto.',campo:'COD_ESCOA_SANITARIO_DOMIC_FAM ≠ 1 (Rede coletora) e ≠ 2 (Fossa séptica)'}
   ]);
   document.getElementById('miss-agua').textContent=s.missA?s.missA+' sem dado':'';
   donut('chart-agua',Object.keys(s.aC),Object.values(s.aC));

@@ -752,7 +752,7 @@ function renderAll(s,isInitial){
   strip('strip-estrutura',[
     {id:'s-tf',label:'Total de famílias',value:n(s.total),pctValue:'100%',sub:'grupos familiares na amostra',subPct:'do total filtrado',color:'cs',icon:'👥',
      tip:'Contagem de grupos familiares distintos pelo código identificador único.',campo:'COD_FAMILIAR / GR_FAM'},
-    {id:'s-tp',label:'Total de pessoas',value:n(s.totalP),pctValue:'100%',sub:'membros cadastrados',subPct:'do total filtrado',icon:'🧑‍🤝‍🧑',
+    {id:'s-tp',label:'Total de pessoas',value:n(s.totalP),pctValue:'100%',sub:'membros cadastrados',subPct:'do total filtrado',icon:'👫🏿',
      tip:'Total absoluto de pessoas — cada linha do CSV equivale a um membro.',campo:'(Contagem de registros)'},
     {id:'s-avg',label:'Média membros/fam.',value:s.avg>0?s.avg.toFixed(1):'—',sub:s.avg>0?'pessoas por família':'-',color:'cg',icon:'🏠',miss:null,
      tip:'Média simples da quantidade de pessoas declaradas no domicílio, calculada por família.',campo:'QTD_PESSOAS_DOMIC_FAM'},
@@ -778,7 +778,7 @@ function renderAll(s,isInitial){
 
   // CICLO DE VIDA
   strip('strip-ciclovida',[
-    {id:'s-prim',label:'1ª infância (0–6)',value:n(s.prim),pctValue:pct(s.prim,s.totalP)+'%',sub:'da população filtrada',subPct:n(s.prim)+' crianças',color:'ct',icon:'👶',miss:s.missI?s.missI+' sem idade':null,
+    {id:'s-prim',label:'1ª infância (0–6)',value:n(s.prim),pctValue:pct(s.prim,s.totalP)+'%',sub:'da população filtrada',subPct:n(s.prim)+' crianças',color:'ct',icon:'👶🏿',miss:s.missI?s.missI+' sem idade':null,
      tip:'Crianças na fase de Primeira Infância — período crítico de desenvolvimento cognitivo e emocional.',campo:'IDADE_PESSOA <= 6'},
     {id:'s-adol',label:'Adolescentes (15–17)',value:n(s.adol),pctValue:pct(s.adol,s.totalP)+'%',sub:'da população filtrada',subPct:n(s.adol)+' adolescentes',color:'cg',icon:'🎒',
      tip:'Jovens em transição escolar obrigatória — faixa prioritária para programas de permanência escolar e aprendizagem.',campo:'IDADE_PESSOA ENTRE 15 E 17'},
@@ -786,7 +786,7 @@ function renderAll(s,isInitial){
      tip:'Faixa prioritária para qualificação técnica e inserção produtiva. Alvo principal dos cursos profissionalizantes Despertar.',campo:'IDADE_PESSOA ENTRE 18 E 29'},
     {id:'s-id',label:'Idosos (60+)',value:n(s.ido),pctValue:pct(s.ido,s.totalP)+'%',sub:'da população filtrada',subPct:n(s.ido)+' idosos',color:'cl',icon:'🧓',
      tip:'Pessoas na terceira idade — demandam atenção especial em saneamento, saúde e benefícios como BPC e aposentadoria.',campo:'IDADE_PESSOA >= 60'},
-    {id:'s-mrf',label:'Mulher responsável',value:n(s.mrfCount),pctValue:s.pctMrf+'%',sub:'das famílias (chefia)',subPct:n(s.mrfCount)+' lideradas por mulheres',color:'ct',icon:'👩',
+    {id:'s-mrf',label:'Mulher responsável',value:n(s.mrfCount),pctValue:s.pctMrf+'%',sub:'das famílias (chefia)',subPct:n(s.mrfCount)+' lideradas por mulheres',color:'ct',icon:'👩🏿',
      tip:'Famílias onde a Responsável Familiar declarada é mulher. Indicador relevante para políticas de proteção social e geração de renda.',campo:'FAM_FAM_MULHER_RF = SIM'}
   ]);
   document.getElementById('miss-etaria').textContent=s.missI?s.missI+' sem idade':'';
@@ -850,7 +850,7 @@ function renderAll(s,isInitial){
 
   // TRABALHO
   strip('strip-trabalho',[
-    {id:'s-prod',label:'Força de trab. (18–64)',value:n(s.totalAt),pctValue:pct(s.totalAt,s.totalP)+'%',sub:'população ativa (potencial)',subPct:n(s.totalAt)+' adultos na faixa etária',icon:'👷',
+    {id:'s-prod',label:'Força de trab. (18–64)',value:n(s.totalAt),pctValue:pct(s.totalAt,s.totalP)+'%',sub:'população ativa (potencial)',subPct:n(s.totalAt)+' adultos na faixa etária',icon:'👷🏿',
      tip:'Total de pessoas na faixa etária considerada produtiva (18 a 64 anos completos). É o denominador para os indicadores de empregabilidade.',campo:'IDADE_PESSOA ENTRE 18 E 64'},
     {id:'s-ntr',label:'Não trabalhou',value:n(s.nTrabCount),pctValue:s.pctNTrab+'%',sub:'da força de trabalho (18–64)',subPct:n(s.nTrabCount)+' desocupados ou inativos',color:'cc',icon:'💼',
      tip:'Adultos de 18 a 64 anos que declararam não ter exercido atividade remunerada no período de referência do cadastro. Inclui desempregados e inativos.',campo:'COD_TRABALHOU_MEMB = 2 (Não) · IDADE 18–64'},

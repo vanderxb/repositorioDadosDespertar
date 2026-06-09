@@ -827,7 +827,7 @@ function renderAll(s,isInitial){
   strip('strip-escola',[
     {id:'s-fesc',label:'Fora da escola (5–17)',value:n(s.foraEsc),pctValue:Math.round(s.pctForaEsc)+'%',sub:'da faixa etária 5 a 17 anos',subPct:n(s.foraEsc)+' menores desescolarizados',color:'cc',icon:'📚',
      tip:'Crianças e adolescentes de 5 a 17 anos em situação de evasão escolar — nunca frequentaram ou deixaram de frequentar a escola.',campo:'IND_FREQUENTA_ESCOLA_MEMB = 3 (já frequentou) ou 4 (nunca frequentou) · IDADE 5–17'},
-    {id:'s-neet',label:'Geração Nem-Nem',value:n(s.neet),pctValue:s.pctNeet+'%',sub:'dos jovens de 18–24 anos',subPct:n(s.neet)+' não estudam e não trabalham',color:'cc',icon:'🔍',
+    {id:'s-neet',label:'NEET',value:n(s.neet),pctValue:s.pctNeet+'%',sub:'dos jovens de 18–24 anos',subPct:n(s.neet)+' não estudam e não trabalham',color:'cc',icon:'🔍',
      tip:'Indicador internacional NEET (Not in Employment, Education or Training). Jovens de 18 a 24 anos que não trabalham e não frequentam escola ou curso. Sinaliza risco de exclusão permanente do mercado de trabalho.',campo:'COD_TRABALHOU_MEMB ≠ 1 E IND_FREQUENTA_ESCOLA ≠ 1/2 · IDADE 18–24'},
     {id:'s-sinstr',label:'RF sem instrução',value:n(s.sInstr),pctValue:s.pctSInstr+'%',sub:'dos Responsáveis Familiares',subPct:n(s.sInstr)+' sem ensino base',color:'cg',icon:'📖',
      tip:'Responsáveis Familiares com grau de instrução classificado como "sem instrução" ou que nunca frequentaram escola. Impacta a mediação educacional dos filhos.',campo:'GRAU_INSTRUCAO = sem instrução OU COD_CURSO = 4 (nunca frequentou)'},
